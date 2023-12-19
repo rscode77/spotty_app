@@ -7,6 +7,7 @@ part 'api_response.g.dart';
 @freezed
 class ApiResponse with _$ApiResponse {
   const factory ApiResponse({
+    required String field,
     required String message,
     required bool success,
     required Object? data,

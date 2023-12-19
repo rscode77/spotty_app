@@ -17,14 +17,20 @@ class LoginInputState extends LoginState {
 }
 
 class LoginResultState extends LoginState {
+  final String message;
+  final String field;
   final bool isSuccess;
-  final String errorMessage;
 
   const LoginResultState({
+    this.message = '',
+    this.field = '',
     required this.isSuccess,
-    this.errorMessage = '',
   });
 
   @override
-  List<Object> get props => [isSuccess, errorMessage];
+  List<Object> get props => [
+        message,
+        field,
+        isSuccess,
+      ];
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotty_app/utils/extensions/text_edit_controller_extension.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
@@ -7,7 +8,7 @@ class AppTextField extends StatelessWidget {
   final Color fillColor;
   final Color textColor;
   final String hint;
-  final TextEditingController? controller;
+  final ExtendedTextEditingController controller;
 
   const AppTextField({
     Key? key,
@@ -38,6 +39,7 @@ class AppTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
+          errorText: controller.errorText,
           hintText: hint,
           border: InputBorder.none,
         ),

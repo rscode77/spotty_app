@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_authentication_model.dart';
+part of '../../../domain/entities/user_authentication.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,13 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-UserAuthenticationModel _$UserAuthenticationModelFromJson(
-    Map<String, dynamic> json) {
-  return _UserAuthenticationModel.fromJson(json);
+UserAuthentication _$UserAuthenticationFromJson(Map<String, dynamic> json) {
+  return _UserAuthentication.fromJson(json);
 }
 
 /// @nodoc
-mixin _$UserAuthenticationModel {
+mixin _$UserAuthentication {
   String? get id => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
@@ -29,25 +28,24 @@ mixin _$UserAuthenticationModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserAuthenticationModelCopyWith<UserAuthenticationModel> get copyWith =>
+  $UserAuthenticationCopyWith<UserAuthentication> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserAuthenticationModelCopyWith<$Res> {
-  factory $UserAuthenticationModelCopyWith(UserAuthenticationModel value,
-          $Res Function(UserAuthenticationModel) then) =
-      _$UserAuthenticationModelCopyWithImpl<$Res, UserAuthenticationModel>;
+abstract class $UserAuthenticationCopyWith<$Res> {
+  factory $UserAuthenticationCopyWith(
+          UserAuthentication value, $Res Function(UserAuthentication) then) =
+      _$UserAuthenticationCopyWithImpl<$Res, UserAuthentication>;
   @useResult
   $Res call(
       {String? id, String token, int userId, String username, String email});
 }
 
 /// @nodoc
-class _$UserAuthenticationModelCopyWithImpl<$Res,
-        $Val extends UserAuthenticationModel>
-    implements $UserAuthenticationModelCopyWith<$Res> {
-  _$UserAuthenticationModelCopyWithImpl(this._value, this._then);
+class _$UserAuthenticationCopyWithImpl<$Res, $Val extends UserAuthentication>
+    implements $UserAuthenticationCopyWith<$Res> {
+  _$UserAuthenticationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -89,12 +87,11 @@ class _$UserAuthenticationModelCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$UserAuthenticationModelImplCopyWith<$Res>
-    implements $UserAuthenticationModelCopyWith<$Res> {
-  factory _$$UserAuthenticationModelImplCopyWith(
-          _$UserAuthenticationModelImpl value,
-          $Res Function(_$UserAuthenticationModelImpl) then) =
-      __$$UserAuthenticationModelImplCopyWithImpl<$Res>;
+abstract class _$$UserAuthenticationImplCopyWith<$Res>
+    implements $UserAuthenticationCopyWith<$Res> {
+  factory _$$UserAuthenticationImplCopyWith(_$UserAuthenticationImpl value,
+          $Res Function(_$UserAuthenticationImpl) then) =
+      __$$UserAuthenticationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -102,13 +99,11 @@ abstract class _$$UserAuthenticationModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$UserAuthenticationModelImplCopyWithImpl<$Res>
-    extends _$UserAuthenticationModelCopyWithImpl<$Res,
-        _$UserAuthenticationModelImpl>
-    implements _$$UserAuthenticationModelImplCopyWith<$Res> {
-  __$$UserAuthenticationModelImplCopyWithImpl(
-      _$UserAuthenticationModelImpl _value,
-      $Res Function(_$UserAuthenticationModelImpl) _then)
+class __$$UserAuthenticationImplCopyWithImpl<$Res>
+    extends _$UserAuthenticationCopyWithImpl<$Res, _$UserAuthenticationImpl>
+    implements _$$UserAuthenticationImplCopyWith<$Res> {
+  __$$UserAuthenticationImplCopyWithImpl(_$UserAuthenticationImpl _value,
+      $Res Function(_$UserAuthenticationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -120,7 +115,7 @@ class __$$UserAuthenticationModelImplCopyWithImpl<$Res>
     Object? username = null,
     Object? email = null,
   }) {
-    return _then(_$UserAuthenticationModelImpl(
+    return _then(_$UserAuthenticationImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -147,16 +142,16 @@ class __$$UserAuthenticationModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UserAuthenticationModelImpl implements _UserAuthenticationModel {
-  const _$UserAuthenticationModelImpl(
+class _$UserAuthenticationImpl implements _UserAuthentication {
+  const _$UserAuthenticationImpl(
       {this.id,
       required this.token,
       required this.userId,
       required this.username,
       required this.email});
 
-  factory _$UserAuthenticationModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserAuthenticationModelImplFromJson(json);
+  factory _$UserAuthenticationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserAuthenticationImplFromJson(json);
 
   @override
   final String? id;
@@ -171,14 +166,14 @@ class _$UserAuthenticationModelImpl implements _UserAuthenticationModel {
 
   @override
   String toString() {
-    return 'UserAuthenticationModel(id: $id, token: $token, userId: $userId, username: $username, email: $email)';
+    return 'UserAuthentication(id: $id, token: $token, userId: $userId, username: $username, email: $email)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserAuthenticationModelImpl &&
+            other is _$UserAuthenticationImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.token, token) || other.token == token) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -195,28 +190,28 @@ class _$UserAuthenticationModelImpl implements _UserAuthenticationModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserAuthenticationModelImplCopyWith<_$UserAuthenticationModelImpl>
-      get copyWith => __$$UserAuthenticationModelImplCopyWithImpl<
-          _$UserAuthenticationModelImpl>(this, _$identity);
+  _$$UserAuthenticationImplCopyWith<_$UserAuthenticationImpl> get copyWith =>
+      __$$UserAuthenticationImplCopyWithImpl<_$UserAuthenticationImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserAuthenticationModelImplToJson(
+    return _$$UserAuthenticationImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserAuthenticationModel implements UserAuthenticationModel {
-  const factory _UserAuthenticationModel(
+abstract class _UserAuthentication implements UserAuthentication {
+  const factory _UserAuthentication(
       {final String? id,
       required final String token,
       required final int userId,
       required final String username,
-      required final String email}) = _$UserAuthenticationModelImpl;
+      required final String email}) = _$UserAuthenticationImpl;
 
-  factory _UserAuthenticationModel.fromJson(Map<String, dynamic> json) =
-      _$UserAuthenticationModelImpl.fromJson;
+  factory _UserAuthentication.fromJson(Map<String, dynamic> json) =
+      _$UserAuthenticationImpl.fromJson;
 
   @override
   String? get id;
@@ -230,6 +225,6 @@ abstract class _UserAuthenticationModel implements UserAuthenticationModel {
   String get email;
   @override
   @JsonKey(ignore: true)
-  _$$UserAuthenticationModelImplCopyWith<_$UserAuthenticationModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$UserAuthenticationImplCopyWith<_$UserAuthenticationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

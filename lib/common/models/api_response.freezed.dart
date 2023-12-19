@@ -20,6 +20,7 @@ ApiResponse _$ApiResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ApiResponse {
+  String get field => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get success => throw _privateConstructorUsedError;
   Object? get data => throw _privateConstructorUsedError;
@@ -36,7 +37,7 @@ abstract class $ApiResponseCopyWith<$Res> {
           ApiResponse value, $Res Function(ApiResponse) then) =
       _$ApiResponseCopyWithImpl<$Res, ApiResponse>;
   @useResult
-  $Res call({String message, bool success, Object? data});
+  $Res call({String field, String message, bool success, Object? data});
 }
 
 /// @nodoc
@@ -52,11 +53,16 @@ class _$ApiResponseCopyWithImpl<$Res, $Val extends ApiResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? field = null,
     Object? message = null,
     Object? success = null,
     Object? data = freezed,
   }) {
     return _then(_value.copyWith(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -78,7 +84,7 @@ abstract class _$$ApiResponseImplCopyWith<$Res>
       __$$ApiResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message, bool success, Object? data});
+  $Res call({String field, String message, bool success, Object? data});
 }
 
 /// @nodoc
@@ -92,11 +98,16 @@ class __$$ApiResponseImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? field = null,
     Object? message = null,
     Object? success = null,
     Object? data = freezed,
   }) {
     return _then(_$ApiResponseImpl(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -114,11 +125,16 @@ class __$$ApiResponseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ApiResponseImpl implements _ApiResponse {
   const _$ApiResponseImpl(
-      {required this.message, required this.success, required this.data});
+      {required this.field,
+      required this.message,
+      required this.success,
+      required this.data});
 
   factory _$ApiResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ApiResponseImplFromJson(json);
 
+  @override
+  final String field;
   @override
   final String message;
   @override
@@ -128,7 +144,7 @@ class _$ApiResponseImpl implements _ApiResponse {
 
   @override
   String toString() {
-    return 'ApiResponse(message: $message, success: $success, data: $data)';
+    return 'ApiResponse(field: $field, message: $message, success: $success, data: $data)';
   }
 
   @override
@@ -136,6 +152,7 @@ class _$ApiResponseImpl implements _ApiResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApiResponseImpl &&
+            (identical(other.field, field) || other.field == field) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.success, success) || other.success == success) &&
             const DeepCollectionEquality().equals(other.data, data));
@@ -143,8 +160,8 @@ class _$ApiResponseImpl implements _ApiResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, message, success, const DeepCollectionEquality().hash(data));
+  int get hashCode => Object.hash(runtimeType, field, message, success,
+      const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
@@ -162,13 +179,16 @@ class _$ApiResponseImpl implements _ApiResponse {
 
 abstract class _ApiResponse implements ApiResponse {
   const factory _ApiResponse(
-      {required final String message,
+      {required final String field,
+      required final String message,
       required final bool success,
       required final Object? data}) = _$ApiResponseImpl;
 
   factory _ApiResponse.fromJson(Map<String, dynamic> json) =
       _$ApiResponseImpl.fromJson;
 
+  @override
+  String get field;
   @override
   String get message;
   @override

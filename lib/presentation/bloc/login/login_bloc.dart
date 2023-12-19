@@ -3,17 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:spotty_app/authentication/login/data/models/user_authentication_model.dart';
-import 'package:spotty_app/authentication/login/data/requests/login_user_request.dart';
-import 'package:spotty_app/authentication/login/domain/repositories/user_api_repository.dart';
+import 'package:spotty_app/data/models/requests/login_user_request.dart';
+import 'package:spotty_app/domain/entities/user_authentication.dart';
+import 'package:spotty_app/domain/repositories/user_api_repository.dart';
 import 'package:spotty_app/common/models/api_response.dart';
 import 'package:spotty_app/services/common_storage.dart';
 import 'package:spotty_app/services/common_storage_keys.dart';
 import 'package:spotty_app/utils/extensions/response_extension.dart';
-import 'package:spotty_app/utils/extensions/string_extensions.dart';
 
 part 'login_event.dart';
-
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -41,7 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       if(response.isSuccessful()) {
         ApiResponse apiResponse = ApiResponse.fromJson(response.data);
-        UserAuthenticationModel user = UserAuthenticationModel.fromJson(
+        UserAuthentication user = UserAuthentication.fromJson(
           apiResponse.data as Map<String, dynamic>,
         );
 
@@ -52,25 +50,26 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
     on DioException catch (e) {
-      if(e.response != null && e.response!.data != null) {
+      if (e.response != null && e.response!.data != null) {
+        if (e.response!.isToManyRequests()) {
+          await Future.delayed(const Duration(seconds: 1));
+          add(LoginUserEvent(
+            username: event.username,
+            password: event.password,
+          ));
+        }
+        if (e.response!.isBadRequest()) {
+          ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
+          emit(LoginResultState(
+            message: apiResponse.message,
+            field: apiResponse.field,
+            isSuccess: false,
+          ));
+        }
+        if (e.response!.isUnauthorized()) {
 
-        if(e.response!.isBadRequest()){
-          ApiResponse? apiResponse = ApiResponse.fromJson(e.response!.data);
-          print(apiResponse.message);
         }
-        if(e.response!.isUnauthorized()){
-          ApiResponse? apiResponse = ApiResponse.fromJson(e.response!.data);
-          print(apiResponse.message);
-        }
-        if(e.response!.isToManyRequests()){
-          print("to many requests");
-        }
-        if(e.response!.isServerError()){
-          ApiResponse? apiResponse = ApiResponse.fromJson(e.response!.data);
-          print(apiResponse.message);
-        }
-      }
-      else {
+      } else {
         throw UnimplementedError();
       }
     }

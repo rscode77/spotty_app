@@ -1,4 +1,10 @@
 {
   "login": "Zaloguj",
-  "register": "Zarejestruj się"
+  "register": "Zarejestruj się",
+  "logout": "Wyloguj",
+  "email": "Email",
+  "password": "Hasło",
+  "repeatPassword": "Powtórz hasło",
+  "username": "Nazwa użytkownika",
+  "back": "Powrót"
 }

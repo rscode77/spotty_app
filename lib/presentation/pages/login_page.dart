@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotty_app/authentication/login/presentation/bloc/login_bloc.dart';
-import 'package:spotty_app/authentication/login/presentation/widgets/login_view_widget.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
+import 'package:spotty_app/presentation/widgets/login_view_widget.dart';
+import 'package:spotty_app/routing/route_constants.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
@@ -18,7 +20,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: AppColors.defaultBackground,
       body: SafeArea(
-        child: BlocBuilder<LoginBloc, LoginState>(
+        child: BlocConsumer<LoginBloc, LoginState>(
+          listener: _loginListener,
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.all(
@@ -32,21 +35,29 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildBody(LoginState state) {
-    if (state is LoginInitial) {
-      return _buildInitial();
-    } else if (state is LoginInputState) {
-      return _buildLoginView();
-    } else {
-      return const SizedBox.shrink();
+  void _loginListener(BuildContext context, LoginState state) {
+    if (state is LoginResultState) {
+      if (state.isSuccess) {
+        context.go(RouteConstants.home);
+      }
+      if (state.field.isNotEmpty) {}
     }
   }
 
-  Widget _buildInitial() {
-    return Container();
+  Widget _buildBody(LoginState state) {
+    if (state is LoginInitial) {
+      return _buildLoading();
+    }
+    return _buildLoginView();
+  }
+
+  Widget _buildLoading() {
+    return const CircularProgressIndicator();
   }
 
   Widget _buildLoginView() {
-    return const LoginViewWidget();
+    return LoginViewWidget(
+      onRegisterPressed: () => context.pushNamed(RouteConstants.register),
+    );
   }
 }

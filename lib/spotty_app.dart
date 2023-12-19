@@ -12,8 +12,6 @@ class SpottyApp extends StatefulWidget {
 }
 
 class _SpottyAppState extends State<SpottyApp> {
-  final String initialRoute = Routing.login;
-
   @override
   void initState() {
     super.initState();
@@ -24,10 +22,9 @@ class _SpottyAppState extends State<SpottyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
-      initialRoute: initialRoute,
-      onGenerateRoute: Routing.getMainRoute,
       onGenerateTitle: (context) => S.of(context).login,
       localizationsDelegates: const [
         ...GlobalMaterialLocalizations.delegates,

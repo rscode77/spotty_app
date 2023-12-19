@@ -8,6 +8,7 @@ part of 'api_response.dart';
 
 _$ApiResponseImpl _$$ApiResponseImplFromJson(Map<String, dynamic> json) =>
     _$ApiResponseImpl(
+      field: json['field'] as String,
       message: json['message'] as String,
       success: json['success'] as bool,
       data: json['data'],
@@ -15,6 +16,7 @@ _$ApiResponseImpl _$$ApiResponseImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ApiResponseImplToJson(_$ApiResponseImpl instance) =>
     <String, dynamic>{
+      'field': instance.field,
       'message': instance.message,
       'success': instance.success,
       'data': instance.data,

@@ -5,4 +5,5 @@ class Endpoints {
 class AuthenticationEndpoints {
   static const String _prefix = '/User';
   static const String loginUser = '${Endpoints.baseUrl}$_prefix/LoginUser';
+  static const String addUser = '${Endpoints.baseUrl}$_prefix/AddUser';
 }
