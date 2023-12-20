@@ -2,41 +2,46 @@ import 'package:dio/dio.dart';
 import 'package:spotty_app/data/models/requests/login_user_request.dart';
 import 'package:spotty_app/data/models/requests/register_user_request.dart';
 import 'package:spotty_app/data/repositories/user_api_interface.dart';
-import 'package:spotty_app/domain/entities/user_authentication.dart';
-import 'package:spotty_app/common/models/api_response.dart';
+import 'package:spotty_app/domain/entities/api_response.dart';
+import 'package:spotty_app/domain/entities/user_api_response.dart';
 import 'package:spotty_app/endpoints.dart';
 
-class UserApiRepository implements UserApiInterface {
+class UserRepository implements UserApiInterface {
   final Dio dio;
 
-  UserApiRepository({required this.dio});
+  UserRepository({required this.dio});
 
   @override
   Future<Response> addUser(RegisterUserRequest request) async {
     final Response response = await dio.post(
-      AuthenticationEndpoints.addUser,
+      UserEndpoints.addUser,
       data: request.toJson(),
     );
     return response;
   }
 
   @override
-  Future<ApiResponse> getUser(String email, String password) {
-    // TODO: implement getUser
-    throw UnimplementedError();
+  Future<Response> getUserData(int userId) async {
+    final Response response = await dio.post(
+      UserEndpoints.getUserData,
+      data: {
+        'userId': userId,
+      },
+    );
+    return response;
   }
 
   @override
   Future<Response> loginUser(LoginUserRequest request) async {
     final Response response = await dio.post(
-      AuthenticationEndpoints.loginUser,
+      UserEndpoints.loginUser,
       data: request.toJson(),
     );
     return response;
   }
 
   @override
-  Future<ApiResponse> updateUserData(UserAuthentication user) {
+  Future<ApiResponse> updateUserData(UserApiResponse user) {
     // TODO: implement updateUserData
     throw UnimplementedError();
   }

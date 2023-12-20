@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:spotty_app/domain/repositories/auth_repository.dart';
 import 'package:spotty_app/domain/repositories/user_api_repository.dart';
 import 'package:spotty_app/presentation/bloc/home/home_bloc.dart';
 import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
 import 'package:spotty_app/presentation/bloc/register/register_bloc.dart';
-import 'package:spotty_app/presentation/pages/login_page.dart';
-import 'package:spotty_app/presentation/pages/register_confirmation_page.dart';
-import 'package:spotty_app/presentation/pages/register_page.dart';
-import 'package:spotty_app/presentation/pages/home_page.dart';
+import 'package:spotty_app/presentation/pages/authentication/login_page.dart';
+import 'package:spotty_app/presentation/pages/authentication/register_confirmation_page.dart';
+import 'package:spotty_app/presentation/pages/authentication/register_page.dart';
+import 'package:spotty_app/presentation/pages/home/home_page.dart';
 import 'package:spotty_app/routing/route_constants.dart';
 import 'package:spotty_app/services/common_storage.dart';
 
@@ -19,14 +20,8 @@ final router = GoRouter(
     GoRoute(
       name: '/',
       path: RouteConstants.login,
-      pageBuilder: (context, state) => MaterialPage(
-        child: BlocProvider(
-          create: (context) => LoginBloc(
-            commonStorage: GetIt.instance.get<CommonStorage>(),
-            userApiRepository: GetIt.instance.get<UserApiRepository>(),
-          )..add(const LoginInitialEvent()),
-          child: const LoginPage(),
-        ),
+      pageBuilder: (context, state) => const MaterialPage(
+        child: LoginPage(),
       ),
       routes: [
         GoRoute(
@@ -35,7 +30,7 @@ final router = GoRouter(
           pageBuilder: (context, state) => MaterialPage(
             child: BlocProvider(
               create: (context) => RegisterBloc(
-                userApiRepository: GetIt.instance.get<UserApiRepository>(),
+                userApiRepository: GetIt.instance.get<UserRepository>(),
               ),
               child: const RegisterPage(),
             ),
@@ -56,8 +51,11 @@ final router = GoRouter(
       pageBuilder: (context, state) => MaterialPage(
         child: BlocProvider(
           create: (context) => HomeBloc(
+            loginBloc: context.read<LoginBloc>(),
+            authRepository: GetIt.instance.get<AuthRepository>(),
+            userRepository: GetIt.instance.get<UserRepository>(),
             commonStorage: GetIt.instance.get<CommonStorage>(),
-          ),
+          )..add(const GetCurrentUserData()),
           child: const HomePage(),
         ),
       ),

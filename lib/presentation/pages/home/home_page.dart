@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotty_app/presentation/bloc/home/home_bloc.dart';
 import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
+import 'package:spotty_app/presentation/common/widgets/app_button.dart';
+import 'package:spotty_app/utils/extensions/string_extensions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,8 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   initState() {
-    super.initState();
     _loginBloc = context.read<LoginBloc>();
+    super.initState();
   }
 
   @override
@@ -24,7 +27,15 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            Text(_loginBloc.state.toString()),
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                AppButton(
+                  onPressed: () => context.read<HomeBloc>().add(const RefreshTokenEvent()),
+                  buttonText: 'Wyloguj',
+                );
+                return Text('asd');
+              },
+            )
           ],
         ),
       ),

@@ -1,6 +1,5 @@
 extension IntExtensions on int {
   bool get isGreaterThanZero => this > 0;
-
   bool get isZero => this == 0;
 }
 

@@ -1,4 +1,5 @@
 class CommonStorageKeys {
   static const String userId = "userId";
-  static const String baererToken = "baererToken";
+  static const String accessToken = "accessToken";
+  static const String refreshToken = "refreshToken";
 }

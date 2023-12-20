@@ -3,20 +3,27 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 import 'package:spotty_app/data/models/requests/login_user_request.dart';
-import 'package:spotty_app/domain/entities/user_authentication.dart';
+import 'package:spotty_app/data/models/user_auth_model.dart';
+import 'package:spotty_app/domain/entities/user_authentication_api_response.dart';
 import 'package:spotty_app/domain/repositories/user_api_repository.dart';
-import 'package:spotty_app/common/models/api_response.dart';
+import 'package:spotty_app/domain/entities/api_response.dart';
+import 'package:spotty_app/injector.dart';
+import 'package:spotty_app/manager/dio_manager.dart';
+import 'package:spotty_app/mappers/user_auth_mapper.dart';
 import 'package:spotty_app/services/common_storage.dart';
 import 'package:spotty_app/services/common_storage_keys.dart';
 import 'package:spotty_app/utils/extensions/response_extension.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final CommonStorage commonStorage;
-  final UserApiRepository userApiRepository;
+  final UserRepository userApiRepository;
+
 
   LoginBloc({
     required this.commonStorage,
@@ -39,14 +46,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       if(response.isSuccessful()) {
         ApiResponse apiResponse = ApiResponse.fromJson(response.data);
-        UserAuthentication user = UserAuthentication.fromJson(
+        UserAuthenticationApiResponse userAuth = UserAuthenticationApiResponse.fromJson(
           apiResponse.data as Map<String, dynamic>,
         );
 
-        commonStorage.putInt(CommonStorageKeys.userId, user.userId);
-        commonStorage.putString(CommonStorageKeys.baererToken, user.token);
+        DioManager().updateAuthorizationHeader(userAuth.accessToken);
 
-        emit(const LoginResultState(isSuccess: true));
+        commonStorage.putInt(CommonStorageKeys.userId, userAuth.userId);
+        commonStorage.putString(CommonStorageKeys.accessToken, userAuth.accessToken);
+        commonStorage.putString(CommonStorageKeys.refreshToken, userAuth.refreshToken);
+
+        UserAuth loggedInUser = userAuth.mapToUser();
+
+        emit(LoginResultState(
+          isSuccess: true,
+          user: loggedInUser,
+        ));
       }
     }
     on DioException catch (e) {
@@ -67,7 +82,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ));
         }
         if (e.response!.isUnauthorized()) {
-
         }
       } else {
         throw UnimplementedError();

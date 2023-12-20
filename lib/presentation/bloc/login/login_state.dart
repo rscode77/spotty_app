@@ -17,11 +17,13 @@ class LoginInputState extends LoginState {
 }
 
 class LoginResultState extends LoginState {
+  final UserAuth? user;
   final String message;
   final String field;
   final bool isSuccess;
 
   const LoginResultState({
+    this.user,
     this.message = '',
     this.field = '',
     required this.isSuccess,

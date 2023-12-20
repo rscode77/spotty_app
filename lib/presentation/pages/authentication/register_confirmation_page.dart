@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spotty_app/common/widgets/app_button.dart';
+import 'package:spotty_app/presentation/common/widgets/app_button.dart';
 import 'package:spotty_app/routing/route_constants.dart';
 
 class RegisterConfirmationPage extends StatefulWidget {
