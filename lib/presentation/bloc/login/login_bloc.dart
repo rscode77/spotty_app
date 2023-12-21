@@ -49,7 +49,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       commonStorage.putString(CommonStorageKeys.accessToken, tokens.accessToken);
       commonStorage.putString(CommonStorageKeys.refreshToken, tokens.refreshToken);
 
-      emit(const LoginResultState(isSuccess: true));
     }
     else{
       emit(const LoginInputState());

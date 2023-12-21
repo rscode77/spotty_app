@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotty_app/data/models/user_location_model.dart';
 import 'package:spotty_app/presentation/bloc/home/home_bloc.dart';
 import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
 import 'package:spotty_app/presentation/common/widgets/app_button.dart';
@@ -30,7 +31,13 @@ class _HomePageState extends State<HomePage> {
             BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
                 AppButton(
-                  onPressed: () => context.read<HomeBloc>().add(const RefreshTokenEvent()),
+                  onPressed: () => UserLocation(
+                    username: 'asd',
+                    latitude: 123,
+                    longitude: 123,
+                    vehicleColor: 'dasd',
+                    vehicleType: null,
+                  ),
                   buttonText: 'Wyloguj',
                 );
                 return Text('asd');

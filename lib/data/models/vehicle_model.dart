@@ -21,3 +21,8 @@ class Vehicle {
     required this.vehicleType,
   });
 }
+
+enum VehicleType{
+  motorcycle,
+  car
+}

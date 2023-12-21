@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyC-BQmNQ1XPfBqpsWmS7zOc-78Y-x5mjn0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>739383443508</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.spottyApp.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>spotty-37292</string>
+	<key>STORAGE_BUCKET</key>
+	<string>spotty-37292.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:739383443508:ios:392a6127943fd1ff854a61</string>
+</dict>
+</plist>

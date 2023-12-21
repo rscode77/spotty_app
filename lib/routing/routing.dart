@@ -13,6 +13,7 @@ import 'package:spotty_app/presentation/pages/authentication/register_page.dart'
 import 'package:spotty_app/presentation/pages/home/home_page.dart';
 import 'package:spotty_app/routing/route_constants.dart';
 import 'package:spotty_app/services/common_storage.dart';
+import 'package:spotty_app/services/users_location_service.dart';
 
 final router = GoRouter(
   initialLocation: '/',
@@ -53,6 +54,7 @@ final router = GoRouter(
           create: (context) => HomeBloc(
             loginBloc: context.read<LoginBloc>(),
             authRepository: GetIt.instance.get<AuthRepository>(),
+            userDataService: GetIt.instance.get<UserDataService>(),
             userRepository: GetIt.instance.get<UserRepository>(),
             commonStorage: GetIt.instance.get<CommonStorage>(),
           )..add(const GetCurrentUserData()),

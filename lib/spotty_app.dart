@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,8 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
 import 'package:spotty_app/domain/repositories/user_api_repository.dart';
 import 'package:spotty_app/generated/l10n.dart';
-import 'package:spotty_app/injector.dart';
 import 'package:spotty_app/routing/routing.dart';
+import 'firebase_options.dart';
 
 import 'presentation/bloc/login/login_bloc.dart';
 import 'services/common_storage.dart';
@@ -26,6 +27,7 @@ class _SpottyAppState extends State<SpottyApp> {
   void initState() {
     super.initState();
     _initLoginBloc();
+    _initializeFirebase();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
@@ -35,6 +37,12 @@ class _SpottyAppState extends State<SpottyApp> {
       commonStorage: GetIt.instance.get<CommonStorage>(),
       userApiRepository: GetIt.instance.get<UserRepository>(),
     )..add(const LoginInitialEvent());
+  }
+
+  void _initializeFirebase() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 
   @override

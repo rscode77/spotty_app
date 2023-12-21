@@ -17,6 +17,7 @@ import 'package:spotty_app/mappers/user_mapper.dart';
 import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
 import 'package:spotty_app/services/common_storage.dart';
 import 'package:spotty_app/services/common_storage_keys.dart';
+import 'package:spotty_app/services/users_location_service.dart';
 import 'package:spotty_app/utils/extensions/int_extension.dart';
 import 'package:spotty_app/utils/extensions/response_extension.dart';
 import 'package:spotty_app/utils/extensions/string_extensions.dart';
@@ -29,6 +30,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final LoginBloc loginBloc;
   final AuthRepository authRepository;
   final CommonStorage commonStorage;
+  final UserDataService userDataService;
   final UserRepository userRepository;
 
   bool get isUserLoggedIn => loginBloc.state is LoginResultState && (loginBloc.state as LoginResultState).isSuccess;
@@ -37,6 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.loginBloc,
     required this.authRepository,
     required this.commonStorage,
+    required this.userDataService,
     required this.userRepository,
   }) : super(HomeInitial()) {
     Timer.periodic(const Duration(minutes: 15), (timer) {
