@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:spotty_app/domain/repositories/auth_repository.dart';
 import 'package:spotty_app/domain/repositories/user_api_repository.dart';
 import 'package:spotty_app/generated/l10n.dart';
 import 'package:spotty_app/injector.dart';
@@ -30,6 +31,7 @@ class _SpottyAppState extends State<SpottyApp> {
 
   void _initLoginBloc() {
     _loginBloc = LoginBloc(
+      authRepository: GetIt.instance.get<AuthRepository>(),
       commonStorage: GetIt.instance.get<CommonStorage>(),
       userApiRepository: GetIt.instance.get<UserRepository>(),
     )..add(const LoginInitialEvent());

@@ -40,7 +40,9 @@ class _LoginPageState extends State<LoginPage> {
       if (state.isSuccess) {
         context.go(RouteConstants.home);
       }
-      if (state.field.isNotEmpty) {}
+      if (!state.isSuccess) {
+        if (state.field.isNotEmpty) {}
+      }
     }
   }
 
