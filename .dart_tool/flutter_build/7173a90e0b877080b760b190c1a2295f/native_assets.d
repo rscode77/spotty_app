@@ -1,0 +1,1 @@
+ E:\\SpottyApp\\spotty_app\\.dart_tool\\flutter_build\\7173a90e0b877080b760b190c1a2295f\\native_assets.yaml: 

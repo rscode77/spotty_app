@@ -11,8 +11,31 @@ class RefreshTokenEvent extends HomeEvent {
   List<Object?> get props => [];
 }
 
-class GetCurrentUserData extends HomeEvent {
-  const GetCurrentUserData();
+class GetCurrentUserDataEvent extends HomeEvent {
+  const GetCurrentUserDataEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SetUserLocationStatusEvent extends HomeEvent {
+  const SetUserLocationStatusEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class NavigationBarTabChanged extends HomeEvent {
+  final NavigationBarItem navigationBarItem;
+
+  const NavigationBarTabChanged(this.navigationBarItem);
+
+  @override
+  List<Object?> get props => [navigationBarItem];
+}
+
+class CenterMapOnUserLocationEvent extends HomeEvent {
+  const CenterMapOnUserLocationEvent();
 
   @override
   List<Object?> get props => [];

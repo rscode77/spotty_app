@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:spotty_app/data/errors/api_exception_handler.dart';
 import 'package:spotty_app/data/models/requests/register_user_request.dart';
-import 'package:spotty_app/domain/repositories/user_api_repository.dart';
 import 'package:spotty_app/domain/entities/api_response.dart';
+import 'package:spotty_app/domain/repositories/user_repository.dart';
 import 'package:spotty_app/utils/extensions/response_extension.dart';
 
 part 'register_event.dart';
@@ -39,27 +40,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       }
     } on DioException catch (e) {
-      if (e.response != null && e.response!.data != null) {
-        if (e.response!.isToManyRequests()) {
-          await Future.delayed(const Duration(seconds: 1));
-          add(RegisterUserEvent(
-            username: event.username,
-            password: event.password,
-            email: event.email,
-          ));
-        }
-        if (e.response!.isBadRequest()) {
-          ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
-          emit(RegisterResultState(
-            message: apiResponse.message,
-            field: apiResponse.field,
-            isSuccess: false,
-          ));
-        }
-        if (e.response!.isUnauthorized()) {}
-      } else {
-        throw UnimplementedError();
-      }
+      ApiExceptionHandler().handleDioException(
+        dioException: e,
+        onToManyRequests: () {},
+        onBadRequest: (response) {},
+        onUnauthorized: () {},
+      );
     }
   }
 }

@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
-import 'package:spotty_app/domain/repositories/user_api_repository.dart';
+import 'package:spotty_app/domain/repositories/user_repository.dart';
 import 'package:spotty_app/generated/l10n.dart';
 import 'package:spotty_app/routing/routing.dart';
 import 'firebase_options.dart';
@@ -47,16 +48,20 @@ class _SpottyAppState extends State<SpottyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _loginBloc,
-      child: MaterialApp.router(
-        routerConfig: router,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: _loginBloc),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
+        initialRoute: Routing.login,
         debugShowCheckedModeBanner: false,
         onGenerateTitle: (context) => S.of(context).login,
         localizationsDelegates: const [
           ...GlobalMaterialLocalizations.delegates,
           S.delegate,
         ],
+        onGenerateRoute: Routing.getMainRoute,
       ),
     );
   }

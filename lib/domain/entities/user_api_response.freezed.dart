@@ -32,7 +32,6 @@ mixin _$UserApiResponse {
   DateTime get lastActivity => throw _privateConstructorUsedError;
   VehicleApiResponse? get vehicle => throw _privateConstructorUsedError;
   List<VehicleApiResponse>? get vehicles => throw _privateConstructorUsedError;
-  List<EventApiResponse>? get userEvents => throw _privateConstructorUsedError;
   List<UserApiResponse>? get sentFriendRequests =>
       throw _privateConstructorUsedError;
   List<UserApiResponse>? get receivedFriendRequests =>
@@ -64,7 +63,6 @@ abstract class $UserApiResponseCopyWith<$Res> {
       DateTime lastActivity,
       VehicleApiResponse? vehicle,
       List<VehicleApiResponse>? vehicles,
-      List<EventApiResponse>? userEvents,
       List<UserApiResponse>? sentFriendRequests,
       List<UserApiResponse>? receivedFriendRequests,
       List<UserApiResponse>? friends});
@@ -97,7 +95,6 @@ class _$UserApiResponseCopyWithImpl<$Res, $Val extends UserApiResponse>
     Object? lastActivity = null,
     Object? vehicle = freezed,
     Object? vehicles = freezed,
-    Object? userEvents = freezed,
     Object? sentFriendRequests = freezed,
     Object? receivedFriendRequests = freezed,
     Object? friends = freezed,
@@ -151,10 +148,6 @@ class _$UserApiResponseCopyWithImpl<$Res, $Val extends UserApiResponse>
           ? _value.vehicles
           : vehicles // ignore: cast_nullable_to_non_nullable
               as List<VehicleApiResponse>?,
-      userEvents: freezed == userEvents
-          ? _value.userEvents
-          : userEvents // ignore: cast_nullable_to_non_nullable
-              as List<EventApiResponse>?,
       sentFriendRequests: freezed == sentFriendRequests
           ? _value.sentFriendRequests
           : sentFriendRequests // ignore: cast_nullable_to_non_nullable
@@ -204,7 +197,6 @@ abstract class _$$UserApiResponseImplCopyWith<$Res>
       DateTime lastActivity,
       VehicleApiResponse? vehicle,
       List<VehicleApiResponse>? vehicles,
-      List<EventApiResponse>? userEvents,
       List<UserApiResponse>? sentFriendRequests,
       List<UserApiResponse>? receivedFriendRequests,
       List<UserApiResponse>? friends});
@@ -236,7 +228,6 @@ class __$$UserApiResponseImplCopyWithImpl<$Res>
     Object? lastActivity = null,
     Object? vehicle = freezed,
     Object? vehicles = freezed,
-    Object? userEvents = freezed,
     Object? sentFriendRequests = freezed,
     Object? receivedFriendRequests = freezed,
     Object? friends = freezed,
@@ -290,10 +281,6 @@ class __$$UserApiResponseImplCopyWithImpl<$Res>
           ? _value._vehicles
           : vehicles // ignore: cast_nullable_to_non_nullable
               as List<VehicleApiResponse>?,
-      userEvents: freezed == userEvents
-          ? _value._userEvents
-          : userEvents // ignore: cast_nullable_to_non_nullable
-              as List<EventApiResponse>?,
       sentFriendRequests: freezed == sentFriendRequests
           ? _value._sentFriendRequests
           : sentFriendRequests // ignore: cast_nullable_to_non_nullable
@@ -326,12 +313,10 @@ class _$UserApiResponseImpl implements _UserApiResponse {
       required this.lastActivity,
       this.vehicle,
       final List<VehicleApiResponse>? vehicles,
-      final List<EventApiResponse>? userEvents,
       final List<UserApiResponse>? sentFriendRequests,
       final List<UserApiResponse>? receivedFriendRequests,
       final List<UserApiResponse>? friends})
       : _vehicles = vehicles,
-        _userEvents = userEvents,
         _sentFriendRequests = sentFriendRequests,
         _receivedFriendRequests = receivedFriendRequests,
         _friends = friends;
@@ -371,16 +356,6 @@ class _$UserApiResponseImpl implements _UserApiResponse {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<EventApiResponse>? _userEvents;
-  @override
-  List<EventApiResponse>? get userEvents {
-    final value = _userEvents;
-    if (value == null) return null;
-    if (_userEvents is EqualUnmodifiableListView) return _userEvents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   final List<UserApiResponse>? _sentFriendRequests;
   @override
   List<UserApiResponse>? get sentFriendRequests {
@@ -415,7 +390,7 @@ class _$UserApiResponseImpl implements _UserApiResponse {
 
   @override
   String toString() {
-    return 'UserApiResponse(userId: $userId, username: $username, email: $email, isOnline: $isOnline, avatarId: $avatarId, defaultVehicle: $defaultVehicle, userConfirmed: $userConfirmed, isBanned: $isBanned, banReason: $banReason, lastActivity: $lastActivity, vehicle: $vehicle, vehicles: $vehicles, userEvents: $userEvents, sentFriendRequests: $sentFriendRequests, receivedFriendRequests: $receivedFriendRequests, friends: $friends)';
+    return 'UserApiResponse(userId: $userId, username: $username, email: $email, isOnline: $isOnline, avatarId: $avatarId, defaultVehicle: $defaultVehicle, userConfirmed: $userConfirmed, isBanned: $isBanned, banReason: $banReason, lastActivity: $lastActivity, vehicle: $vehicle, vehicles: $vehicles, sentFriendRequests: $sentFriendRequests, receivedFriendRequests: $receivedFriendRequests, friends: $friends)';
   }
 
   @override
@@ -444,8 +419,6 @@ class _$UserApiResponseImpl implements _UserApiResponse {
             (identical(other.vehicle, vehicle) || other.vehicle == vehicle) &&
             const DeepCollectionEquality().equals(other._vehicles, _vehicles) &&
             const DeepCollectionEquality()
-                .equals(other._userEvents, _userEvents) &&
-            const DeepCollectionEquality()
                 .equals(other._sentFriendRequests, _sentFriendRequests) &&
             const DeepCollectionEquality().equals(
                 other._receivedFriendRequests, _receivedFriendRequests) &&
@@ -468,7 +441,6 @@ class _$UserApiResponseImpl implements _UserApiResponse {
       lastActivity,
       vehicle,
       const DeepCollectionEquality().hash(_vehicles),
-      const DeepCollectionEquality().hash(_userEvents),
       const DeepCollectionEquality().hash(_sentFriendRequests),
       const DeepCollectionEquality().hash(_receivedFriendRequests),
       const DeepCollectionEquality().hash(_friends));
@@ -502,7 +474,6 @@ abstract class _UserApiResponse implements UserApiResponse {
       required final DateTime lastActivity,
       final VehicleApiResponse? vehicle,
       final List<VehicleApiResponse>? vehicles,
-      final List<EventApiResponse>? userEvents,
       final List<UserApiResponse>? sentFriendRequests,
       final List<UserApiResponse>? receivedFriendRequests,
       final List<UserApiResponse>? friends}) = _$UserApiResponseImpl;
@@ -534,8 +505,6 @@ abstract class _UserApiResponse implements UserApiResponse {
   VehicleApiResponse? get vehicle;
   @override
   List<VehicleApiResponse>? get vehicles;
-  @override
-  List<EventApiResponse>? get userEvents;
   @override
   List<UserApiResponse>? get sentFriendRequests;
   @override

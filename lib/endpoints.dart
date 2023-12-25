@@ -14,3 +14,9 @@ class AuthEndpoints {
   static const String _prefix = '/Auth';
   static const String refreshTokens = '${Endpoints.baseUrl}$_prefix/RefreshToken';
 }
+
+class EventEdnpoints {
+  static const String _prefix = '/Event';
+  static const String getEvents = '${Endpoints.baseUrl}$_prefix/GetEvents';
+  static const String addEvent = '${Endpoints.baseUrl}$_prefix/AddEvent';
+}

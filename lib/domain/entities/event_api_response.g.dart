@@ -19,6 +19,8 @@ _$EventApiResponseImpl _$$EventApiResponseImplFromJson(
       userId: json['userId'] as int,
       creationDate: DateTime.parse(json['creationDate'] as String),
       isPublic: json['isPublic'] as bool,
+      joined: json['joined'] as bool,
+      isOwner: json['isOwner'] as bool,
       membersCount: json['membersCount'] as int,
     );
 
@@ -35,5 +37,7 @@ Map<String, dynamic> _$$EventApiResponseImplToJson(
       'userId': instance.userId,
       'creationDate': instance.creationDate.toIso8601String(),
       'isPublic': instance.isPublic,
+      'joined': instance.joined,
+      'isOwner': instance.isOwner,
       'membersCount': instance.membersCount,
     };

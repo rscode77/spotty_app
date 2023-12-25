@@ -14,7 +14,6 @@ class User {
   final DateTime lastActivity;
   final Vehicle? vehicle;
   final List<Vehicle>? vehicles;
-  final List<Event>? userEvents;
   final List<User>? sentFriendRequests;
   final List<User>? receivedFriendRequests;
   final List<User>? friends;
@@ -32,9 +31,28 @@ class User {
     required this.lastActivity,
     required this.vehicle,
     required this.vehicles,
-    required this.userEvents,
     required this.sentFriendRequests,
     required this.receivedFriendRequests,
     required this.friends,
   });
+
+  static User emptyUser() {
+    return User(
+      userId: 0,
+      username: '',
+      email: '',
+      isOnline: false,
+      avatarId: 0,
+      defaultVehicle: 0,
+      userConfirmed: false,
+      isBanned: false,
+      banReason: '',
+      lastActivity: DateTime.now(),
+      vehicle: null,
+      vehicles: [],
+      sentFriendRequests: [],
+      receivedFriendRequests: [],
+      friends: [],
+    );
+  }
 }

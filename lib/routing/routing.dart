@@ -1,66 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
-import 'package:spotty_app/domain/repositories/auth_repository.dart';
-import 'package:spotty_app/domain/repositories/user_api_repository.dart';
-import 'package:spotty_app/presentation/bloc/home/home_bloc.dart';
-import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
-import 'package:spotty_app/presentation/bloc/register/register_bloc.dart';
-import 'package:spotty_app/presentation/pages/authentication/login_page.dart';
-import 'package:spotty_app/presentation/pages/authentication/register_confirmation_page.dart';
-import 'package:spotty_app/presentation/pages/authentication/register_page.dart';
-import 'package:spotty_app/presentation/pages/home/home_page.dart';
-import 'package:spotty_app/routing/route_constants.dart';
-import 'package:spotty_app/services/common_storage.dart';
-import 'package:spotty_app/services/users_location_service.dart';
+import 'package:spotty_app/pages.dart';
 
-final router = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      name: '/',
-      path: RouteConstants.login,
-      pageBuilder: (context, state) => const MaterialPage(
-        child: LoginPage(),
-      ),
-      routes: [
-        GoRoute(
-          name: RouteConstants.register,
-          path: RouteConstants.register,
-          pageBuilder: (context, state) => MaterialPage(
-            child: BlocProvider(
-              create: (context) => RegisterBloc(
-                userApiRepository: GetIt.instance.get<UserRepository>(),
-              ),
-              child: const RegisterPage(),
-            ),
-          ),
-        ),
-      ],
-    ),
-    GoRoute(
-      name: RouteConstants.registerConfirmation,
-      path: RouteConstants.registerConfirmation,
-      pageBuilder: (context, state) => const MaterialPage(
-        child: RegisterConfirmationPage(),
-      ),
-    ),
-    GoRoute(
-      name: RouteConstants.home,
-      path: RouteConstants.home,
-      pageBuilder: (context, state) => MaterialPage(
-        child: BlocProvider(
-          create: (context) => HomeBloc(
-            loginBloc: context.read<LoginBloc>(),
-            authRepository: GetIt.instance.get<AuthRepository>(),
-            userDataService: GetIt.instance.get<UserDataService>(),
-            userRepository: GetIt.instance.get<UserRepository>(),
-            commonStorage: GetIt.instance.get<CommonStorage>(),
-          )..add(const GetCurrentUserData()),
-          child: const HomePage(),
-        ),
-      ),
-    ),
-  ],
-);
+class Routing {
+  static const String login = '/login';
+  static const String home = '/home';
+  static const String events = '$home/events';
+  static const String messages = '$home/messages';
+  static const String appSettings = '$home/settings';
+
+  const Routing._();
+
+  static Route? getMainRoute(RouteSettings settings) {
+    final Widget child;
+    bool fullscreenDialog = false;
+
+    switch (settings.name) {
+      case home:
+        child = Pages.home();
+        break;
+      case events:
+        child = Pages.events();
+        break;
+      case login:
+        child = Pages.login();
+        break;
+      case messages:
+        child = Pages.messages();
+        break;
+      case appSettings:
+        child = Pages.settings();
+        break;
+      default:
+        return null;
+    }
+
+    return Routing.buildRoute(settings, fullscreenDialog, child);
+  }
+
+  static Route buildRoute(
+    RouteSettings settings,
+    bool fullscreenDialog,
+    Widget child,
+  ) =>
+      MaterialPageRoute(
+        settings: settings,
+        fullscreenDialog: fullscreenDialog,
+        builder: (_) => child,
+      );
+}

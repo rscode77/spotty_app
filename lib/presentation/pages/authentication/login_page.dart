@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
 import 'package:spotty_app/presentation/pages/authentication/widgets/login_view_widget.dart';
-import 'package:spotty_app/routing/route_constants.dart';
+import 'package:spotty_app/routing/routing.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
@@ -38,7 +37,11 @@ class _LoginPageState extends State<LoginPage> {
   void _loginListener(BuildContext context, LoginState state) {
     if (state is LoginResultState) {
       if (state.isSuccess) {
-        context.go(RouteConstants.home);
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Routing.home,
+          (route) => false,
+        );
       }
       if (!state.isSuccess) {
         if (state.field.isNotEmpty) {}
@@ -59,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildLoginView() {
     return LoginViewWidget(
-      onRegisterPressed: () => context.pushNamed(RouteConstants.register),
+      onRegisterPressed: () => {},
     );
   }
 }

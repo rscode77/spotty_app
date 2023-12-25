@@ -1,6 +1,5 @@
 import 'package:spotty_app/data/models/user_model.dart';
 import 'package:spotty_app/domain/entities/user_api_response.dart';
-import 'package:spotty_app/mappers/event_mapper.dart';
 import 'package:spotty_app/mappers/vehicle_mapper.dart';
 
 extension UserMapper on UserApiResponse {
@@ -18,7 +17,6 @@ extension UserMapper on UserApiResponse {
       lastActivity: lastActivity,
       vehicle: vehicle?.mapToVehicle(),
       vehicles: vehicles?.map((v) => v.mapToVehicle()).toList(),
-      userEvents: userEvents?.map((e) => e.mapToEvent()).toList(),
       sentFriendRequests: sentFriendRequests?.map((u) => u.mapToUser()).toList(),
       receivedFriendRequests: receivedFriendRequests?.map((u) => u.mapToUser()).toList(),
       friends: friends?.map((u) => u.mapToUser()).toList(),

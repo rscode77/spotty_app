@@ -16,8 +16,14 @@ class EventApiResponse with _$EventApiResponse {
     required int userId,
     required DateTime creationDate,
     required bool isPublic,
+    required bool joined,
+    required bool isOwner,
     required int membersCount,
   }) = _EventApiResponse;
 
   factory EventApiResponse.fromJson(Map<String, dynamic> json) => _$EventApiResponseFromJson(json);
+
+  static List<EventApiResponse> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((item) => EventApiResponse.fromJson(item)).toList();
+  }
 }

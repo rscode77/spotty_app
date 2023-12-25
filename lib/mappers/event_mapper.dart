@@ -15,6 +15,14 @@ extension EventMapper on EventApiResponse {
       creationDate: creationDate,
       membersCount: membersCount,
       isPublic: isPublic,
+      joined: joined,
+      isOwner: isOwner,
     );
+  }
+}
+
+extension EventListMapper on List<EventApiResponse> {
+  List<Event> mapToEventList() {
+    return map((eventApiResponse) => eventApiResponse.mapToEvent()).toList();
   }
 }

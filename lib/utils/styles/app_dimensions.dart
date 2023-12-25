@@ -16,6 +16,8 @@ class _Height {
   final double textField = 54.0;
   final double partDrawHeight = 240.0;
   final double dropDownButtonHeight = 46.0;
+  final double buttonHeight = 46.0;
+  final double navigationBar = 55.0;
 }
 
 class _Margin {
@@ -31,4 +33,5 @@ class _Padding {
 
 class _Width {
   final double barCode = 250.0;
+  final double buttonWidth = double.infinity;
 }

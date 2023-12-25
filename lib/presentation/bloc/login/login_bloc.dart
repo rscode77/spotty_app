@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:spotty_app/data/errors/api_exception_handler.dart';
 import 'package:spotty_app/data/models/requests/login_user_request.dart';
 import 'package:spotty_app/data/models/user_auth_model.dart';
 import 'package:spotty_app/domain/entities/auth_api_response.dart';
 import 'package:spotty_app/domain/entities/user_authentication_api_response.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
-import 'package:spotty_app/domain/repositories/user_api_repository.dart';
 import 'package:spotty_app/domain/entities/api_response.dart';
+import 'package:spotty_app/domain/repositories/user_repository.dart';
 import 'package:spotty_app/manager/dio_manager.dart';
 import 'package:spotty_app/mappers/user_auth_mapper.dart';
 import 'package:spotty_app/services/common_storage.dart';
@@ -25,7 +26,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository authRepository;
   final CommonStorage commonStorage;
   final UserRepository userApiRepository;
-
 
   LoginBloc({
     required this.authRepository,
@@ -49,6 +49,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       commonStorage.putString(CommonStorageKeys.accessToken, tokens.accessToken);
       commonStorage.putString(CommonStorageKeys.refreshToken, tokens.refreshToken);
 
+      emit(const LoginResultState(
+        isSuccess: true,
+      ));
     }
     else{
       emit(const LoginInputState());
@@ -83,27 +86,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
     on DioException catch (e) {
-      if (e.response != null && e.response!.data != null) {
-        if (e.response!.isToManyRequests()) {
-          await Future.delayed(const Duration(seconds: 1));
-          add(LoginUserEvent(
-            username: event.username,
-            password: event.password,
-          ));
-        }
-        if (e.response!.isBadRequest()) {
-          ApiResponse apiResponse = ApiResponse.fromJson(e.response!.data);
+      ApiExceptionHandler().handleDioException(
+        dioException: e,
+        onToManyRequests: () {},
+        onBadRequest: (response) {
           emit(LoginResultState(
-            message: apiResponse.message,
-            field: apiResponse.field,
             isSuccess: false,
+            message: response.message,
+            field: response.field,
           ));
-        }
-        if (e.response!.isUnauthorized()) {
-        }
-      } else {
-        throw UnimplementedError();
-      }
+        },
+        onUnauthorized: () {},
+      );
     }
   }
 }

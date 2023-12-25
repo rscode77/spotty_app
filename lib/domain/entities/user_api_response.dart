@@ -20,7 +20,6 @@ class UserApiResponse with _$UserApiResponse {
     required DateTime lastActivity,
     VehicleApiResponse? vehicle,
     List<VehicleApiResponse>? vehicles,
-    List<EventApiResponse>? userEvents,
     List<UserApiResponse>? sentFriendRequests,
     List<UserApiResponse>? receivedFriendRequests,
     List<UserApiResponse>? friends,

@@ -30,6 +30,8 @@ mixin _$EventApiResponse {
   int get userId => throw _privateConstructorUsedError;
   DateTime get creationDate => throw _privateConstructorUsedError;
   bool get isPublic => throw _privateConstructorUsedError;
+  bool get joined => throw _privateConstructorUsedError;
+  bool get isOwner => throw _privateConstructorUsedError;
   int get membersCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,6 +57,8 @@ abstract class $EventApiResponseCopyWith<$Res> {
       int userId,
       DateTime creationDate,
       bool isPublic,
+      bool joined,
+      bool isOwner,
       int membersCount});
 }
 
@@ -81,6 +85,8 @@ class _$EventApiResponseCopyWithImpl<$Res, $Val extends EventApiResponse>
     Object? userId = null,
     Object? creationDate = null,
     Object? isPublic = null,
+    Object? joined = null,
+    Object? isOwner = null,
     Object? membersCount = null,
   }) {
     return _then(_value.copyWith(
@@ -124,6 +130,14 @@ class _$EventApiResponseCopyWithImpl<$Res, $Val extends EventApiResponse>
           ? _value.isPublic
           : isPublic // ignore: cast_nullable_to_non_nullable
               as bool,
+      joined: null == joined
+          ? _value.joined
+          : joined // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOwner: null == isOwner
+          ? _value.isOwner
+          : isOwner // ignore: cast_nullable_to_non_nullable
+              as bool,
       membersCount: null == membersCount
           ? _value.membersCount
           : membersCount // ignore: cast_nullable_to_non_nullable
@@ -151,6 +165,8 @@ abstract class _$$EventApiResponseImplCopyWith<$Res>
       int userId,
       DateTime creationDate,
       bool isPublic,
+      bool joined,
+      bool isOwner,
       int membersCount});
 }
 
@@ -175,6 +191,8 @@ class __$$EventApiResponseImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? creationDate = null,
     Object? isPublic = null,
+    Object? joined = null,
+    Object? isOwner = null,
     Object? membersCount = null,
   }) {
     return _then(_$EventApiResponseImpl(
@@ -218,6 +236,14 @@ class __$$EventApiResponseImplCopyWithImpl<$Res>
           ? _value.isPublic
           : isPublic // ignore: cast_nullable_to_non_nullable
               as bool,
+      joined: null == joined
+          ? _value.joined
+          : joined // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOwner: null == isOwner
+          ? _value.isOwner
+          : isOwner // ignore: cast_nullable_to_non_nullable
+              as bool,
       membersCount: null == membersCount
           ? _value.membersCount
           : membersCount // ignore: cast_nullable_to_non_nullable
@@ -240,6 +266,8 @@ class _$EventApiResponseImpl implements _EventApiResponse {
       required this.userId,
       required this.creationDate,
       required this.isPublic,
+      required this.joined,
+      required this.isOwner,
       required this.membersCount});
 
   factory _$EventApiResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -266,11 +294,15 @@ class _$EventApiResponseImpl implements _EventApiResponse {
   @override
   final bool isPublic;
   @override
+  final bool joined;
+  @override
+  final bool isOwner;
+  @override
   final int membersCount;
 
   @override
   String toString() {
-    return 'EventApiResponse(eventId: $eventId, title: $title, description: $description, picture: $picture, date: $date, latitude: $latitude, longitude: $longitude, userId: $userId, creationDate: $creationDate, isPublic: $isPublic, membersCount: $membersCount)';
+    return 'EventApiResponse(eventId: $eventId, title: $title, description: $description, picture: $picture, date: $date, latitude: $latitude, longitude: $longitude, userId: $userId, creationDate: $creationDate, isPublic: $isPublic, joined: $joined, isOwner: $isOwner, membersCount: $membersCount)';
   }
 
   @override
@@ -293,6 +325,8 @@ class _$EventApiResponseImpl implements _EventApiResponse {
                 other.creationDate == creationDate) &&
             (identical(other.isPublic, isPublic) ||
                 other.isPublic == isPublic) &&
+            (identical(other.joined, joined) || other.joined == joined) &&
+            (identical(other.isOwner, isOwner) || other.isOwner == isOwner) &&
             (identical(other.membersCount, membersCount) ||
                 other.membersCount == membersCount));
   }
@@ -311,6 +345,8 @@ class _$EventApiResponseImpl implements _EventApiResponse {
       userId,
       creationDate,
       isPublic,
+      joined,
+      isOwner,
       membersCount);
 
   @JsonKey(ignore: true)
@@ -340,6 +376,8 @@ abstract class _EventApiResponse implements EventApiResponse {
       required final int userId,
       required final DateTime creationDate,
       required final bool isPublic,
+      required final bool joined,
+      required final bool isOwner,
       required final int membersCount}) = _$EventApiResponseImpl;
 
   factory _EventApiResponse.fromJson(Map<String, dynamic> json) =
@@ -365,6 +403,10 @@ abstract class _EventApiResponse implements EventApiResponse {
   DateTime get creationDate;
   @override
   bool get isPublic;
+  @override
+  bool get joined;
+  @override
+  bool get isOwner;
   @override
   int get membersCount;
   @override

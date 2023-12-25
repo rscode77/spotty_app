@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spotty_app/data/models/requests/register_user_request.dart';
 import 'package:spotty_app/presentation/bloc/register/register_bloc.dart';
 import 'package:spotty_app/presentation/common/widgets/app_button.dart';
 import 'package:spotty_app/presentation/common/widgets/app_text_field.dart';
 import 'package:spotty_app/generated/l10n.dart';
 import 'package:spotty_app/presentation/common/widgets/custom_snackbar_widget.dart';
-import 'package:spotty_app/routing/route_constants.dart';
+import 'package:spotty_app/routing/routing.dart';
 import 'package:spotty_app/utils/enums/field_enum.dart';
 import 'package:spotty_app/utils/extensions/text_edit_controller_extension.dart';
+import 'package:spotty_app/utils/styles/app_colors.dart';
 
 class RegisterViewWidget extends StatefulWidget {
   final Function(RegisterUserRequest)? onRegisterPressed;
@@ -74,7 +74,11 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
         }
       }
       if (state.isSuccess) {
-        context.go(RouteConstants.registerConfirmation);
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Routing.home,
+          (route) => false,
+        );
       }
     }
   }
@@ -102,6 +106,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
 
   Widget _buildRegisterButton() {
     return AppButton(
+      buttonColor: AppColors.black,
       onPressed: () => widget.onRegisterPressed?.call(
         RegisterUserRequest(
           username: _usernameController.text,
@@ -115,7 +120,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
 
   Widget _buildBackButton() {
     return AppButton(
-      onPressed: () => context.pop(),
+      buttonColor: AppColors.black,
+      onPressed: () => Navigator.pop(context),
       buttonText: S.of(context).back,
     );
   }

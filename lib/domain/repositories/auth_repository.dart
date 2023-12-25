@@ -9,7 +9,6 @@ class AuthRepository implements AuthInterface{
 
   @override
   Future<Response> refreshTokens(String refreshToken) async {
-    print(refreshToken);
     final Response response = await dio.post(
       AuthEndpoints.refreshTokens,
       data: {

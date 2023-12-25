@@ -22,9 +22,6 @@ _$UserApiResponseImpl _$$UserApiResponseImplFromJson(
       vehicles: (json['vehicles'] as List<dynamic>?)
           ?.map((e) => VehicleApiResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      userEvents: (json['userEvents'] as List<dynamic>?)
-          ?.map((e) => EventApiResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
       sentFriendRequests: (json['sentFriendRequests'] as List<dynamic>?)
           ?.map((e) => UserApiResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -51,7 +48,6 @@ Map<String, dynamic> _$$UserApiResponseImplToJson(
       'lastActivity': instance.lastActivity.toIso8601String(),
       'vehicle': instance.vehicle,
       'vehicles': instance.vehicles,
-      'userEvents': instance.userEvents,
       'sentFriendRequests': instance.sentFriendRequests,
       'receivedFriendRequests': instance.receivedFriendRequests,
       'friends': instance.friends,

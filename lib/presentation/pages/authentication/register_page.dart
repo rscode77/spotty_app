@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spotty_app/presentation/bloc/register/register_bloc.dart';
 import 'package:spotty_app/presentation/common/widgets/custom_snackbar_widget.dart';
 import 'package:spotty_app/presentation/pages/authentication/widgets/register_view_widget.dart';
 import 'package:spotty_app/presentation/pages/authentication/widgets/loading_widget.dart';
-import 'package:spotty_app/routing/route_constants.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
@@ -47,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
           context: context,
           message: state.message,
         );
-        context.go(RouteConstants.registerConfirmation);
+       // REGISTER CONFIRAMTION
       }
     }
   }

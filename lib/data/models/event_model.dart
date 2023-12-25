@@ -9,6 +9,8 @@ class Event {
   final int userId;
   final DateTime creationDate;
   final bool isPublic;
+  final bool joined;
+  final bool isOwner;
   final int membersCount;
 
   Event({
@@ -22,6 +24,8 @@ class Event {
     required this.userId,
     required this.creationDate,
     required this.isPublic,
+    required this.joined,
+    required this.isOwner,
     required this.membersCount,
   });
 }
