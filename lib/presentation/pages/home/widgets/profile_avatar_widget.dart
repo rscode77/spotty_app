@@ -12,24 +12,18 @@ class ProfileAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          username,
-          style: const TextStyle(
-            color: AppColors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        Container(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
             decoration: const BoxDecoration(
               color: AppColors.white,
-              shape: BoxShape.circle,
-            ),
-            margin: const EdgeInsets.only(
-              left: AppDimensions.defaultPadding,
-              top: AppDimensions.defaultPadding,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                bottomLeft: Radius.circular(30),
+              ),
             ),
             height: 45,
             width: 45,
@@ -43,8 +37,36 @@ class ProfileAvatarWidget extends StatelessWidget {
                 //   fit: BoxFit.cover,
                 // ),
               ),
-            )),
-      ],
+            ),
+          ),
+          Container(
+            height: 45,
+            decoration: const BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 4.0,
+                  right: AppDimensions.defaultPadding,
+                ),
+                child: Text(
+                  username,
+                  style: const TextStyle(
+                    color: AppColors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

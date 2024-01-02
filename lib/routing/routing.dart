@@ -5,8 +5,8 @@ class Routing {
   static const String login = '/login';
   static const String home = '/home';
   static const String events = '$home/events';
-  static const String messages = '$home/messages';
   static const String appSettings = '$home/settings';
+  static const String chatsList = '$home/chats';
 
   const Routing._();
 
@@ -24,11 +24,11 @@ class Routing {
       case login:
         child = Pages.login();
         break;
-      case messages:
-        child = Pages.messages();
-        break;
       case appSettings:
         child = Pages.settings();
+        break;
+      case chatsList:
+        child = Pages.chatsList();
         break;
       default:
         return null;

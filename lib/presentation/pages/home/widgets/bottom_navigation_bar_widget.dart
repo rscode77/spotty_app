@@ -6,7 +6,7 @@ enum NavigationBarItem {
   notifications,
   events,
   location,
-  messages,
+  chats,
   settings,
 }
 
@@ -33,7 +33,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         return Icons.search;
       case NavigationBarItem.location:
         return Icons.location_on;
-      case NavigationBarItem.messages:
+      case NavigationBarItem.chats:
         return Icons.message;
       case NavigationBarItem.settings:
         return Icons.settings;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotty_app/presentation/bloc/events/events_bloc.dart';
+import 'package:spotty_app/presentation/bloc/home/events_bloc.dart';
 import 'package:spotty_app/presentation/pages/authentication/widgets/loading_widget.dart';
-import 'package:spotty_app/presentation/pages/home/widgets/events_list_view_widget.dart';
+import 'package:spotty_app/presentation/pages/home/events/events_list_view_widget.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({

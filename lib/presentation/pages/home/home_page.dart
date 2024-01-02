@@ -84,8 +84,8 @@ class _HomePageState extends State<HomePage> {
       case NavigationBarItem.events:
         Navigator.pushNamed(context, Routing.events);
         break;
-      case NavigationBarItem.messages:
-        Navigator.pushNamed(context, Routing.messages);
+      case NavigationBarItem.chats:
+        Navigator.pushNamed(context, Routing.chatsList);
         break;
       case NavigationBarItem.settings:
         Navigator.pushNamed(context, Routing.appSettings);

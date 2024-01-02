@@ -5,19 +5,21 @@ import 'package:get_it/get_it.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
 import 'package:spotty_app/domain/repositories/event_repository.dart';
 import 'package:spotty_app/domain/repositories/user_repository.dart';
-import 'package:spotty_app/presentation/bloc/events/events_bloc.dart';
-import 'package:spotty_app/presentation/bloc/messages/messages_bloc.dart';
-import 'package:spotty_app/presentation/bloc/settings/settings_bloc.dart';
+import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
+import 'package:spotty_app/presentation/bloc/home/events_bloc.dart';
+import 'package:spotty_app/presentation/bloc/home/settings_bloc.dart';
+import 'package:spotty_app/presentation/pages/home/chat/chat_page.dart';
+import 'package:spotty_app/presentation/pages/home/chat/chats_list_page.dart';
 import 'package:spotty_app/presentation/pages/home/home_page.dart';
-import 'package:spotty_app/presentation/pages/home/messages_page.dart';
-import 'package:spotty_app/presentation/pages/home/settings_page.dart';
+import 'package:spotty_app/presentation/pages/home/settings/settings_page.dart';
+import 'package:spotty_app/services/chat_serivce.dart';
 import 'package:spotty_app/services/common_storage.dart';
 import 'package:spotty_app/services/users_location_service.dart';
 
 import 'presentation/bloc/home/home_bloc.dart';
 import 'presentation/bloc/login/login_bloc.dart';
 import 'presentation/pages/authentication/login_page.dart';
-import 'presentation/pages/home/events_page.dart';
+import 'presentation/pages/home/events/events_page.dart';
 
 abstract class Pages {
   static Widget login() {
@@ -48,17 +50,19 @@ abstract class Pages {
 
   static Widget settings() {
     return BlocProvider(
-      create: (context) => SettingsBloc(
-      ),
+      create: (context) => SettingsBloc(),
       child: const SettingsPage(),
     );
   }
 
-  static Widget messages() {
+  static Widget chatsList() {
     return BlocProvider(
-      create: (context) => MessagesBloc(
-      ),
-      child: const MessagesPage(),
+      create: (context) => ChatBloc(chatService: GetIt.instance.get<ChatService>())..add(ChatInitialEvent()),
+      child: const ChatsListPage(),
     );
+  }
+
+  static Widget chat() {
+    return const ChatPage();
   }
 }
