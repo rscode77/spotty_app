@@ -15,5 +15,7 @@ extension NullableStrisngExtensions on String? {
 
   String orEmpty() => this ?? '';
 
+  int toInt() => int.parse(this ?? '0');
+
   String? takeIfNotBlank() => isNotNullOrBlank ? this : null;
 }

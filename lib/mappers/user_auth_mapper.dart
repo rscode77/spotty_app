@@ -9,6 +9,7 @@ extension UserAuthMapper on UserAuthenticationApiResponse {
       refreshToken: refreshToken,
       username: username,
       email: email,
+      firebaseUID: firebaseUID,
     );
   }
 }

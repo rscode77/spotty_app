@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,10 +5,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
+import 'package:spotty_app/domain/repositories/chat_repository.dart';
 import 'package:spotty_app/domain/repositories/user_repository.dart';
 import 'package:spotty_app/generated/l10n.dart';
+import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
 import 'package:spotty_app/routing/routing.dart';
-import 'firebase_options.dart';
 
 import 'presentation/bloc/login/login_bloc.dart';
 import 'services/common_storage.dart';
@@ -23,12 +23,17 @@ class SpottyApp extends StatefulWidget {
 
 class _SpottyAppState extends State<SpottyApp> {
   late final LoginBloc _loginBloc;
+  late final ChatBloc _chatBloc;
 
   @override
   void initState() {
     super.initState();
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
     _initLoginBloc();
-    _initializeFirebase();
+    _initChatBloc();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
@@ -40,9 +45,9 @@ class _SpottyAppState extends State<SpottyApp> {
     )..add(const LoginInitialEvent());
   }
 
-  void _initializeFirebase() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
+  void _initChatBloc() {
+    _chatBloc = ChatBloc(
+      chatRepository: GetIt.instance.get<ChatRepository>(),
     );
   }
 
@@ -51,6 +56,7 @@ class _SpottyAppState extends State<SpottyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: _loginBloc),
+        BlocProvider.value(value: _chatBloc),
       ],
       child: MaterialApp(
         theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),

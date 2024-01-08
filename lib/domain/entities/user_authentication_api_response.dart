@@ -12,6 +12,7 @@ class UserAuthenticationApiResponse with _$UserAuthenticationApiResponse {
     required int userId,
     required String username,
     required String email,
+    required String firebaseUID,
   }) = _UserAuthenticationApiResponse;
 
   factory UserAuthenticationApiResponse.fromJson(Map<String, dynamic> json) =>

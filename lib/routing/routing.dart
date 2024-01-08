@@ -7,6 +7,7 @@ class Routing {
   static const String events = '$home/events';
   static const String appSettings = '$home/settings';
   static const String chatsList = '$home/chats';
+  static const String chatPage = '$chatsList/chat';
 
   const Routing._();
 
@@ -29,6 +30,9 @@ class Routing {
         break;
       case chatsList:
         child = Pages.chatsList();
+        break;
+      case chatPage:
+        child = Pages.chat();
         break;
       default:
         return null;

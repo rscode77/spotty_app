@@ -4,6 +4,7 @@ class UserAuth {
   final int? userId;
   final String? username;
   final String? email;
+  final String? firebaseUID;
 
   UserAuth({
     required this.accessToken,
@@ -11,5 +12,6 @@ class UserAuth {
     required this.userId,
     required this.username,
     required this.email,
+    required this.firebaseUID,
   });
 }

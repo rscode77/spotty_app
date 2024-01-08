@@ -27,6 +27,7 @@ mixin _$UserAuthenticationApiResponse {
   int get userId => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get firebaseUID => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $UserAuthenticationApiResponseCopyWith<$Res> {
       String refreshToken,
       int userId,
       String username,
-      String email});
+      String email,
+      String firebaseUID});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$UserAuthenticationApiResponseCopyWithImpl<$Res,
     Object? userId = null,
     Object? username = null,
     Object? email = null,
+    Object? firebaseUID = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -97,6 +100,10 @@ class _$UserAuthenticationApiResponseCopyWithImpl<$Res,
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      firebaseUID: null == firebaseUID
+          ? _value.firebaseUID
+          : firebaseUID // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -116,7 +123,8 @@ abstract class _$$UserAuthenticationApiResponseImplCopyWith<$Res>
       String refreshToken,
       int userId,
       String username,
-      String email});
+      String email,
+      String firebaseUID});
 }
 
 /// @nodoc
@@ -138,6 +146,7 @@ class __$$UserAuthenticationApiResponseImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? username = null,
     Object? email = null,
+    Object? firebaseUID = null,
   }) {
     return _then(_$UserAuthenticationApiResponseImpl(
       id: freezed == id
@@ -164,6 +173,10 @@ class __$$UserAuthenticationApiResponseImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      firebaseUID: null == firebaseUID
+          ? _value.firebaseUID
+          : firebaseUID // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -178,7 +191,8 @@ class _$UserAuthenticationApiResponseImpl
       required this.refreshToken,
       required this.userId,
       required this.username,
-      required this.email});
+      required this.email,
+      required this.firebaseUID});
 
   factory _$UserAuthenticationApiResponseImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -196,10 +210,12 @@ class _$UserAuthenticationApiResponseImpl
   final String username;
   @override
   final String email;
+  @override
+  final String firebaseUID;
 
   @override
   String toString() {
-    return 'UserAuthenticationApiResponse(id: $id, accessToken: $accessToken, refreshToken: $refreshToken, userId: $userId, username: $username, email: $email)';
+    return 'UserAuthenticationApiResponse(id: $id, accessToken: $accessToken, refreshToken: $refreshToken, userId: $userId, username: $username, email: $email, firebaseUID: $firebaseUID)';
   }
 
   @override
@@ -215,13 +231,15 @@ class _$UserAuthenticationApiResponseImpl
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.firebaseUID, firebaseUID) ||
+                other.firebaseUID == firebaseUID));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, accessToken, refreshToken, userId, username, email);
+  int get hashCode => Object.hash(runtimeType, id, accessToken, refreshToken,
+      userId, username, email, firebaseUID);
 
   @JsonKey(ignore: true)
   @override
@@ -247,7 +265,8 @@ abstract class _UserAuthenticationApiResponse
       required final String refreshToken,
       required final int userId,
       required final String username,
-      required final String email}) = _$UserAuthenticationApiResponseImpl;
+      required final String email,
+      required final String firebaseUID}) = _$UserAuthenticationApiResponseImpl;
 
   factory _UserAuthenticationApiResponse.fromJson(Map<String, dynamic> json) =
       _$UserAuthenticationApiResponseImpl.fromJson;
@@ -264,6 +283,8 @@ abstract class _UserAuthenticationApiResponse
   String get username;
   @override
   String get email;
+  @override
+  String get firebaseUID;
   @override
   @JsonKey(ignore: true)
   _$$UserAuthenticationApiResponseImplCopyWith<

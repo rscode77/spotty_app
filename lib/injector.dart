@@ -2,10 +2,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
+import 'package:spotty_app/domain/repositories/chat_repository.dart';
 import 'package:spotty_app/domain/repositories/event_repository.dart';
 import 'package:spotty_app/domain/repositories/user_repository.dart';
 import 'package:spotty_app/manager/dio_manager.dart';
-import 'package:spotty_app/services/chat_serivce.dart';
 import 'package:spotty_app/services/common_storage.dart';
 
 import 'services/users_location_service.dart';
@@ -32,6 +32,6 @@ class Injector {
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepository(dio: dio.dio));
     getIt.registerLazySingleton<EventRepository>(() => EventRepository(dio: dio.dio));
     getIt.registerLazySingleton<MapController>(() => MapController());
-    getIt.registerLazySingleton<ChatService>(() => ChatService());
+    getIt.registerLazySingleton<ChatRepository>(() => ChatRepository());
   }
 }

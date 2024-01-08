@@ -5,14 +5,12 @@ import 'package:get_it/get_it.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
 import 'package:spotty_app/domain/repositories/event_repository.dart';
 import 'package:spotty_app/domain/repositories/user_repository.dart';
-import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
 import 'package:spotty_app/presentation/bloc/home/events_bloc.dart';
 import 'package:spotty_app/presentation/bloc/home/settings_bloc.dart';
 import 'package:spotty_app/presentation/pages/home/chat/chat_page.dart';
 import 'package:spotty_app/presentation/pages/home/chat/chats_list_page.dart';
 import 'package:spotty_app/presentation/pages/home/home_page.dart';
 import 'package:spotty_app/presentation/pages/home/settings/settings_page.dart';
-import 'package:spotty_app/services/chat_serivce.dart';
 import 'package:spotty_app/services/common_storage.dart';
 import 'package:spotty_app/services/users_location_service.dart';
 
@@ -56,10 +54,7 @@ abstract class Pages {
   }
 
   static Widget chatsList() {
-    return BlocProvider(
-      create: (context) => ChatBloc(chatService: GetIt.instance.get<ChatService>())..add(ChatInitialEvent()),
-      child: const ChatsListPage(),
-    );
+    return const ChatsListPage();
   }
 
   static Widget chat() {

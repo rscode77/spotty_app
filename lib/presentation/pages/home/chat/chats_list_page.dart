@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotty_app/data/models/user_chat_data_model.dart';
+import 'package:spotty_app/data/models/chat_firebase_model.dart';
+import 'package:spotty_app/data/models/chat_page_arguments.dart';
 import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
+import 'package:spotty_app/routing/routing.dart';
 
 class ChatsListPage extends StatefulWidget {
   const ChatsListPage({super.key});
@@ -16,7 +18,7 @@ class _ChatsListPageState extends State<ChatsListPage> {
   @override
   void initState() {
     super.initState();
-    _chatBloc = context.read<ChatBloc>();
+    _chatBloc = context.read<ChatBloc>()..add(ChatInitialEvent());
   }
 
   @override
@@ -25,23 +27,31 @@ class _ChatsListPageState extends State<ChatsListPage> {
       appBar: AppBar(
         title: Text('Chats'),
       ),
-      body: StreamBuilder<List<UserChats>>(
+      body: StreamBuilder<List<ChatFirebase>>(
         stream: _chatBloc.chatStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            List<UserChats> chatData = snapshot.data ?? [];
+            List<ChatFirebase> chatData = snapshot.data ?? [];
             return ListView.builder(
               itemCount: chatData.length,
               itemBuilder: (context, index) {
-                UserChats chat = chatData[index];
+                ChatFirebase chat = chatData[index];
                 return ListTile(
-                  title: Text('Chat ${chat.lastMessage}'),
+                  title: Text('Chat ${chat.name}'),
                   onTap: () {
-                    // Navigate to chat page
+                    _chatBloc.add(EnterChatEvent(chatId: chat.chatID));
+                    Navigator.of(context).pushNamed(
+                      Routing.chatPage,
+                      arguments: ChatPageArguments(
+                        chatId: chat.chatID,
+                        members: chat.members,
+                        isNewChat: false,
+                      ),
+                    );
                   },
                 );
               },

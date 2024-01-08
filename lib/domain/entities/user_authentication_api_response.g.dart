@@ -15,6 +15,7 @@ _$UserAuthenticationApiResponseImpl
           userId: json['userId'] as int,
           username: json['username'] as String,
           email: json['email'] as String,
+          firebaseUID: json['firebaseUID'] as String,
         );
 
 Map<String, dynamic> _$$UserAuthenticationApiResponseImplToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$UserAuthenticationApiResponseImplToJson(
       'userId': instance.userId,
       'username': instance.username,
       'email': instance.email,
+      'firebaseUID': instance.firebaseUID,
     };
