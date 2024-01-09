@@ -4,7 +4,7 @@ class ChatFirebase {
   String chatID;
   String name;
   List<UserFirebase> members;
-  Map<String, dynamic> lastMessage;
+  String lastMessage;
   bool isGroup;
 
   ChatFirebase({
@@ -14,4 +14,14 @@ class ChatFirebase {
     required this.lastMessage,
     required this.isGroup,
   });
+
+  factory ChatFirebase.fromMap(String chatID, Map<dynamic, dynamic> map) {
+    return ChatFirebase(
+      chatID: chatID,
+      name: map['name'],
+      members: map['members'],
+      lastMessage: map['lastMessage'],
+      isGroup: map['isGroup'],
+    );
+  }
 }

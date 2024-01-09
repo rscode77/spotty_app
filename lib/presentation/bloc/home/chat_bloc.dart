@@ -12,7 +12,8 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository chatRepository;
-  final _chatController = StreamController<List<ChatFirebase>>.broadcast();
+
+  final StreamController<List<ChatFirebase>> _chatController = StreamController<List<ChatFirebase>>.broadcast();
 
   Stream<List<ChatFirebase>> get chatStream => _chatController.stream;
 
@@ -35,7 +36,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     //   text: 'asd',
     // );
 
-    chatRepository.getUserChatsStream(userID: '5').listen((event) {
+    chatRepository.getUserChatsStream(userID: 5).listen((event) {
       _chatController.add(event);
     });
   }

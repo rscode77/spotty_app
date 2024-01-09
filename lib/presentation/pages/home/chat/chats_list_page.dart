@@ -41,17 +41,17 @@ class _ChatsListPageState extends State<ChatsListPage> {
               itemBuilder: (context, index) {
                 ChatFirebase chat = chatData[index];
                 return ListTile(
-                  title: Text('Chat ${chat.name}'),
+                  title: Text('Chat ${chat.chatID}'),
                   onTap: () {
                     _chatBloc.add(EnterChatEvent(chatId: chat.chatID));
-                    Navigator.of(context).pushNamed(
-                      Routing.chatPage,
-                      arguments: ChatPageArguments(
-                        chatId: chat.chatID,
-                        members: chat.members,
-                        isNewChat: false,
-                      ),
-                    );
+                    // Navigator.of(context).pushNamed(
+                    //   Routing.chatPage,
+                    //   arguments: ChatPageArguments(
+                    //     chatId: chat.chatID,
+                    //     members: chat.members,
+                    //     isNewChat: false,
+                    //   ),
+                    // );
                   },
                 );
               },
