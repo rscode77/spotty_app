@@ -20,14 +20,10 @@ class EnterChatEvent extends ChatEvent {
 
 class SendMessageEvent extends ChatEvent {
   final String chatId;
-  final int toUserid;
-  final bool isNewChat;
   final String message;
 
   const SendMessageEvent({
     required this.chatId,
-    required this.toUserid,
-    required this.isNewChat,
     required this.message,
   });
 

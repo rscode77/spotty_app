@@ -30,6 +30,7 @@ class _ChatsListPageState extends State<ChatsListPage> {
       body: StreamBuilder<List<ChatFirebase>>(
         stream: _chatBloc.chatStream,
         builder: (context, snapshot) {
+          print(snapshot.connectionState);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -44,14 +45,14 @@ class _ChatsListPageState extends State<ChatsListPage> {
                   title: Text('Chat ${chat.chatID}'),
                   onTap: () {
                     _chatBloc.add(EnterChatEvent(chatId: chat.chatID));
-                    // Navigator.of(context).pushNamed(
-                    //   Routing.chatPage,
-                    //   arguments: ChatPageArguments(
-                    //     chatId: chat.chatID,
-                    //     members: chat.members,
-                    //     isNewChat: false,
-                    //   ),
-                    // );
+                    Navigator.of(context).pushNamed(
+                      Routing.chatPage,
+                      arguments: ChatPageArguments(
+                        chatId: chat.chatID,
+                        members: chat.members,
+                        isNewChat: false,
+                      ),
+                    );
                   },
                 );
               },

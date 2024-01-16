@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotty_app/data/models/chat_firebase_model.dart';
+import 'package:spotty_app/data/models/chat_message.dart';
 import 'package:spotty_app/data/models/chat_page_arguments.dart';
 import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  const ChatPage({Key? key}) : super(key: key);
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -15,6 +15,7 @@ class _ChatPageState extends State<ChatPage> {
   late final ChatBloc _chatBloc;
   late final ChatPageArguments _args;
   final TextEditingController _messageController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -27,43 +28,68 @@ class _ChatPageState extends State<ChatPage> {
     _args = ModalRoute.of(context)!.settings.arguments as ChatPageArguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: const Text('Chat'),
       ),
       body: _buildBody(),
     );
   }
 
   Widget _buildBody() {
-    return StreamBuilder<List<ChatFirebase>>(
-      stream: _chatBloc.chatStream,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          return _buildChat(snapshot);
-        }
-      },
+    return BlocListener<ChatBloc, ChatState>(
+      listener: _chatStateListener,
+      child: StreamBuilder<List<ChatMessage>>(
+        stream: _chatBloc.chatMessageStream,
+        builder: (context, snapshot) {
+          print(snapshot.connectionState);
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return _buildChat(snapshot);
+          }
+        },
+      ),
     );
   }
 
+  void _chatStateListener(context, state) {
+    if (state is SendMessageStatus) {
+      if (state.status) {
+        _messageController.clear();
+      }
+    }
+  }
+
   Widget _buildChat(snapshot) {
-    List<ChatFirebase> chatData = snapshot.data ?? [];
+    _scrollListView();
+    List<ChatMessage> chatData = snapshot.data ?? [];
     return Column(
       children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: chatData.length,
-          itemBuilder: (context, index) {
-            ChatFirebase message = chatData[index];
-            return _buildMessage('');
-          },
+        Expanded(
+          child: ListView.builder(
+            controller: _scrollController,
+            itemCount: chatData.length,
+            itemBuilder: (context, index) {
+              ChatMessage message = chatData[index];
+              return _buildMessage(message.text);
+            },
+          ),
         ),
-        const Spacer(),
+        const Divider(),
         _buildTextField(),
       ],
     );
+  }
+
+  void _scrollListView(){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOut,
+      );
+    });
   }
 
   Widget _buildMessage(String message) {
@@ -78,12 +104,12 @@ class _ChatPageState extends State<ChatPage> {
         suffixIcon: IconButton(
           icon: const Icon(Icons.send),
           onPressed: () {
-            _chatBloc.add(SendMessageEvent(
-              chatId: _args.chatId,
-              toUserid: 5,
-              isNewChat: _args.isNewChat,
-              message: _messageController.text,
-            ));
+            _chatBloc.add(
+              SendMessageEvent(
+                chatId: _args.chatId,
+                message: _messageController.text,
+              ),
+            );
           },
         ),
       ),
