@@ -21,6 +21,23 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _chatBloc = context.read<ChatBloc>();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_isScrolledToTop()) {
+      print('scroll');
+      context.read<ChatBloc>().add(
+            LoadMoreMessagesEvent(
+              chatId: _args.chatId,
+              startAtKey: _chatBloc.lastMessageKey,
+            ),
+          );
+    }
+  }
+
+  bool _isScrolledToTop() {
+    return _scrollController.position.pixels == _scrollController.position.minScrollExtent;
   }
 
   @override

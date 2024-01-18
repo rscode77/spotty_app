@@ -30,26 +30,39 @@ class ChatRepository {
     });
   }
 
-  Stream<List<ChatMessage>> getChatMessagesStream({required String chatId, String startAtKey = ''}) {
+  Stream<List<ChatMessage>> getChatMessagesStream({
+    required String chatId,
+    String startAtKey = '',
+    int limit = 40,
+    String endAtKey = '',
+  }) {
     DatabaseReference messagesRef = _chatsRef.child(chatId).child('messages');
 
     StreamController<List<ChatMessage>> chatMessagesController = StreamController<List<ChatMessage>>();
-
-    Query messagesQuery = startAtKey.isNotEmpty ? messagesRef.orderByKey().startAt(startAtKey) : messagesRef;
-
     List<ChatMessage> currentMessages = [];
 
-    messagesQuery.onChildAdded.listen((event) {
+    Query messagesQuery;
+
+    if (startAtKey.isNotEmpty) {
+      messagesQuery = messagesRef.orderByKey().startAt(startAtKey);
+    } else if (endAtKey.isNotEmpty) {
+      messagesQuery = messagesRef.orderByKey().endAt(endAtKey);
+    } else {
+      messagesQuery = messagesRef;
+    }
+
+    messagesQuery.limitToLast(limit).onChildAdded.listen((event) {
       Map<dynamic, dynamic>? value = event.snapshot.value as Map<dynamic, dynamic>?;
       if (value != null) {
         ChatMessage newMessage = ChatMessage.fromMap(value);
-        currentMessages.add(newMessage);
+        currentMessages.insert(0, newMessage);
         chatMessagesController.add(List.from(currentMessages));
       }
     });
 
     return chatMessagesController.stream;
   }
+
 
   Future<List<ChatFirebase>> _getUserChats(int userID) async {
     List<ChatFirebase> userChats = [];

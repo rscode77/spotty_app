@@ -30,3 +30,16 @@ class SendMessageEvent extends ChatEvent {
   @override
   List<Object> get props => [chatId, message];
 }
+
+class LoadMoreMessagesEvent extends ChatEvent {
+  final String chatId;
+  final String startAtKey;
+
+  const LoadMoreMessagesEvent({
+    required this.startAtKey,
+    required this.chatId,
+  });
+
+  @override
+  List<Object> get props => [startAtKey, chatId];
+}
