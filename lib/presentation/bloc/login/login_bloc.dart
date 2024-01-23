@@ -36,7 +36,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginUserEvent>(_onLoginUserEvent);
   }
 
+  Future<int?> get loggedInUserId => commonStorage.getInt(CommonStorageKeys.userId);
+
   Future<FutureOr<void>> _onLoginInitialEvent(LoginInitialEvent event, Emitter<LoginState> emit) async {
+    emit(const LoginInputState());
     String? refreshToken = await commonStorage.getString(CommonStorageKeys.refreshToken);
     Response response = await authRepository.refreshTokens(refreshToken.orEmpty());
 
@@ -59,14 +62,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<FutureOr<void>> _onLoginUserEvent(LoginUserEvent event, Emitter<LoginState> emit) async {
+    print(event.username);
+    print(event.password);
     try {
       Response response = await userApiRepository.loginUser(LoginUserRequest(
         username: event.username,
         password: event.password,
       ));
 
+      print(response.data);
+
       if(response.isSuccessful()) {
         ApiResponse apiResponse = ApiResponse.fromJson(response.data);
+        print(apiResponse);
         UserAuthenticationApiResponse userAuth = UserAuthenticationApiResponse.fromJson(
           apiResponse.data as Map<String, dynamic>,
         );

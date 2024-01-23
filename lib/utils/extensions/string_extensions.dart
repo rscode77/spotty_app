@@ -2,6 +2,16 @@ extension StringExtensions on String {
   bool get isBlank => trim().isEmpty;
 
   bool get isNotBlank => !isBlank;
+
+  String removeExtraSpacesAndEmptyLines() {
+    String textWithoutExtraSpaces = replaceAll(RegExp(r'\s+'), ' ');
+
+    List<String> lines = textWithoutExtraSpaces.split('\n');
+    lines.removeWhere((line) => line.trim().isEmpty);
+    String resultText = lines.join('\n');
+
+    return resultText;
+  }
 }
 
 extension NullableStrisngExtensions on String? {

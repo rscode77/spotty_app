@@ -14,10 +14,12 @@ import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
 class LoginViewWidget extends StatefulWidget {
   final Function()? onRegisterPressed;
+  final Function(String, String) onLoginPressed;
 
   const LoginViewWidget({
     super.key,
     required this.onRegisterPressed,
+    required this.onLoginPressed,
   });
 
   @override
@@ -92,12 +94,10 @@ class _LoginViewWidgetState extends State<LoginViewWidget> {
   Widget _buildLoginButton() {
     return AppButton(
       buttonColor: AppColors.black,
-      onPressed: () => context.read<LoginBloc>().add(
-            LoginUserEvent(
-              username: _usernameController.text,
-              password: _passwordController.text,
-            ),
-          ),
+      onPressed: () => widget.onLoginPressed(
+        _usernameController.text,
+        _passwordController.text,
+      ),
       buttonText: S.of(context).login,
     );
   }

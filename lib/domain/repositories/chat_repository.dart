@@ -32,37 +32,28 @@ class ChatRepository {
 
   Stream<List<ChatMessage>> getChatMessagesStream({
     required String chatId,
-    String startAtKey = '',
-    int limit = 40,
-    String endAtKey = '',
+    required int limit,
   }) {
     DatabaseReference messagesRef = _chatsRef.child(chatId).child('messages');
 
     StreamController<List<ChatMessage>> chatMessagesController = StreamController<List<ChatMessage>>();
     List<ChatMessage> currentMessages = [];
 
-    Query messagesQuery;
+    Query messagesQuery = messagesRef.orderByKey().limitToLast(limit);
 
-    if (startAtKey.isNotEmpty) {
-      messagesQuery = messagesRef.orderByKey().startAt(startAtKey);
-    } else if (endAtKey.isNotEmpty) {
-      messagesQuery = messagesRef.orderByKey().endAt(endAtKey);
-    } else {
-      messagesQuery = messagesRef;
-    }
-
-    messagesQuery.limitToLast(limit).onChildAdded.listen((event) {
-      Map<dynamic, dynamic>? value = event.snapshot.value as Map<dynamic, dynamic>?;
-      if (value != null) {
-        ChatMessage newMessage = ChatMessage.fromMap(value);
-        currentMessages.insert(0, newMessage);
-        chatMessagesController.add(List.from(currentMessages));
-      }
-    });
+    messagesQuery.onChildAdded.listen(
+      (event) {
+        Map<dynamic, dynamic>? value = event.snapshot.value as Map<dynamic, dynamic>?;
+        if (value != null) {
+          ChatMessage newMessage = ChatMessage.fromMap(value);
+          currentMessages.insert(0, newMessage);
+          chatMessagesController.add(List.from(currentMessages));
+        }
+      },
+    );
 
     return chatMessagesController.stream;
   }
-
 
   Future<List<ChatFirebase>> _getUserChats(int userID) async {
     List<ChatFirebase> userChats = [];
@@ -104,7 +95,11 @@ class ChatRepository {
     return userChats;
   }
 
-  Future<void> sendMessage(String chatID, int senderID, String text) async {
+  Future<void> sendMessage({
+    required String chatID,
+    required int senderID,
+    required String text,
+  }) async {
     try {
       DatabaseReference messagesRef = _chatsRef.child(chatID).child('messages');
       DatabaseReference newMessageRef = messagesRef.push();
@@ -125,8 +120,8 @@ class ChatRepository {
 
   Future<void> addUserToChat(String chatID, int userID) async {
     try {
-      await _chatsRef.child(chatID).child('members').update({userID.toString(): true});
-      await _usersRef.child(userID.toString()).child('chats').update({chatID: true});
+      await _chatsRef.child(chatID).child('members').set(userID);
+      await _usersRef.child(userID.toString()).child('chats').set({chatID: true});
     } catch (error) {
       print("Error adding user to chat: $error");
       throw error;
@@ -136,7 +131,7 @@ class ChatRepository {
   Future<String> createChat({
     required int creatorID,
     required String chatName,
-    required List<String> memberIDs,
+    required List<int> memberIDs,
     required bool isGroup,
   }) async {
     try {
@@ -151,7 +146,9 @@ class ChatRepository {
 
       await newChatRef.set(chatData);
 
-      addUserToChat(newChatID, creatorID);
+      for(int member in memberIDs){
+        await addUserToChat(newChatID, member);
+      }
 
       return newChatID;
     } catch (error) {

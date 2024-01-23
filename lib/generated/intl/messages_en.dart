@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Hasło"),
         "register": MessageLookupByLibrary.simpleMessage("Zarejestruj się"),
         "repeatPassword": MessageLookupByLibrary.simpleMessage("Powtórz hasło"),
-        "username": MessageLookupByLibrary.simpleMessage("Nazwa użytkownika")
+        "username": MessageLookupByLibrary.simpleMessage("Nazwa użytkownika"),
+        "writeMessage":
+            MessageLookupByLibrary.simpleMessage("Napisz wiadomość...")
       };
 }

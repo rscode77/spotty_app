@@ -129,6 +129,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Napisz wiadomość...`
+  String get writeMessage {
+    return Intl.message(
+      'Napisz wiadomość...',
+      name: 'writeMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -63,6 +63,22 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoginView() {
     return LoginViewWidget(
       onRegisterPressed: () => {},
+      onLoginPressed: (username, password) => _onLoginPressed(
+        username: username,
+        password: password,
+      ),
     );
+  }
+
+  void _onLoginPressed({
+    required String username,
+    required String password,
+  }) {
+    context.read<LoginBloc>().add(
+          LoginUserEvent(
+            username: username,
+            password: password,
+          ),
+        );
   }
 }

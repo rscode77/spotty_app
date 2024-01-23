@@ -28,6 +28,7 @@ class AppTextField extends StatelessWidget {
         maxHeight: controller.errorText.isNullOrBlank ? 55 : 80,
       ),
       child: TextField(
+        controller: controller,
         style:  TextStyle(
           color: AppColors.black,
           fontSize: 15,
