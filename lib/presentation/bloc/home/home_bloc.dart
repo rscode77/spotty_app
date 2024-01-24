@@ -77,8 +77,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       commonStorage.putString(CommonStorageKeys.accessToken, tokens.accessToken);
       commonStorage.putString(CommonStorageKeys.refreshToken, tokens.refreshToken);
-
-      print('token refreshed');
     }
   }
 

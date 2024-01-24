@@ -1,5 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
-
 class ChatMessage {
   final String text;
   final int timestamp;
@@ -12,6 +10,15 @@ class ChatMessage {
     required this.senderID,
     required this.readBy,
   });
+
+  ChatMessage copyWith({String? text}) {
+    return ChatMessage(
+      text: text ?? this.text,
+      timestamp: timestamp,
+      senderID: senderID,
+      readBy: readBy,
+    );
+  }
 
   factory ChatMessage.fromMap(Map<dynamic, dynamic> map) {
     return ChatMessage(

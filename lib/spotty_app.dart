@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +48,7 @@ class _SpottyAppState extends State<SpottyApp> {
 
   void _initChatBloc() {
     _chatBloc = ChatBloc(
+      loginBloc: _loginBloc,
       chatRepository: GetIt.instance.get<ChatRepository>(),
     );
   }

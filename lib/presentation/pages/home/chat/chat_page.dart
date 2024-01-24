@@ -19,14 +19,21 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  late final ChatPageArguments _args;
   late final ChatBloc _chatBloc;
   late final LoginBloc _loginBloc;
   late int _loggedInUserId;
   late double _screenWidth;
-  late final ChatPageArguments _args;
 
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _args = ModalRoute.of(context)!.settings.arguments as ChatPageArguments;
+    _screenWidth = MediaQuery.of(context).size.width;
+  }
 
   @override
   void initState() {
@@ -34,11 +41,9 @@ class _ChatPageState extends State<ChatPage> {
     _scrollController.addListener(_onScroll);
     _chatBloc = context.read<ChatBloc>();
     _loginBloc = context.read<LoginBloc>();
-    _loginBloc.loggedInUserId.then((value) => _loggedInUserId = value.orZero());
+    _loggedInUserId = _loginBloc.loggedInUserId;
 
     Future.delayed(Duration.zero, () {
-      _screenWidth = MediaQuery.of(context).size.width;
-      _args = ModalRoute.of(context)!.settings.arguments as ChatPageArguments;
       SchedulerBinding.instance.addPostFrameCallback((_) => _scrollDownListView());
     });
   }
@@ -68,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat'),
+        title: Text(_args.chatName),
       ),
       body: _buildBody(),
     );
@@ -80,7 +85,6 @@ class _ChatPageState extends State<ChatPage> {
       child: StreamBuilder<List<ChatMessage>>(
         stream: _chatBloc.chatMessageStream,
         builder: (context, snapshot) {
-          print(snapshot.connectionState);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -198,9 +202,9 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  void _sendMessage(){
+  void _sendMessage() {
     _messageController.text = _messageController.text.removeExtraSpacesAndEmptyLines();
-    if(_messageController.text.trim().isEmpty) return;
+    if (_messageController.text.trim().isEmpty) return;
     _chatBloc.add(
       SendMessageEvent(
         chatId: _args.chatId,

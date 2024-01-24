@@ -4,13 +4,17 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:spotty_app/data/models/chat_firebase_model.dart';
 import 'package:spotty_app/data/models/chat_message.dart';
 import 'package:spotty_app/data/models/user_firebase_model.dart';
+import 'package:spotty_app/services/encryption_service.dart';
 
 class ChatRepository {
   final DatabaseReference _chatsRef = FirebaseDatabase.instance.ref().child('chats');
   final DatabaseReference _usersRef = FirebaseDatabase.instance.ref().child('users');
 
   Stream<List<ChatFirebase>> getUserChatsStream({required int userID}) {
-    return _chatsRef.orderByChild('lastMessage/timestamp').onValue.asyncMap((event) async {
+    return _chatsRef
+        .orderByChild('lastMessage/timestamp')
+        .onValue
+        .asyncMap((event) async {
       List<ChatFirebase> userChats = await _getUserChats(userID);
       return userChats;
     });
@@ -42,12 +46,12 @@ class ChatRepository {
     Query messagesQuery = messagesRef.orderByKey().limitToLast(limit);
 
     messagesQuery.onChildAdded.listen(
-      (event) {
+          (event) {
         Map<dynamic, dynamic>? value = event.snapshot.value as Map<dynamic, dynamic>?;
         if (value != null) {
           ChatMessage newMessage = ChatMessage.fromMap(value);
-          currentMessages.insert(0, newMessage);
-          chatMessagesController.add(List.from(currentMessages));
+          currentMessages.insert(0, newMessage.copyWith(text: EncryptionService().decryptData(newMessage.text)));
+              chatMessagesController.add(List.from(currentMessages));
         }
       },
     );
@@ -80,7 +84,7 @@ class ChatRepository {
             ChatFirebase(
               chatID: chatID,
               isGroup: chatDetails['isGroup'],
-              members: [],
+              members: (chatDetails['members'] as List).map((item) => int.parse(item.toString())).toList(),
               name: chatDetails['name'],
               lastMessage: lastMessage,
             ),
@@ -98,15 +102,17 @@ class ChatRepository {
   Future<void> sendMessage({
     required String chatID,
     required int senderID,
-    required String text,
+    required String message,
   }) async {
     try {
       DatabaseReference messagesRef = _chatsRef.child(chatID).child('messages');
       DatabaseReference newMessageRef = messagesRef.push();
 
-      int timestamp = DateTime.now().millisecondsSinceEpoch;
+      int timestamp = DateTime
+          .now()
+          .millisecondsSinceEpoch;
       Map<String, dynamic> newMessage = {
-        'text': text,
+        'text': EncryptionService().encrypt(message),
         'timestamp': timestamp,
         'sender': senderID,
         'readBy': {senderID: true},
@@ -146,7 +152,7 @@ class ChatRepository {
 
       await newChatRef.set(chatData);
 
-      for(int member in memberIDs){
+      for (int member in memberIDs) {
         await addUserToChat(newChatID, member);
       }
 

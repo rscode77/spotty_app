@@ -51,6 +51,7 @@ class _ChatsListPageState extends State<ChatsListPage> {
                         chatId: chat.chatID,
                         members: chat.membersData,
                         isNewChat: false,
+                        chatName: chat.name,
                       ),
                     );
                   },

@@ -15,14 +15,4 @@ class ChatFirebase {
     required this.lastMessage,
     required this.isGroup,
   });
-
-  factory ChatFirebase.fromMap(String chatID, Map<dynamic, dynamic> map) {
-    return ChatFirebase(
-      chatID: chatID,
-      name: map['name'],
-      members: (map['members'] as List).cast<int>(),
-      lastMessage: map['lastMessage'],
-      isGroup: map['isGroup'],
-    );
-  }
 }

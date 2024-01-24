@@ -26,6 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository authRepository;
   final CommonStorage commonStorage;
   final UserRepository userApiRepository;
+  late final int loggedInUserId;
 
   LoginBloc({
     required this.authRepository,
@@ -35,8 +36,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginInitialEvent>(_onLoginInitialEvent);
     on<LoginUserEvent>(_onLoginUserEvent);
   }
-
-  Future<int?> get loggedInUserId => commonStorage.getInt(CommonStorageKeys.userId);
 
   Future<FutureOr<void>> _onLoginInitialEvent(LoginInitialEvent event, Emitter<LoginState> emit) async {
     emit(const LoginInputState());
@@ -52,6 +51,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       commonStorage.putString(CommonStorageKeys.accessToken, tokens.accessToken);
       commonStorage.putString(CommonStorageKeys.refreshToken, tokens.refreshToken);
 
+      loggedInUserId = await commonStorage.getInt(CommonStorageKeys.userId) ?? 0;
+
       emit(const LoginResultState(
         isSuccess: true,
       ));
@@ -62,19 +63,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<FutureOr<void>> _onLoginUserEvent(LoginUserEvent event, Emitter<LoginState> emit) async {
-    print(event.username);
-    print(event.password);
     try {
       Response response = await userApiRepository.loginUser(LoginUserRequest(
         username: event.username,
         password: event.password,
       ));
 
-      print(response.data);
-
       if(response.isSuccessful()) {
         ApiResponse apiResponse = ApiResponse.fromJson(response.data);
-        print(apiResponse);
         UserAuthenticationApiResponse userAuth = UserAuthenticationApiResponse.fromJson(
           apiResponse.data as Map<String, dynamic>,
         );
@@ -84,6 +80,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         commonStorage.putInt(CommonStorageKeys.userId, userAuth.userId);
         commonStorage.putString(CommonStorageKeys.accessToken, userAuth.accessToken);
         commonStorage.putString(CommonStorageKeys.refreshToken, userAuth.refreshToken);
+
+        loggedInUserId = userAuth.userId;
 
         UserAuth loggedInUser = userAuth.mapToUser();
 
