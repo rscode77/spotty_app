@@ -35,6 +35,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }) : super(LoginInitial()) {
     on<LoginInitialEvent>(_onLoginInitialEvent);
     on<LoginUserEvent>(_onLoginUserEvent);
+    add(const LoginInitialEvent());
   }
 
   Future<FutureOr<void>> _onLoginInitialEvent(LoginInitialEvent event, Emitter<LoginState> emit) async {

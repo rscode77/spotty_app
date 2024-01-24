@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotty_app/data/models/chat_firebase_model.dart';
 import 'package:spotty_app/data/models/chat_page_arguments.dart';
+import 'package:spotty_app/data/models/user_firebase_model.dart';
 import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
+import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
 import 'package:spotty_app/routing/routing.dart';
+import 'package:spotty_app/utils/extensions/string_extensions.dart';
 
 class ChatsListPage extends StatefulWidget {
   const ChatsListPage({super.key});
@@ -14,10 +17,14 @@ class ChatsListPage extends StatefulWidget {
 
 class _ChatsListPageState extends State<ChatsListPage> {
   late final ChatBloc _chatBloc;
+  late final LoginBloc _loginBloc;
+
+  int get _loggedInUserId => _loginBloc.loggedInUserId;
 
   @override
   void initState() {
     super.initState();
+    _loginBloc = context.read<LoginBloc>();
     _chatBloc = context.read<ChatBloc>()..add(ChatInitialEvent());
   }
 
@@ -43,6 +50,8 @@ class _ChatsListPageState extends State<ChatsListPage> {
                 ChatFirebase chat = chatData[index];
                 return ListTile(
                   title: Text(chat.name),
+                  subtitle: Text('test'),
+                  leading: _onlineStatus(chat.membersData),
                   onTap: () {
                     _chatBloc.add(EnterChatEvent(chatId: chat.chatID));
                     Navigator.of(context).pushNamed(
@@ -61,6 +70,32 @@ class _ChatsListPageState extends State<ChatsListPage> {
           }
         },
       ),
+    );
+  }
+
+  Widget _onlineStatus(List<UserFirebase> members) {
+    int userId = members.firstWhere((member) => member.userId.toInt() != _loggedInUserId).userId.toInt();
+    return StreamBuilder<List<UserFirebase>>(
+      stream: _chatBloc.usersStream,
+      builder: (context, snapshot) {
+        print(snapshot.data);
+        if (snapshot.hasData) {
+          var user = snapshot.data!.firstWhere((member) => member.userId.toInt() == userId);
+          if (user.isOnline) {
+            return Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 4.0,
+              ),
+              width: 10,
+              height: 10,
+              child: const CircleAvatar(
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }

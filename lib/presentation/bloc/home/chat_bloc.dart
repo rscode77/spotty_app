@@ -20,6 +20,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   final StreamController<List<ChatFirebase>> _chatController = StreamController<List<ChatFirebase>>.broadcast();
   final StreamController<List<UserFirebase>> _usersController = StreamController<List<UserFirebase>>.broadcast();
+
   StreamController<List<ChatMessage>> _chatMessageController = StreamController<List<ChatMessage>>.broadcast();
 
   Stream<List<ChatFirebase>> get chatStream => _chatController.stream;
@@ -54,7 +55,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (users != null && chats != null) {
       for (ChatFirebase chat in chats) {
         if (!chat.isGroup) {
-          final int participant = chat.members.where((member) => member != loginBloc.loggedInUserId).first;
+          final int participant = chat.members
+              .where((member) => member != loginBloc.loggedInUserId)
+              .first;
 
           chat.membersData.addAll(chat.members.map((member) {
             return users.firstWhere((user) => user.userId.toInt() == member);
@@ -65,6 +68,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         }
       }
 
+      _usersController.add(users);
       _chatController.add(chats);
     }
   }

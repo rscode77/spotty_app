@@ -32,7 +32,7 @@ class _SpottyAppState extends State<SpottyApp> {
     _initializeApp();
   }
 
-  Future<void> _initializeApp() async {
+  void _initializeApp()  {
     _initLoginBloc();
     _initChatBloc();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -43,7 +43,7 @@ class _SpottyAppState extends State<SpottyApp> {
       authRepository: GetIt.instance.get<AuthRepository>(),
       commonStorage: GetIt.instance.get<CommonStorage>(),
       userApiRepository: GetIt.instance.get<UserRepository>(),
-    )..add(const LoginInitialEvent());
+    );
   }
 
   void _initChatBloc() {
