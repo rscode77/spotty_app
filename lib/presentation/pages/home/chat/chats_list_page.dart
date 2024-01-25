@@ -35,7 +35,7 @@ class _ChatsListPageState extends State<ChatsListPage> {
         title: Text('Chats'),
       ),
       body: StreamBuilder<List<ChatFirebase>>(
-        stream: _chatBloc.chatStream,
+        stream: context.read<ChatBloc>().chatStream,
         builder: (context, snapshot) {
           print(snapshot.connectionState);
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -49,7 +49,7 @@ class _ChatsListPageState extends State<ChatsListPage> {
               itemBuilder: (context, index) {
                 ChatFirebase chat = chatData[index];
                 return ListTile(
-                  title: Text(chat.name),
+                  title: Text(chat.membersData[0].username),
                   subtitle: Text('test'),
                   leading: _onlineStatus(chat.membersData),
                   onTap: () {
@@ -76,23 +76,17 @@ class _ChatsListPageState extends State<ChatsListPage> {
   Widget _onlineStatus(List<UserFirebase> members) {
     int userId = members.firstWhere((member) => member.userId.toInt() != _loggedInUserId).userId.toInt();
     return StreamBuilder<List<UserFirebase>>(
-      stream: _chatBloc.usersStream,
+      stream: context.read<ChatBloc>().usersStream,
       builder: (context, snapshot) {
-        print(snapshot.data);
-        if (snapshot.hasData) {
-          var user = snapshot.data!.firstWhere((member) => member.userId.toInt() == userId);
-          if (user.isOnline) {
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 4.0,
-              ),
-              width: 10,
-              height: 10,
-              child: const CircleAvatar(
-                backgroundColor: Colors.green,
-              ),
-            );
-          }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // display a loading indicator
+        }
+        if (snapshot.hasError) {
+          print('Stream error: ${snapshot.error}');
+          return Text('Error: ${snapshot.error}');
+        }
+        if (snapshot.data != null) {
+          // use snapshot.data here
         }
         return const SizedBox.shrink();
       },

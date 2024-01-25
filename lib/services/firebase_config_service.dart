@@ -22,7 +22,6 @@ class FirebaseRemoteConfigService {
     await _setConfigSettings();
     await _setDefaults();
     await _fetchAndActivate();
-    print(_remoteConfig.getString(FirebaseConfigKeys.encryptionKey));
   }
 
   Future<void> _setConfigSettings() async => _remoteConfig.setConfigSettings(

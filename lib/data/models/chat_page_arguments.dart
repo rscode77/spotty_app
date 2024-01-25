@@ -7,9 +7,9 @@ class ChatPageArguments {
   final String chatName;
 
   ChatPageArguments({
-    required this.chatId,
-    required this.members,
-    required this.isNewChat,
-    required this.chatName,
+    this.chatId = '',
+    this.members = const [],
+    this.isNewChat = false,
+    this.chatName = '',
   });
 }

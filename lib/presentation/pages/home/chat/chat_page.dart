@@ -19,7 +19,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  late final ChatPageArguments _args;
   late final ChatBloc _chatBloc;
   late final LoginBloc _loginBloc;
   late int _loggedInUserId;
@@ -28,11 +27,13 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
+  ChatPageArguments _args = ChatPageArguments();
+
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     _args = ModalRoute.of(context)!.settings.arguments as ChatPageArguments;
     _screenWidth = MediaQuery.of(context).size.width;
+    super.didChangeDependencies();
   }
 
   @override
@@ -208,7 +209,7 @@ class _ChatPageState extends State<ChatPage> {
 
   void _sendMessage() {
     _messageController.text = _messageController.text.removeExtraSpacesAndEmptyLines();
-    if (_messageController.text.trim().isEmpty) return;
+    if (_messageController.text.isEmpty) return;
     _chatBloc.add(
       SendMessageEvent(
         chatId: _args.chatId,

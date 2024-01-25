@@ -61,6 +61,7 @@ dependencies:
   firebase_analytics: ^10.8.0
   pointycastle: ^3.7.4
   encrypt_decrypt_plus: ^1.1.0
+  rxdart: ^0.27.7
 
 dev_dependencies:
   copy_with_extension_gen: ^5.0.0
