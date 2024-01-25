@@ -51,7 +51,7 @@ class ChatRepository {
         if (value != null) {
           ChatMessage newMessage = ChatMessage.fromMap(value);
           currentMessages.insert(0, newMessage.copyWith(text: EncryptionService().decryptData(newMessage.text)));
-              chatMessagesController.add(List.from(currentMessages));
+          chatMessagesController.add(List.from(currentMessages));
         }
       },
     );
@@ -61,24 +61,21 @@ class ChatRepository {
 
   Future<List<ChatFirebase>> _getUserChats(int userID) async {
     List<ChatFirebase> userChats = [];
-    // Pobierz czaty danego użytkownika
+
     final DatabaseEvent chatsSnapshot = await _usersRef.child('$userID/chats').once();
     if (chatsSnapshot.snapshot.value is Map) {
       final Map<dynamic, dynamic> chatData = chatsSnapshot.snapshot.value as Map<dynamic, dynamic>;
-      // Iteruj przez czaty
+
       for (var entry in chatData.entries) {
         String chatID = entry.key;
-        // Pobierz dane dla każdego czatu
+
         final DatabaseEvent chatSnapshot = await _chatsRef.child(chatID).once();
 
         if (chatSnapshot.snapshot.value is Map) {
           final Map<dynamic, dynamic> chatDetails = chatSnapshot.snapshot.value as Map<dynamic, dynamic>;
 
-          // Pobierz ostatnią wiadomość
-          String lastMessage = '';
-          if (chatDetails['lastMessage'] is String) {
-            lastMessage = chatDetails['lastMessage'];
-          }
+          Stream<ChatMessage> lastMessageStream = _getLastMessage(chatID);
+          ChatMessage lastMessage = await lastMessageStream.first;
 
           userChats.add(
             ChatFirebase(
@@ -86,7 +83,10 @@ class ChatRepository {
               isGroup: chatDetails['isGroup'],
               members: (chatDetails['members'] as List).map((item) => int.parse(item.toString())).toList(),
               name: chatDetails['name'],
-              lastMessage: lastMessage,
+              lastMessage: lastMessage.text,
+              lastMessageId: lastMessage.messageId,
+              lastMessageTimestamp: lastMessage.timestamp,
+              isLastMessageRead: lastMessage.readBy.containsKey(userID.toString()),
             ),
           );
         } else if (chatSnapshot.snapshot.value is List) {
@@ -97,6 +97,26 @@ class ChatRepository {
       print('Brak czatów dla użytkownika o ID $userID');
     }
     return userChats;
+  }
+
+  Stream<ChatMessage> _getLastMessage(String chatId) {
+    DatabaseReference messagesRef = _chatsRef.child(chatId).child('messages');
+
+    return messagesRef.orderByKey().limitToLast(1).onValue.map((event) {
+      if (event.snapshot.value is Map<dynamic, dynamic>) {
+        Map<dynamic, dynamic> value = event.snapshot.value as Map<dynamic, dynamic>;
+        String lastKey = value.keys.elementAt(0);
+        Map<dynamic, dynamic> lastMessageData = value[lastKey];
+
+        ChatMessage lastMessage = ChatMessage.fromMap(lastMessageData);
+        return lastMessage.copyWith(
+          messageId: lastKey,
+          text: EncryptionService().decryptData(lastMessage.text),
+        );
+      }
+
+      throw Exception('No messages found for chat $chatId');
+    });
   }
 
   Future<void> sendMessage({
@@ -159,6 +179,20 @@ class ChatRepository {
       return newChatID;
     } catch (error) {
       print("Error creating chat: $error");
+      throw error;
+    }
+  }
+
+  Future<void> markMessageAsRead({
+    required String chatId,
+    required String messageId,
+    required int userId,
+  }) async {
+    try {
+      DatabaseReference readByRef = _chatsRef.child(chatId).child('messages').child(messageId).child('readBy');
+      await readByRef.update({userId.toString(): true});
+    } catch (error) {
+      print("Error marking message as read: $error");
       throw error;
     }
   }

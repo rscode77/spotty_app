@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get_it/get_it.dart';
+import 'package:spotty_app/data/models/chat_page_arguments.dart';
 import 'package:spotty_app/domain/repositories/auth_repository.dart';
 import 'package:spotty_app/domain/repositories/event_repository.dart';
 import 'package:spotty_app/domain/repositories/user_repository.dart';

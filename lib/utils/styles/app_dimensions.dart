@@ -18,6 +18,7 @@ class _Height {
   final double dropDownButtonHeight = 46.0;
   final double buttonHeight = 46.0;
   final double navigationBar = 55.0;
+  final double chatHeight = 60.0;
 }
 
 class _Margin {

@@ -1,15 +1,15 @@
 import 'package:spotty_app/data/models/user_firebase_model.dart';
 
 class ChatPageArguments {
-  final String chatId;
-  final List<UserFirebase> members;
-  final bool isNewChat;
+  final String chatID;
   final String chatName;
+  final bool isOnline;
+  final List<UserFirebase> members;
 
   ChatPageArguments({
-    this.chatId = '',
-    this.members = const [],
-    this.isNewChat = false,
-    this.chatName = '',
+    required this.chatID,
+    required this.chatName,
+    required this.members,
+    required this.isOnline,
   });
 }

@@ -18,6 +18,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   final StreamController<List<ChatFirebase>> _chatController = StreamController<List<ChatFirebase>>.broadcast();
   final StreamController<List<UserFirebase>> _usersController = StreamController<List<UserFirebase>>.broadcast();
+
   StreamController<List<ChatMessage>> _chatMessageController = StreamController<List<ChatMessage>>.broadcast();
 
   Stream<List<ChatFirebase>> get chatStream => _chatController.stream;
@@ -34,6 +35,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<EnterChatEvent>(_onEnterChatEvent);
     on<LoadMoreMessagesEvent>(_onLoadMoreMessagesEvent);
     on<SendMessageEvent>(_onSendMessageEvent);
+    on<MarkMessageAsReadEvent>(_onMarkMessageAsReadEvent);
   }
 
   Future<void> _onChatInitialEvent(ChatInitialEvent event, Emitter<ChatState> emit) async {
@@ -69,7 +71,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       chatRepository.sendMessage(
         chatID: event.chatId,
-        senderID: 5,
+        senderID: loginBloc.loggedInUserId,
         message: event.message,
       );
       emit(const SendMessageStatus(true));
@@ -82,18 +84,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void _updateChatData(List<ChatFirebase> chats, List<UserFirebase> users) {
     for (ChatFirebase chat in chats) {
+      chat.membersData.addAll(chat.members.map((member) {
+        return users.firstWhere((user) => user.userId.toInt() == member);
+      }));
+
+      final int participant = chat.members.where((member) => member != loginBloc.loggedInUserId).first;
+
+      final bool isOnline = users.firstWhere((user) => user.userId.toInt() == participant).isOnline;
+      final int avatar = users.firstWhere((user) => user.userId.toInt() == participant).avatarId;
+
+      chat.avatar = avatar;
+      chat.isOnline = isOnline;
+
       if (!chat.isGroup) {
-        final int participant = chat.members.where((member) => member != loginBloc.loggedInUserId).first;
-
-        chat.membersData.addAll(chat.members.map((member) {
-          return users.firstWhere((user) => user.userId.toInt() == member);
-        }));
-
         final UserFirebase user = chat.membersData.firstWhere((user) => user.userId.toInt() == participant);
         chat.name = user.username;
       }
     }
-
     _usersController.add(users);
     _chatController.add(chats);
   }
@@ -106,6 +113,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     await for (final chatMessages in chatMessagesStream) {
       _chatMessageController.add(chatMessages);
     }
+  }
+
+  FutureOr<void> _onMarkMessageAsReadEvent(MarkMessageAsReadEvent event, Emitter<ChatState> emit) {
+    chatRepository.markMessageAsRead(
+      chatId: event.chatId,
+      messageId: event.messageId,
+      userId: loginBloc.loggedInUserId,
+    );
   }
 
   @override

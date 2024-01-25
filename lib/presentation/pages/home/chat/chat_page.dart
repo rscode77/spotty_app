@@ -3,12 +3,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotty_app/data/models/chat_message.dart';
 import 'package:spotty_app/data/models/chat_page_arguments.dart';
-import 'package:spotty_app/data/models/user_firebase_model.dart';
 import 'package:spotty_app/generated/l10n.dart';
 import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
 import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
 import 'package:spotty_app/utils/extensions/sized_box_extension.dart';
 import 'package:spotty_app/utils/extensions/string_extensions.dart';
+import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
 class ChatPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  ChatPageArguments _args = ChatPageArguments();
+  late ChatPageArguments? _args;
 
   @override
   void didChangeDependencies() {
@@ -60,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
     if (_isScrolledToTop()) {
       _chatBloc.add(
         LoadMoreMessagesEvent(
-          chatId: _args.chatId,
+          chatId: _args!.chatID,
         ),
       );
     }
@@ -73,14 +73,30 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Text(_args.chatName),
-          const Space.horizontal(4.0),
-          const Space.horizontal(8.0),
-        ],
-      ),
+      appBar: _buildAppBar(),
       body: _buildBody(),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      actions: [
+        _onlineStatus(_args!.isOnline),
+        const Space.horizontal(8.0),
+        Text(_args!.chatName),
+        const Space.horizontal(8.0),
+      ],
+    );
+  }
+
+  Widget _onlineStatus(bool isOnline) {
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(
+        color: isOnline ? AppColors.green : AppColors.gray,
+        shape: BoxShape.circle,
+      ),
     );
   }
 
@@ -212,7 +228,7 @@ class _ChatPageState extends State<ChatPage> {
     if (_messageController.text.isEmpty) return;
     _chatBloc.add(
       SendMessageEvent(
-        chatId: _args.chatId,
+        chatId: _args!.chatID,
         message: _messageController.text,
       ),
     );

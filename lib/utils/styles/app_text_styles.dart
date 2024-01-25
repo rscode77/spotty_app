@@ -19,6 +19,30 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle chatTitle({
+    Color color = AppColors.black,
+    double fontSize = 15.0,
+    FontWeight fontWeight = FontWeight.w400,
+  }) {
+    return TextStyle(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+    );
+  }
+
+  static TextStyle chatMessage({
+    Color color = AppColors.black,
+    double fontSize = 13.0,
+    FontWeight fontWeight = FontWeight.w400,
+  }) {
+    return TextStyle(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+    );
+  }
+
   static TextStyle title({
     Color color = AppColors.black,
     TextDecoration? decoration,

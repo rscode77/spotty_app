@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "login": MessageLookupByLibrary.simpleMessage("Zaloguj"),
         "logout": MessageLookupByLibrary.simpleMessage("Wyloguj"),
+        "message": MessageLookupByLibrary.simpleMessage("Wiadomość"),
         "password": MessageLookupByLibrary.simpleMessage("Hasło"),
         "register": MessageLookupByLibrary.simpleMessage("Zarejestruj się"),
         "repeatPassword": MessageLookupByLibrary.simpleMessage("Powtórz hasło"),
