@@ -10,6 +10,7 @@ class EventApiResponse with _$EventApiResponse {
     required String title,
     required String description,
     required String picture,
+    required String address,
     required DateTime date,
     required double latitude,
     required double longitude,

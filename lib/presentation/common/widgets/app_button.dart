@@ -7,12 +7,14 @@ class AppButton extends StatelessWidget {
   final Function()? onPressed;
   final String buttonText;
   final Color buttonColor;
+  final Color buttonTextColor;
 
   const AppButton({
     super.key,
     required this.onPressed,
     required this.buttonText,
     required this.buttonColor,
+    this.buttonTextColor = AppColors.white,
   });
 
   @override
@@ -22,12 +24,13 @@ class AppButton extends StatelessWidget {
       width: AppDimensions.width.buttonWidth,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          elevation: 0,
           textStyle:  TextStyle(
             fontSize: 15.0,
             fontWeight: FontWeight.w500,
             fontStyle: GoogleFonts.roboto().fontStyle,
           ),
-          foregroundColor: AppColors.white,
+          foregroundColor: buttonTextColor,
           backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimensions.defaultRadius),

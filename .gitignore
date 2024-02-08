@@ -2,3 +2,9 @@
 build*
 build/**
 .idea
+android/app/src/main/
+android/app/src/main/*
+android/app/src/main/**
+android/app/src/main/AndroidManifest.xml
+android/app/src/main*
+android/app/src/main**

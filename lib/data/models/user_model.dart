@@ -6,7 +6,7 @@ class User {
   final String username;
   final String email;
   final bool isOnline;
-  final int avatarId;
+  final String avatar;
   final int defaultVehicle;
   final bool userConfirmed;
   final bool isBanned;
@@ -23,7 +23,7 @@ class User {
     required this.username,
     required this.email,
     required this.isOnline,
-    required this.avatarId,
+    required this.avatar,
     required this.defaultVehicle,
     required this.userConfirmed,
     required this.isBanned,
@@ -42,7 +42,7 @@ class User {
       username: '',
       email: '',
       isOnline: false,
-      avatarId: 0,
+      avatar: '',
       defaultVehicle: 0,
       userConfirmed: false,
       isBanned: false,

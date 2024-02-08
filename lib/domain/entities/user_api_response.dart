@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spotty_app/domain/entities/event_api_response.dart';
 import 'package:spotty_app/domain/entities/vehicle_api_response.dart';
 
 part 'user_api_response.freezed.dart';
@@ -12,7 +11,7 @@ class UserApiResponse with _$UserApiResponse {
     required String username,
     required String email,
     required bool isOnline,
-    required int avatarId,
+    required String avatar,
     required int defaultVehicle,
     required bool userConfirmed,
     required bool isBanned,

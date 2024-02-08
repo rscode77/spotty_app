@@ -4,11 +4,11 @@ class ChatFirebase {
   List<int> members;
   List<UserFirebase> membersData = [];
   String chatID;
-  String name;
-  String lastMessage;
-  String lastMessageId;
+  String? name;
+  String? lastMessage;
+  String? lastMessageId;
   int avatar = 0;
-  int lastMessageTimestamp;
+  int? lastMessageTimestamp;
   bool isOnline = false;
   bool isGroup;
   bool isLastMessageRead;

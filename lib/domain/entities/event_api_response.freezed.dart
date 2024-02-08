@@ -24,6 +24,7 @@ mixin _$EventApiResponse {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get picture => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $EventApiResponseCopyWith<$Res> {
       String title,
       String description,
       String picture,
+      String address,
       DateTime date,
       double latitude,
       double longitude,
@@ -79,6 +81,7 @@ class _$EventApiResponseCopyWithImpl<$Res, $Val extends EventApiResponse>
     Object? title = null,
     Object? description = null,
     Object? picture = null,
+    Object? address = null,
     Object? date = null,
     Object? latitude = null,
     Object? longitude = null,
@@ -105,6 +108,10 @@ class _$EventApiResponseCopyWithImpl<$Res, $Val extends EventApiResponse>
       picture: null == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
       date: null == date
           ? _value.date
@@ -159,6 +166,7 @@ abstract class _$$EventApiResponseImplCopyWith<$Res>
       String title,
       String description,
       String picture,
+      String address,
       DateTime date,
       double latitude,
       double longitude,
@@ -185,6 +193,7 @@ class __$$EventApiResponseImplCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? picture = null,
+    Object? address = null,
     Object? date = null,
     Object? latitude = null,
     Object? longitude = null,
@@ -211,6 +220,10 @@ class __$$EventApiResponseImplCopyWithImpl<$Res>
       picture: null == picture
           ? _value.picture
           : picture // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
       date: null == date
           ? _value.date
@@ -260,6 +273,7 @@ class _$EventApiResponseImpl implements _EventApiResponse {
       required this.title,
       required this.description,
       required this.picture,
+      required this.address,
       required this.date,
       required this.latitude,
       required this.longitude,
@@ -282,6 +296,8 @@ class _$EventApiResponseImpl implements _EventApiResponse {
   @override
   final String picture;
   @override
+  final String address;
+  @override
   final DateTime date;
   @override
   final double latitude;
@@ -302,7 +318,7 @@ class _$EventApiResponseImpl implements _EventApiResponse {
 
   @override
   String toString() {
-    return 'EventApiResponse(eventId: $eventId, title: $title, description: $description, picture: $picture, date: $date, latitude: $latitude, longitude: $longitude, userId: $userId, creationDate: $creationDate, isPublic: $isPublic, joined: $joined, isOwner: $isOwner, membersCount: $membersCount)';
+    return 'EventApiResponse(eventId: $eventId, title: $title, description: $description, picture: $picture, address: $address, date: $date, latitude: $latitude, longitude: $longitude, userId: $userId, creationDate: $creationDate, isPublic: $isPublic, joined: $joined, isOwner: $isOwner, membersCount: $membersCount)';
   }
 
   @override
@@ -315,6 +331,7 @@ class _$EventApiResponseImpl implements _EventApiResponse {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.picture, picture) || other.picture == picture) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
@@ -339,6 +356,7 @@ class _$EventApiResponseImpl implements _EventApiResponse {
       title,
       description,
       picture,
+      address,
       date,
       latitude,
       longitude,
@@ -370,6 +388,7 @@ abstract class _EventApiResponse implements EventApiResponse {
       required final String title,
       required final String description,
       required final String picture,
+      required final String address,
       required final DateTime date,
       required final double latitude,
       required final double longitude,
@@ -391,6 +410,8 @@ abstract class _EventApiResponse implements EventApiResponse {
   String get description;
   @override
   String get picture;
+  @override
+  String get address;
   @override
   DateTime get date;
   @override

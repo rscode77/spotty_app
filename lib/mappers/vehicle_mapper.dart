@@ -5,13 +5,13 @@ extension VehicleMapper on VehicleApiResponse {
   Vehicle mapToVehicle() {
     return Vehicle(
       vehicleId: vehicleId,
-      userId: userId,
+      userId: userId ?? 0,
       vehicleBrand: vehicleBrand,
       vehicleColor: vehicleColor,
       vehicleHp: vehicleHp,
       vehicleImage: vehicleImage,
       vehicleModel: vehicleModel,
-      vehicleDescription: vehicleDescription,
+      vehicleDescription: vehicleDescription ?? '',
       vehicleType: vehicleType,
     );
   }

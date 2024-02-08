@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotty_app/presentation/bloc/home/home_bloc.dart';
+import 'package:spotty_app/presentation/bloc/home_bloc.dart';
 import 'package:spotty_app/spotty_app.dart';
 
 class AppBlocObserver extends BlocObserver with WidgetsBindingObserver {

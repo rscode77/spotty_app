@@ -14,7 +14,7 @@ extension StringExtensions on String {
   }
 }
 
-extension NullableStrisngExtensions on String? {
+extension NullableStringExtensions on String? {
   bool get isNotNullOrBlank => !isNullOrBlank;
 
   bool get isNullOrBlank => this?.isBlank ?? true;

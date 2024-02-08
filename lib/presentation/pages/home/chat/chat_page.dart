@@ -1,11 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotty_app/data/models/chat_message.dart';
 import 'package:spotty_app/data/models/chat_page_arguments.dart';
 import 'package:spotty_app/generated/l10n.dart';
-import 'package:spotty_app/presentation/bloc/home/chat_bloc.dart';
-import 'package:spotty_app/presentation/bloc/login/login_bloc.dart';
+import 'package:spotty_app/presentation/bloc/chat_bloc.dart';
+import 'package:spotty_app/presentation/bloc/login_bloc.dart';
+import 'package:spotty_app/utils/enums/sending_status_enum.dart';
 import 'package:spotty_app/utils/extensions/sized_box_extension.dart';
 import 'package:spotty_app/utils/extensions/string_extensions.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
@@ -29,11 +32,13 @@ class _ChatPageState extends State<ChatPage> {
 
   late ChatPageArguments? _args;
 
+  StreamSubscription<List<ChatMessage>>? _chatMessageSubscription;
+
   @override
   void didChangeDependencies() {
-    _args = ModalRoute.of(context)!.settings.arguments as ChatPageArguments;
-    _screenWidth = MediaQuery.of(context).size.width;
     super.didChangeDependencies();
+    _screenWidth = MediaQuery.of(context).size.width;
+    _initChat();
   }
 
   @override
@@ -44,6 +49,17 @@ class _ChatPageState extends State<ChatPage> {
     _loginBloc = context.read<LoginBloc>();
     _loggedInUserId = _loginBloc.loggedInUserId;
 
+    _chatMessageSubscription = _chatBloc.chatMessageStream.listen((chatData) {
+      if (chatData.isNotEmpty) {
+        _chatBloc.add(
+          MarkMessageAsReadEvent(
+            chatId: _args!.chatID,
+            messageId: chatData.last.messageId,
+          ),
+        );
+      }
+    });
+
     Future.delayed(Duration.zero, () {
       SchedulerBinding.instance.addPostFrameCallback((_) => _scrollDownListView());
     });
@@ -51,24 +67,22 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void dispose() {
+    _chatMessageSubscription?.cancel();
     _scrollController.dispose();
     _messageController.dispose();
     super.dispose();
   }
 
-  void _onScroll() {
-    if (_isScrolledToTop()) {
-      _chatBloc.add(
-        LoadMoreMessagesEvent(
-          chatId: _args!.chatID,
-        ),
-      );
-    }
-  }
-
-  bool _isScrolledToTop() {
+  bool _onScroll() {
     return _scrollController.position.pixels == _scrollController.position.maxScrollExtent;
   }
+
+  void _initChat() {
+    _args = ModalRoute.of(context)!.settings.arguments as ChatPageArguments;
+    _chatBloc.add(LoadMessagesEvent(chatId: _args!.chatID));
+  }
+
+  bool _isDarkTheme() => Theme.of(context).brightness == Brightness.dark;
 
   @override
   Widget build(BuildContext context) {
@@ -103,31 +117,37 @@ class _ChatPageState extends State<ChatPage> {
   Widget _buildBody() {
     return BlocListener<ChatBloc, ChatState>(
       listener: _chatStateListener,
-      child: StreamBuilder<List<ChatMessage>>(
-        stream: _chatBloc.chatMessageStream,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            return _buildChat(snapshot);
-          }
+      child: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) {
+          return _buildChatStream();
         },
       ),
     );
   }
 
-  void _chatStateListener(context, state) {
-    if (state is SendMessageStatus) {
-      if (state.status) {
-        _messageController.clear();
-      }
-    }
+  Widget _buildChatStream() {
+    return StreamBuilder<List<ChatMessage>>(
+      initialData: const [],
+      stream: _chatBloc.chatMessageStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          return _buildChatList(snapshot.data ?? []);
+        }
+      },
+    );
   }
 
-  Widget _buildChat(snapshot) {
-    List<ChatMessage> chatData = snapshot.data ?? [];
+  Widget _buildChatList(List<ChatMessage> chatData) {
+    if (chatData.isNotEmpty) {
+      _chatBloc.add(
+        MarkMessageAsReadEvent(
+          chatId: _args!.chatID,
+          messageId: chatData.last.messageId,
+        ),
+      );
+    }
     return Column(
       children: [
         Expanded(
@@ -149,6 +169,14 @@ class _ChatPageState extends State<ChatPage> {
         _buildTextField(),
       ],
     );
+  }
+
+  void _chatStateListener(context, state) {
+    if (state is SendMessageStatus) {
+      if (state.status == SendingStatus.sent) {
+        _messageController.clear();
+      }
+    }
   }
 
   void _scrollDownListView() {
@@ -209,17 +237,22 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildTextField() {
-    return TextField(
-      controller: _messageController,
-      maxLines: null,
-      minLines: 1,
-      decoration: InputDecoration(
-        hintText: S.of(context).writeMessage,
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.send),
-          onPressed: _sendMessage,
-        ),
-      ),
+    return BlocBuilder<ChatBloc, ChatState>(
+      builder: (context, state) {
+        bool isSending = state is SendMessageStatus && state.status == SendingStatus.sending;
+        return TextField(
+          controller: _messageController,
+          maxLines: null,
+          minLines: 1,
+          decoration: InputDecoration(
+            hintText: S.of(context).writeMessage,
+            suffixIcon: IconButton(
+              icon: isSending ? const CircularProgressIndicator() : const Icon(Icons.send),
+              onPressed: isSending ? null : _sendMessage,
+            ),
+          ),
+        );
+      },
     );
   }
 

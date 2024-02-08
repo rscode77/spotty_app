@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:spotty_app/utils/enums/navigation_bar_items_enum.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
-enum NavigationBarItem {
-  notifications,
-  events,
-  location,
-  chats,
-  settings,
-}
-
 class BottomNavigationBarWidget extends StatefulWidget {
-  final bool isLocationEnabled;
   final Function(NavigationBarItem) onTabChanged;
+  final bool isLocationEnabled;
+  final NavigationBarItem currentTab;
+  final int eventsCount;
+  final int chatsCount;
+  final int usersCount;
 
   const BottomNavigationBarWidget({
     Key? key,
-    required this.isLocationEnabled,
     required this.onTabChanged,
+    required this.isLocationEnabled,
+    required this.currentTab,
+    required this.eventsCount,
+    required this.chatsCount,
+    required this.usersCount,
   }) : super(key: key);
 
   @override
@@ -25,41 +27,54 @@ class BottomNavigationBarWidget extends StatefulWidget {
 }
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
+  bool get isThemeDark => Theme.of(context).brightness == Brightness.dark;
+
   IconData getIcon(NavigationBarItem item) {
     switch (item) {
-      case NavigationBarItem.notifications:
-        return Icons.notifications;
+      case NavigationBarItem.map:
+        return LucideIcons.mapPin;
       case NavigationBarItem.events:
-        return Icons.search;
-      case NavigationBarItem.location:
-        return Icons.location_on;
+        return LucideIcons.calendarDays;
+      case NavigationBarItem.users:
+        return LucideIcons.users;
       case NavigationBarItem.chats:
-        return Icons.message;
+        return LucideIcons.messageCircle;
       case NavigationBarItem.settings:
-        return Icons.settings;
+        return LucideIcons.settings;
+      case NavigationBarItem.mapSearch:
+        return LucideIcons.search;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        height: AppDimensions.height.navigationBar,
-        margin: const EdgeInsets.all(AppDimensions.defaultPadding),
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(AppDimensions.defaultPadding),
-          ),
-        ),
-        child: _buildBottomNavigationBar(),
+    return Container(
+      height: AppDimensions.height.navigationBar,
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        color: Colors.transparent,
       ),
+      child: _buildBottomNavigationBar(),
     );
   }
 
+  Widget _buildBottomNavigationBar() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: NavigationBarItem.values
+          .where((item) => item != NavigationBarItem.mapSearch)
+          .map(_buildNavigationBarItem)
+          .toList(),
+    );
+  }
+
+  Widget _buildNavigationBarItem(NavigationBarItem item) {
+    return _navigationBarItem(item);
+  }
+
   Widget _navigationBarItem(NavigationBarItem navigationBarItem) {
-    if (navigationBarItem == NavigationBarItem.location) return _navigationBarLocationItem();
+    int count = _getCount(navigationBarItem);
     return InkWell(
       onTap: () => widget.onTabChanged(navigationBarItem),
       child: Column(
@@ -69,29 +84,36 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             alignment: Alignment.center,
             children: [
               Icon(
+                size: 23,
                 getIcon(navigationBarItem),
-                color: AppColors.black,
+                color: navigationBarItem == widget.currentTab
+                    ? AppColors.blue
+                    : isThemeDark
+                        ? DarkAppColors.gray
+                        : LightAppColors.gray,
               ),
-              Transform.translate(
-                offset: const Offset(10, 10),
-                child: Container(
-                    decoration: const BoxDecoration(
-                      color: AppColors.red,
+              if (count != 0)
+                Transform.translate(
+                  offset: const Offset(10, 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: navigationBarItem == NavigationBarItem.users ? AppColors.green : AppColors.red,
                       shape: BoxShape.circle,
                     ),
                     height: 18,
                     width: 18,
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        '1',
-                        style: TextStyle(
+                        count.toString(),
+                        style: const TextStyle(
                           color: AppColors.white,
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    )),
-              ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ],
@@ -99,39 +121,16 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
     );
   }
 
-  Widget _navigationBarLocationItem() {
-    NavigationBarItem navigationBarItem = NavigationBarItem.location;
-    return Transform.translate(
-      offset: const Offset(0, -15),
-      child: InkWell(
-        onTap: () => widget.onTabChanged(navigationBarItem),
-        child: Container(
-          margin: const EdgeInsets.only(
-            left: 4,
-            right: 4,
-          ),
-          height: 55,
-          width: 55,
-          decoration: BoxDecoration(
-            color: widget.isLocationEnabled ? AppColors.green : AppColors.gray,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(30),
-            ),
-          ),
-          child: Icon(
-            getIcon(navigationBarItem),
-            color: AppColors.white,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: NavigationBarItem.values.map((item) => _navigationBarItem(item)).toList(),
-    );
+  int _getCount(NavigationBarItem navigationBarItem) {
+    switch (navigationBarItem) {
+      case NavigationBarItem.events:
+        return widget.eventsCount;
+      case NavigationBarItem.chats:
+        return widget.chatsCount;
+      case NavigationBarItem.users:
+        return widget.usersCount;
+      default:
+        return 0;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotty_app/presentation/bloc/register/register_bloc.dart';
+import 'package:spotty_app/presentation/bloc/register_bloc.dart';
 import 'package:spotty_app/presentation/common/widgets/custom_snackbar_widget.dart';
 import 'package:spotty_app/presentation/pages/authentication/widgets/register_view_widget.dart';
 import 'package:spotty_app/presentation/pages/authentication/widgets/loading_widget.dart';
@@ -25,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.all(
-                AppDimensions.defaultPadding,
+                AppDimensions.defaultPagePadding,
               ),
               child: _buildBody(state),
             );

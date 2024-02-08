@@ -3,7 +3,7 @@ class ChatMessage {
   final int timestamp;
   final int senderID;
   final Map<String, bool> readBy;
-  String messageId = '';
+  String? messageId;
 
   ChatMessage({
     required this.text,

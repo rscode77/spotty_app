@@ -149,6 +149,336 @@ class S {
       args: [],
     );
   }
+
+  /// `Zapomniałeś hasła?`
+  String get forgotPassword {
+    return Intl.message(
+      'Zapomniałeś hasła?',
+      name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nie masz konta?`
+  String get dontHaveAnAccount {
+    return Intl.message(
+      'Nie masz konta?',
+      name: 'dontHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Witaj!`
+  String get hello {
+    return Intl.message(
+      'Witaj!',
+      name: 'hello',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zaloguj się do swojego konta`
+  String get loginToYourAccount {
+    return Intl.message(
+      'Zaloguj się do swojego konta',
+      name: 'loginToYourAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dołącz do Spotty!`
+  String get joinToSpotty {
+    return Intl.message(
+      'Dołącz do Spotty!',
+      name: 'joinToSpotty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zarejestruj się, odkrywaj i dziel się spotami`
+  String get registerMessage {
+    return Intl.message(
+      'Zarejestruj się, odkrywaj i dziel się spotami',
+      name: 'registerMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dołącz do wydarzenia`
+  String get joinToEvent {
+    return Intl.message(
+      'Dołącz do wydarzenia',
+      name: 'joinToEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stwórz wydarzenie`
+  String get createEvent {
+    return Intl.message(
+      'Stwórz wydarzenie',
+      name: 'createEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Opuść wydarzenie`
+  String get leaveEvent {
+    return Intl.message(
+      'Opuść wydarzenie',
+      name: 'leaveEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wprowadź nazwę użytkownika...`
+  String get findUser {
+    return Intl.message(
+      'Wprowadź nazwę użytkownika...',
+      name: 'findUser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wyszukaj wydarzenie...`
+  String get findEvent {
+    return Intl.message(
+      'Wyszukaj wydarzenie...',
+      name: 'findEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wyszukaj czat...`
+  String get findChat {
+    return Intl.message(
+      'Wyszukaj czat...',
+      name: 'findChat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Użytkownicy`
+  String get users {
+    return Intl.message(
+      'Użytkownicy',
+      name: 'users',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dołącz`
+  String get join {
+    return Intl.message(
+      'Dołącz',
+      name: 'join',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Opuść`
+  String get leave {
+    return Intl.message(
+      'Opuść',
+      name: 'leave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ostatnio wyszukiwane`
+  String get recentlySearch {
+    return Intl.message(
+      'Ostatnio wyszukiwane',
+      name: 'recentlySearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Brak wyników`
+  String get noResults {
+    return Intl.message(
+      'Brak wyników',
+      name: 'noResults',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lokalizacje`
+  String get searchLocation {
+    return Intl.message(
+      'Lokalizacje',
+      name: 'searchLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wprowadź lokalizację...`
+  String get enterLocation {
+    return Intl.message(
+      'Wprowadź lokalizację...',
+      name: 'enterLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wyszukane lokalizacje`
+  String get searchedLocations {
+    return Intl.message(
+      'Wyszukane lokalizacje',
+      name: 'searchedLocations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Szczegóły wydarzenia`
+  String get eventDetails {
+    return Intl.message(
+      'Szczegóły wydarzenia',
+      name: 'eventDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nawiguj`
+  String get navigate {
+    return Intl.message(
+      'Nawiguj',
+      name: 'navigate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Opis wydarzenia`
+  String get eventDescription {
+    return Intl.message(
+      'Opis wydarzenia',
+      name: 'eventDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Twój profil`
+  String get profile {
+    return Intl.message(
+      'Twój profil',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wydarzenia`
+  String get events {
+    return Intl.message(
+      'Wydarzenia',
+      name: 'events',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wiadomości`
+  String get messages {
+    return Intl.message(
+      'Wiadomości',
+      name: 'messages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Szczegóły użytkownika`
+  String get userDetails {
+    return Intl.message(
+      'Szczegóły użytkownika',
+      name: 'userDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `edytuj nazwę użytkownika`
+  String get editUsername {
+    return Intl.message(
+      'edytuj nazwę użytkownika',
+      name: 'editUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dodaj nowy pojazd`
+  String get addNewVehicle {
+    return Intl.message(
+      'Dodaj nowy pojazd',
+      name: 'addNewVehicle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `edytuj email`
+  String get editEmail {
+    return Intl.message(
+      'edytuj email',
+      name: 'editEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dodaj pojazd`
+  String get addVehicle {
+    return Intl.message(
+      'Dodaj pojazd',
+      name: 'addVehicle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nie dodano pojazdu`
+  String get vehicleNotAdded {
+    return Intl.message(
+      'Nie dodano pojazdu',
+      name: 'vehicleNotAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Twoje pojazdy`
+  String get yourVehicles {
+    return Intl.message(
+      'Twoje pojazdy',
+      name: 'yourVehicles',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

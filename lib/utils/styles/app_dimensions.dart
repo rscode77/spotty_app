@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppDimensions {
   static const double defaultPadding = 16.0;
-  static const double defaultRadius = 12.0;
+  static const double defaultUsersListPadding = 30.0;
+  static const double defaultPagePadding = 24.0;
+  static const double defaultRadius = 18.0;
   static final _Height height = _Height();
   static final _Margin margin = _Margin();
   static final _Padding padding = _Padding();
@@ -16,8 +18,8 @@ class _Height {
   final double textField = 54.0;
   final double partDrawHeight = 240.0;
   final double dropDownButtonHeight = 46.0;
-  final double buttonHeight = 46.0;
-  final double navigationBar = 55.0;
+  final double buttonHeight = 54.0;
+  final double navigationBar = 60.0;
   final double chatHeight = 60.0;
 }
 

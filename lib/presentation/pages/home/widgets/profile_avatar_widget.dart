@@ -4,16 +4,20 @@ import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
 class ProfileAvatarWidget extends StatelessWidget {
   final String username;
+  final bool isDarkTheme;
 
   const ProfileAvatarWidget({
     required this.username,
+    required this.isDarkTheme,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0).copyWith(
+        top: 36.0,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,8 +25,8 @@ class ProfileAvatarWidget extends StatelessWidget {
             decoration: const BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                bottomLeft: Radius.circular(30),
+                topLeft: Radius.circular(14.0),
+                bottomLeft: Radius.circular(14.0),
               ),
             ),
             height: 45,
@@ -30,12 +34,16 @@ class ProfileAvatarWidget extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.all(4),
               decoration: const BoxDecoration(
-                shape: BoxShape.circle,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    12.0,
+                  ),
+                ),
                 color: AppColors.black,
-                // image: DecorationImage(
-                //   image: AssetImage('assets/images/profile_avatar.png'),
-                //   fit: BoxFit.cover,
-                // ),
+                image: DecorationImage(
+                  image: AssetImage('assets/images/profile_avatar.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -44,8 +52,8 @@ class ProfileAvatarWidget extends StatelessWidget {
             decoration: const BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+                topRight: Radius.circular(14.0),
+                bottomRight: Radius.circular(14.0),
               ),
             ),
             child: Center(
@@ -55,11 +63,11 @@ class ProfileAvatarWidget extends StatelessWidget {
                   right: AppDimensions.defaultPadding,
                 ),
                 child: Text(
-                  username,
-                  style: const TextStyle(
-                    color: AppColors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                  '@$username',
+                  style: TextStyle(
+                    color: isDarkTheme ? DarkAppColors.dark : LightAppColors.dark,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),

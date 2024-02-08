@@ -12,6 +12,10 @@ extension ListExtensions<T> on List<T> {
 
 extension NullableListExtensions<T> on List<T>? {
   List<T> orEmpty() => this ?? [];
+
+  bool get isNotNullOrEmpty => isNullOrEmpty == false;
+
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
 }
 
 extension NullableListWithNullableValuesExtensions<T> on List<T?>? {

@@ -1,5 +1,5 @@
-import 'package:spotty_app/presentation/pages/home/widgets/bottom_navigation_bar_widget.dart';
+import 'package:spotty_app/utils/enums/navigation_bar_items_enum.dart';
 
 extension NavigationBarItemExtension on NavigationBarItem? {
-  NavigationBarItem get orDefault => this ?? NavigationBarItem.notifications;
+  NavigationBarItem get orDefault => this ?? NavigationBarItem.map;
 }

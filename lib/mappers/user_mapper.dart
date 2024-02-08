@@ -9,7 +9,7 @@ extension UserMapper on UserApiResponse {
       username: username,
       email: email,
       isOnline: isOnline,
-      avatarId: avatarId,
+      avatar: avatar,
       defaultVehicle: defaultVehicle,
       userConfirmed: userConfirmed,
       isBanned: isBanned,

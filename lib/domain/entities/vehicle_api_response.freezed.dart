@@ -21,13 +21,13 @@ VehicleApiResponse _$VehicleApiResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$VehicleApiResponse {
   int get vehicleId => throw _privateConstructorUsedError;
-  int get userId => throw _privateConstructorUsedError;
+  int? get userId => throw _privateConstructorUsedError;
   String get vehicleBrand => throw _privateConstructorUsedError;
   String get vehicleColor => throw _privateConstructorUsedError;
   int get vehicleHp => throw _privateConstructorUsedError;
   String get vehicleImage => throw _privateConstructorUsedError;
   String get vehicleModel => throw _privateConstructorUsedError;
-  String get vehicleDescription => throw _privateConstructorUsedError;
+  String? get vehicleDescription => throw _privateConstructorUsedError;
   int get vehicleType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,13 +44,13 @@ abstract class $VehicleApiResponseCopyWith<$Res> {
   @useResult
   $Res call(
       {int vehicleId,
-      int userId,
+      int? userId,
       String vehicleBrand,
       String vehicleColor,
       int vehicleHp,
       String vehicleImage,
       String vehicleModel,
-      String vehicleDescription,
+      String? vehicleDescription,
       int vehicleType});
 }
 
@@ -68,13 +68,13 @@ class _$VehicleApiResponseCopyWithImpl<$Res, $Val extends VehicleApiResponse>
   @override
   $Res call({
     Object? vehicleId = null,
-    Object? userId = null,
+    Object? userId = freezed,
     Object? vehicleBrand = null,
     Object? vehicleColor = null,
     Object? vehicleHp = null,
     Object? vehicleImage = null,
     Object? vehicleModel = null,
-    Object? vehicleDescription = null,
+    Object? vehicleDescription = freezed,
     Object? vehicleType = null,
   }) {
     return _then(_value.copyWith(
@@ -82,10 +82,10 @@ class _$VehicleApiResponseCopyWithImpl<$Res, $Val extends VehicleApiResponse>
           ? _value.vehicleId
           : vehicleId // ignore: cast_nullable_to_non_nullable
               as int,
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       vehicleBrand: null == vehicleBrand
           ? _value.vehicleBrand
           : vehicleBrand // ignore: cast_nullable_to_non_nullable
@@ -106,10 +106,10 @@ class _$VehicleApiResponseCopyWithImpl<$Res, $Val extends VehicleApiResponse>
           ? _value.vehicleModel
           : vehicleModel // ignore: cast_nullable_to_non_nullable
               as String,
-      vehicleDescription: null == vehicleDescription
+      vehicleDescription: freezed == vehicleDescription
           ? _value.vehicleDescription
           : vehicleDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       vehicleType: null == vehicleType
           ? _value.vehicleType
           : vehicleType // ignore: cast_nullable_to_non_nullable
@@ -128,13 +128,13 @@ abstract class _$$VehicleApiResponseImplCopyWith<$Res>
   @useResult
   $Res call(
       {int vehicleId,
-      int userId,
+      int? userId,
       String vehicleBrand,
       String vehicleColor,
       int vehicleHp,
       String vehicleImage,
       String vehicleModel,
-      String vehicleDescription,
+      String? vehicleDescription,
       int vehicleType});
 }
 
@@ -150,13 +150,13 @@ class __$$VehicleApiResponseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? vehicleId = null,
-    Object? userId = null,
+    Object? userId = freezed,
     Object? vehicleBrand = null,
     Object? vehicleColor = null,
     Object? vehicleHp = null,
     Object? vehicleImage = null,
     Object? vehicleModel = null,
-    Object? vehicleDescription = null,
+    Object? vehicleDescription = freezed,
     Object? vehicleType = null,
   }) {
     return _then(_$VehicleApiResponseImpl(
@@ -164,10 +164,10 @@ class __$$VehicleApiResponseImplCopyWithImpl<$Res>
           ? _value.vehicleId
           : vehicleId // ignore: cast_nullable_to_non_nullable
               as int,
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       vehicleBrand: null == vehicleBrand
           ? _value.vehicleBrand
           : vehicleBrand // ignore: cast_nullable_to_non_nullable
@@ -188,10 +188,10 @@ class __$$VehicleApiResponseImplCopyWithImpl<$Res>
           ? _value.vehicleModel
           : vehicleModel // ignore: cast_nullable_to_non_nullable
               as String,
-      vehicleDescription: null == vehicleDescription
+      vehicleDescription: freezed == vehicleDescription
           ? _value.vehicleDescription
           : vehicleDescription // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       vehicleType: null == vehicleType
           ? _value.vehicleType
           : vehicleType // ignore: cast_nullable_to_non_nullable
@@ -220,7 +220,7 @@ class _$VehicleApiResponseImpl implements _VehicleApiResponse {
   @override
   final int vehicleId;
   @override
-  final int userId;
+  final int? userId;
   @override
   final String vehicleBrand;
   @override
@@ -232,7 +232,7 @@ class _$VehicleApiResponseImpl implements _VehicleApiResponse {
   @override
   final String vehicleModel;
   @override
-  final String vehicleDescription;
+  final String? vehicleDescription;
   @override
   final int vehicleType;
 
@@ -297,13 +297,13 @@ class _$VehicleApiResponseImpl implements _VehicleApiResponse {
 abstract class _VehicleApiResponse implements VehicleApiResponse {
   const factory _VehicleApiResponse(
       {required final int vehicleId,
-      required final int userId,
+      required final int? userId,
       required final String vehicleBrand,
       required final String vehicleColor,
       required final int vehicleHp,
       required final String vehicleImage,
       required final String vehicleModel,
-      required final String vehicleDescription,
+      required final String? vehicleDescription,
       required final int vehicleType}) = _$VehicleApiResponseImpl;
 
   factory _VehicleApiResponse.fromJson(Map<String, dynamic> json) =
@@ -312,7 +312,7 @@ abstract class _VehicleApiResponse implements VehicleApiResponse {
   @override
   int get vehicleId;
   @override
-  int get userId;
+  int? get userId;
   @override
   String get vehicleBrand;
   @override
@@ -324,7 +324,7 @@ abstract class _VehicleApiResponse implements VehicleApiResponse {
   @override
   String get vehicleModel;
   @override
-  String get vehicleDescription;
+  String? get vehicleDescription;
   @override
   int get vehicleType;
   @override

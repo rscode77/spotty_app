@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:spotty_app/endpoints.dart';
-
 class DioManager {
   static final DioManager _instance = DioManager._();
   late Dio dio;

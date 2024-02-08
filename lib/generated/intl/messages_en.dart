@@ -22,16 +22,67 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addNewVehicle":
+            MessageLookupByLibrary.simpleMessage("Dodaj nowy pojazd"),
+        "addVehicle": MessageLookupByLibrary.simpleMessage("Dodaj pojazd"),
         "back": MessageLookupByLibrary.simpleMessage("Powrót"),
+        "createEvent":
+            MessageLookupByLibrary.simpleMessage("Stwórz wydarzenie"),
+        "dontHaveAnAccount":
+            MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
+        "editEmail": MessageLookupByLibrary.simpleMessage("edytuj email"),
+        "editUsername":
+            MessageLookupByLibrary.simpleMessage("edytuj nazwę użytkownika"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enterLocation":
+            MessageLookupByLibrary.simpleMessage("Wprowadź lokalizację..."),
+        "eventDescription":
+            MessageLookupByLibrary.simpleMessage("Opis wydarzenia"),
+        "eventDetails":
+            MessageLookupByLibrary.simpleMessage("Szczegóły wydarzenia"),
+        "events": MessageLookupByLibrary.simpleMessage("Wydarzenia"),
+        "findChat": MessageLookupByLibrary.simpleMessage("Wyszukaj czat..."),
+        "findEvent":
+            MessageLookupByLibrary.simpleMessage("Wyszukaj wydarzenie..."),
+        "findUser": MessageLookupByLibrary.simpleMessage(
+            "Wprowadź nazwę użytkownika..."),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Zapomniałeś hasła?"),
+        "hello": MessageLookupByLibrary.simpleMessage("Witaj!"),
+        "join": MessageLookupByLibrary.simpleMessage("Dołącz"),
+        "joinToEvent":
+            MessageLookupByLibrary.simpleMessage("Dołącz do wydarzenia"),
+        "joinToSpotty":
+            MessageLookupByLibrary.simpleMessage("Dołącz do Spotty!"),
+        "leave": MessageLookupByLibrary.simpleMessage("Opuść"),
+        "leaveEvent": MessageLookupByLibrary.simpleMessage("Opuść wydarzenie"),
         "login": MessageLookupByLibrary.simpleMessage("Zaloguj"),
+        "loginToYourAccount": MessageLookupByLibrary.simpleMessage(
+            "Zaloguj się do swojego konta"),
         "logout": MessageLookupByLibrary.simpleMessage("Wyloguj"),
         "message": MessageLookupByLibrary.simpleMessage("Wiadomość"),
+        "messages": MessageLookupByLibrary.simpleMessage("Wiadomości"),
+        "navigate": MessageLookupByLibrary.simpleMessage("Nawiguj"),
+        "noResults": MessageLookupByLibrary.simpleMessage("Brak wyników"),
         "password": MessageLookupByLibrary.simpleMessage("Hasło"),
+        "profile": MessageLookupByLibrary.simpleMessage("Twój profil"),
+        "recentlySearch":
+            MessageLookupByLibrary.simpleMessage("Ostatnio wyszukiwane"),
         "register": MessageLookupByLibrary.simpleMessage("Zarejestruj się"),
+        "registerMessage": MessageLookupByLibrary.simpleMessage(
+            "Zarejestruj się, odkrywaj i dziel się spotami"),
         "repeatPassword": MessageLookupByLibrary.simpleMessage("Powtórz hasło"),
+        "searchLocation": MessageLookupByLibrary.simpleMessage("Lokalizacje"),
+        "searchedLocations":
+            MessageLookupByLibrary.simpleMessage("Wyszukane lokalizacje"),
+        "userDetails":
+            MessageLookupByLibrary.simpleMessage("Szczegóły użytkownika"),
         "username": MessageLookupByLibrary.simpleMessage("Nazwa użytkownika"),
+        "users": MessageLookupByLibrary.simpleMessage("Użytkownicy"),
+        "vehicleNotAdded":
+            MessageLookupByLibrary.simpleMessage("Nie dodano pojazdu"),
         "writeMessage":
-            MessageLookupByLibrary.simpleMessage("Napisz wiadomość...")
+            MessageLookupByLibrary.simpleMessage("Napisz wiadomość..."),
+        "yourVehicles": MessageLookupByLibrary.simpleMessage("Twoje pojazdy")
       };
 }

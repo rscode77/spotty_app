@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:spotty_app/data/models/requests/add_event_request.dart';
+import 'package:spotty_app/data/models/requests/join_event_request.dart';
 import 'package:spotty_app/data/repositories/event_interface.dart';
 import 'package:spotty_app/endpoints.dart';
 
@@ -11,7 +12,7 @@ class EventRepository implements EventInterface {
   @override
   Future<Response> getEvents() async {
     final Response response = await dio.get(
-      EventEdnpoints.getEvents,
+      EventEndpoints.getEvents,
     );
     return response;
   }
@@ -19,7 +20,25 @@ class EventRepository implements EventInterface {
   @override
   Future<Response> addEvent(AddEventRequest event) async {
     final Response response = await dio.post(
-      EventEdnpoints.addEvent,
+      EventEndpoints.addEvent,
+      data: event.toJson(),
+    );
+    return response;
+  }
+
+  @override
+  Future<Response> joinEvent(JoinEventRequest event) async {
+    final Response response = await dio.post(
+      EventEndpoints.joinEvent,
+      data: event.toJson(),
+    );
+    return response;
+  }
+
+  @override
+  Future<Response> leaveEvent(JoinEventRequest event) async {
+    final Response response = await dio.post(
+      EventEndpoints.leaveEvent,
       data: event.toJson(),
     );
     return response;

@@ -6,6 +6,7 @@ extension EventMapper on EventApiResponse {
     return Event(
       eventId: eventId,
       title: title,
+      address: address,
       description: description,
       picture: picture,
       date: date,

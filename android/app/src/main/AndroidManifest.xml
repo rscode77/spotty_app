@@ -5,6 +5,10 @@
         android:label="spotty_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC-BQmNQ1XPfBqpsWmS7zOc-78Y-x5mjn0"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

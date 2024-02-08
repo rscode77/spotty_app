@@ -1,13 +1,14 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 
 class MapWidget extends StatefulWidget {
-  final MapController mapController;
+  final Function(GoogleMapController) mapController;
+  final Set<Marker> markers;
 
   const MapWidget({
-    super.key,
     required this.mapController,
+    required this.markers,
+    super.key,
   });
 
   @override
@@ -15,20 +16,19 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
   @override
   Widget build(BuildContext context) {
-    return FlutterMap(
-      mapController: widget.mapController,
-      options: const MapOptions(
-        initialCenter: LatLng(51.509364, -0.128928),
-        initialZoom: 14.0,
+    return GoogleMap(
+      mapType: MapType.normal,
+      zoomControlsEnabled: false,
+      markers: widget.markers,
+      onMapCreated: widget.mapController,
+      initialCameraPosition: CameraPosition(
+        target: _center,
+        zoom: 9.0,
       ),
-      children: [
-        TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.example.app',
-        ),
-      ],
     );
   }
 }

@@ -24,7 +24,7 @@ mixin _$UserApiResponse {
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   bool get isOnline => throw _privateConstructorUsedError;
-  int get avatarId => throw _privateConstructorUsedError;
+  String get avatar => throw _privateConstructorUsedError;
   int get defaultVehicle => throw _privateConstructorUsedError;
   bool get userConfirmed => throw _privateConstructorUsedError;
   bool get isBanned => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $UserApiResponseCopyWith<$Res> {
       String username,
       String email,
       bool isOnline,
-      int avatarId,
+      String avatar,
       int defaultVehicle,
       bool userConfirmed,
       bool isBanned,
@@ -87,7 +87,7 @@ class _$UserApiResponseCopyWithImpl<$Res, $Val extends UserApiResponse>
     Object? username = null,
     Object? email = null,
     Object? isOnline = null,
-    Object? avatarId = null,
+    Object? avatar = null,
     Object? defaultVehicle = null,
     Object? userConfirmed = null,
     Object? isBanned = null,
@@ -116,10 +116,10 @@ class _$UserApiResponseCopyWithImpl<$Res, $Val extends UserApiResponse>
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
               as bool,
-      avatarId: null == avatarId
-          ? _value.avatarId
-          : avatarId // ignore: cast_nullable_to_non_nullable
-              as int,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
       defaultVehicle: null == defaultVehicle
           ? _value.defaultVehicle
           : defaultVehicle // ignore: cast_nullable_to_non_nullable
@@ -189,7 +189,7 @@ abstract class _$$UserApiResponseImplCopyWith<$Res>
       String username,
       String email,
       bool isOnline,
-      int avatarId,
+      String avatar,
       int defaultVehicle,
       bool userConfirmed,
       bool isBanned,
@@ -220,7 +220,7 @@ class __$$UserApiResponseImplCopyWithImpl<$Res>
     Object? username = null,
     Object? email = null,
     Object? isOnline = null,
-    Object? avatarId = null,
+    Object? avatar = null,
     Object? defaultVehicle = null,
     Object? userConfirmed = null,
     Object? isBanned = null,
@@ -249,10 +249,10 @@ class __$$UserApiResponseImplCopyWithImpl<$Res>
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
               as bool,
-      avatarId: null == avatarId
-          ? _value.avatarId
-          : avatarId // ignore: cast_nullable_to_non_nullable
-              as int,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
       defaultVehicle: null == defaultVehicle
           ? _value.defaultVehicle
           : defaultVehicle // ignore: cast_nullable_to_non_nullable
@@ -305,7 +305,7 @@ class _$UserApiResponseImpl implements _UserApiResponse {
       required this.username,
       required this.email,
       required this.isOnline,
-      required this.avatarId,
+      required this.avatar,
       required this.defaultVehicle,
       required this.userConfirmed,
       required this.isBanned,
@@ -333,7 +333,7 @@ class _$UserApiResponseImpl implements _UserApiResponse {
   @override
   final bool isOnline;
   @override
-  final int avatarId;
+  final String avatar;
   @override
   final int defaultVehicle;
   @override
@@ -390,7 +390,7 @@ class _$UserApiResponseImpl implements _UserApiResponse {
 
   @override
   String toString() {
-    return 'UserApiResponse(userId: $userId, username: $username, email: $email, isOnline: $isOnline, avatarId: $avatarId, defaultVehicle: $defaultVehicle, userConfirmed: $userConfirmed, isBanned: $isBanned, banReason: $banReason, lastActivity: $lastActivity, vehicle: $vehicle, vehicles: $vehicles, sentFriendRequests: $sentFriendRequests, receivedFriendRequests: $receivedFriendRequests, friends: $friends)';
+    return 'UserApiResponse(userId: $userId, username: $username, email: $email, isOnline: $isOnline, avatar: $avatar, defaultVehicle: $defaultVehicle, userConfirmed: $userConfirmed, isBanned: $isBanned, banReason: $banReason, lastActivity: $lastActivity, vehicle: $vehicle, vehicles: $vehicles, sentFriendRequests: $sentFriendRequests, receivedFriendRequests: $receivedFriendRequests, friends: $friends)';
   }
 
   @override
@@ -404,8 +404,7 @@ class _$UserApiResponseImpl implements _UserApiResponse {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.isOnline, isOnline) ||
                 other.isOnline == isOnline) &&
-            (identical(other.avatarId, avatarId) ||
-                other.avatarId == avatarId) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.defaultVehicle, defaultVehicle) ||
                 other.defaultVehicle == defaultVehicle) &&
             (identical(other.userConfirmed, userConfirmed) ||
@@ -433,7 +432,7 @@ class _$UserApiResponseImpl implements _UserApiResponse {
       username,
       email,
       isOnline,
-      avatarId,
+      avatar,
       defaultVehicle,
       userConfirmed,
       isBanned,
@@ -466,7 +465,7 @@ abstract class _UserApiResponse implements UserApiResponse {
       required final String username,
       required final String email,
       required final bool isOnline,
-      required final int avatarId,
+      required final String avatar,
       required final int defaultVehicle,
       required final bool userConfirmed,
       required final bool isBanned,
@@ -490,7 +489,7 @@ abstract class _UserApiResponse implements UserApiResponse {
   @override
   bool get isOnline;
   @override
-  int get avatarId;
+  String get avatar;
   @override
   int get defaultVehicle;
   @override
