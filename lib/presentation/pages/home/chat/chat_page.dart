@@ -3,16 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:spotty_app/data/models/chat_message.dart';
 import 'package:spotty_app/data/models/chat_page_arguments.dart';
 import 'package:spotty_app/generated/l10n.dart';
 import 'package:spotty_app/presentation/bloc/chat_bloc.dart';
 import 'package:spotty_app/presentation/bloc/login_bloc.dart';
+import 'package:spotty_app/presentation/common/widgets/app_icon_button.dart';
+import 'package:spotty_app/presentation/common/widgets/user_avatar_status.dart';
 import 'package:spotty_app/utils/enums/sending_status_enum.dart';
 import 'package:spotty_app/utils/extensions/sized_box_extension.dart';
 import 'package:spotty_app/utils/extensions/string_extensions.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
+import 'package:spotty_app/utils/styles/app_text_styles.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -33,6 +37,8 @@ class _ChatPageState extends State<ChatPage> {
   late ChatPageArguments? _args;
 
   StreamSubscription<List<ChatMessage>>? _chatMessageSubscription;
+
+  bool get _isDarkTheme => Theme.of(context).brightness == Brightness.dark;
 
   @override
   void didChangeDependencies() {
@@ -82,34 +88,67 @@ class _ChatPageState extends State<ChatPage> {
     _chatBloc.add(LoadMessagesEvent(chatId: _args!.chatID));
   }
 
-  bool _isDarkTheme() => Theme.of(context).brightness == Brightness.dark;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildBody(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: _buildBody(),
+      ),
     );
   }
 
   AppBar _buildAppBar() {
     return AppBar(
+      forceMaterialTransparency: true,
+      automaticallyImplyLeading: false,
       actions: [
-        _onlineStatus(_args!.isOnline),
-        const Space.horizontal(8.0),
+        _buildLeadingRow(),
+        const Space.horizontal(16.0),
         Text(_args!.chatName),
+        const Spacer(),
+        _buildMoreIconButton(),
         const Space.horizontal(8.0),
       ],
     );
   }
 
-  Widget _onlineStatus(bool isOnline) {
-    return Container(
-      width: 10,
-      height: 10,
-      decoration: BoxDecoration(
-        color: isOnline ? AppColors.green : AppColors.gray,
-        shape: BoxShape.circle,
+  Widget _buildLeadingRow() {
+    return Row(
+      children: [
+        const Space.horizontal(8.0),
+        _buildBackIconButton(),
+        const Space.horizontal(8.0),
+        _buildUserAvatarStatus(),
+      ],
+    );
+  }
+
+  Widget _buildBackIconButton() {
+    return AppIconButton(
+      onPressed: () => Navigator.pop(context),
+      icon: LucideIcons.arrowLeft,
+      color: _isDarkTheme ? DarkAppColors.white : LightAppColors.dark,
+    );
+  }
+
+  Widget _buildMoreIconButton() {
+    return AppIconButton(
+      onPressed: () {},
+      icon: LucideIcons.moreVertical,
+      color: _isDarkTheme ? DarkAppColors.white : LightAppColors.dark,
+    );
+  }
+
+  Widget _buildUserAvatarStatus() {
+    return SizedBox(
+      height: 50.0,
+      width: 50.0,
+      child: UserAvatarStatus(
+        avatar: _args!.avatar.orEmpty(),
+        isOnline: _args!.isOnline,
+        isDarkTheme: _isDarkTheme,
       ),
     );
   }
@@ -152,6 +191,9 @@ class _ChatPageState extends State<ChatPage> {
       children: [
         Expanded(
           child: ListView.builder(
+            padding: const EdgeInsets.only(
+              bottom: 24.0,
+            ),
             shrinkWrap: true,
             reverse: true,
             controller: _scrollController,
@@ -165,8 +207,8 @@ class _ChatPageState extends State<ChatPage> {
             },
           ),
         ),
-        const Divider(),
         _buildTextField(),
+        const Space.vertical(16.0),
       ],
     );
   }
@@ -239,22 +281,84 @@ class _ChatPageState extends State<ChatPage> {
   Widget _buildTextField() {
     return BlocBuilder<ChatBloc, ChatState>(
       builder: (context, state) {
-        bool isSending = state is SendMessageStatus && state.status == SendingStatus.sending;
-        return TextField(
-          controller: _messageController,
-          maxLines: null,
-          minLines: 1,
-          decoration: InputDecoration(
-            hintText: S.of(context).writeMessage,
-            suffixIcon: IconButton(
-              icon: isSending ? const CircularProgressIndicator() : const Icon(Icons.send),
-              onPressed: isSending ? null : _sendMessage,
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 50.0,
+                width: double.infinity,
+                child: TextField(
+                  style: AppTextStyles.chatMessage(
+                    color: _isDarkTheme ? DarkAppColors.darkText : LightAppColors.darkText,
+                  ),
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 12.0),
+                    hintText: S.of(context).chatTypeMessage,
+                    hintStyle: AppTextStyles.chatMessage(
+                      color: _isDarkTheme ? DarkAppColors.grayText : LightAppColors.grayText,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        style: BorderStyle.solid,
+                        width: 1,
+                        color: _isDarkTheme ? DarkAppColors.border : LightAppColors.border,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(14.0),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        style: BorderStyle.solid,
+                        width: 1,
+                        color: _isDarkTheme ? DarkAppColors.border : LightAppColors.border,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(14.0),
+                      ),
+                    ),
+                  ),
+                  controller: _messageController,
+                  maxLines: null,
+                  minLines: 1,
+                ),
+              ),
+            ),
+            const Space.horizontal(16.0),
+            _buildSendButton(),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildSendButton() {
+    return BlocBuilder<ChatBloc, ChatState>(
+      builder: (context, state) {
+        return InkWell(
+          onTap: _sendMessage,
+          child: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              color: AppColors.blue,
+              borderRadius: BorderRadius.circular(14.0),
+            ),
+            child: const Icon(
+              size: 18.0,
+              LucideIcons.forward,
+              color: Colors.white,
             ),
           ),
         );
       },
     );
   }
+
+  //bool isSending = state is SendMessageStatus && state.status == SendingStatus.sending;
+  //onPressed: isSending ? null : _sendMessage,
 
   void _sendMessage() {
     _messageController.text = _messageController.text.removeExtraSpacesAndEmptyLines();

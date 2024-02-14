@@ -12,6 +12,7 @@ class AppColors {
   static const Color blue = Color(0xFF2969ff);
   static const Color lightBlue = Color(0xFFe9f0ff);
   static const Color lightBlueFill = Color(0xFF5fc1f4);
+  static const Color shadow = Colors.black12;
 }
 
 class LightAppColors{
@@ -25,11 +26,12 @@ class LightAppColors{
   static const Color iconDark = Color(0xFF121a26);
   static const Color lightGray = Color(0xFF97a6ba);
   static const Color divider = Color(0xFFe7ebf2);
-  static const Color lightIcon = Color(0xFF97a6ba);
+  static const Color grayIcon = Color(0xFF97a6ba);
   static const Color darkText = Color(0xFF121a26);
   static const Color inactive = Color(0xFFf1f5f9);
   static const Color inactiveText =Color(0xFF6a788f);
   static const Color mapAvatarButton = Color(0xFFf4f7ff);
+  static const Color lightBorder = Color(0xF4F7FFFF);
 }
 
 class DarkAppColors{
@@ -43,9 +45,10 @@ class DarkAppColors{
   static const Color iconDark = Color(0xFF121a26);
   static const Color lightGray = Color(0xFFf1f5f9);
   static const Color divider = Color(0xFFe7ebf2);
-  static const Color lightIcon = Color(0xFF97a6ba);
+  static const Color grayIcon = Color(0xFF97a6ba);
   static const Color darkText = Color(0xFF121a26);
   static const Color inactive = Color(0xFFf1f5f9);
   static const Color inactiveText =Color(0xFF6a788f);
   static const Color mapAvatarButton = Color(0xFFf4f7ff);
+  static const Color lightBorder = Color(0xF4F7FFFF);
 }

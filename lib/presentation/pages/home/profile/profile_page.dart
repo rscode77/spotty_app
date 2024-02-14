@@ -2,18 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:spotty_app/data/models/requests/add_vehicle_request.dart';
 import 'package:spotty_app/data/models/user_model.dart';
 import 'package:spotty_app/data/models/vehicle_model.dart';
 import 'package:spotty_app/generated/l10n.dart';
 import 'package:spotty_app/presentation/bloc/login_bloc.dart';
 import 'package:spotty_app/presentation/bloc/profile_bloc.dart';
+import 'package:spotty_app/presentation/bloc/vehicle_bloc.dart';
 import 'package:spotty_app/presentation/common/widgets/app_button.dart';
 import 'package:spotty_app/presentation/pages/authentication/widgets/loading_widget.dart';
+import 'package:spotty_app/presentation/pages/home/profile/add_new_vehicle_dialog.dart';
 import 'package:spotty_app/presentation/pages/home/profile/profile_avatar_widget.dart';
 import 'package:spotty_app/presentation/pages/home/profile/vehicle_list_view_element.dart';
-import 'package:spotty_app/routing/routing.dart';
 import 'package:spotty_app/utils/constants/constants.dart';
-import 'package:spotty_app/utils/extensions/sized_box_extension.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 import 'package:spotty_app/utils/styles/app_text_styles.dart';
@@ -28,6 +29,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late final LoginBloc _loginBloc;
   late final ProfileBloc _profileBloc;
+  late final VehicleBloc _vehicleBloc;
 
   bool get _isDarkTheme => Theme.of(context).brightness == Brightness.dark;
 
@@ -35,6 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     _loginBloc = context.read<LoginBloc>();
     _profileBloc = context.read<ProfileBloc>();
+    _vehicleBloc = context.read<VehicleBloc>();
     super.initState();
   }
 
@@ -47,15 +50,21 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.symmetric(
             horizontal: AppDimensions.defaultPagePadding,
           ),
-          child: BlocBuilder<ProfileBloc, ProfileState>(
-            builder: (context, state) {
-              return _buildBody(state);
-            },
+          child: BlocListener<VehicleBloc, VehicleState>(
+            listener: _vehicleBlocListener,
+            child: BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                return _buildBody(state);
+              },
+            ),
           ),
         ),
       ),
     );
   }
+
+  // TODO listening of add new vehicle status and show exceptions
+  void _vehicleBlocListener(BuildContext context, VehicleState state) {}
 
   AppBar _buildAppBar() {
     return AppBar(
@@ -82,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           const SizedBox(height: 24.0),
           _buildProfile(state.user),
-          const SizedBox(height: 24.0),
+          const SizedBox(height: 44.0),
           _vehicleListHeader(),
           const SizedBox(height: 8.0),
           _vehiclesListView(
@@ -116,7 +125,6 @@ class _ProfilePageState extends State<ProfilePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _username(user.username),
-        const SizedBox(height: 10.0),
         _userEmail(user.email),
       ],
     );
@@ -130,15 +138,6 @@ class _ProfilePageState extends State<ProfilePage> {
           style: AppTextStyles.title().copyWith(
             color: _isDarkTheme ? DarkAppColors.darkText : LightAppColors.darkText,
             fontSize: 22.0,
-          ),
-        ),
-        Text(
-          S.of(context).editUsername,
-          style: AppTextStyles.editData(
-            decoration: TextDecoration.underline,
-            color: AppColors.blue,
-          ).copyWith(
-            fontWeight: FontWeight.w400,
           ),
         ),
       ],
@@ -162,6 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Text(
         S.of(context).yourVehicles,
         style: AppTextStyles.eventTitle().copyWith(
+          fontSize: 14.0,
           color: _isDarkTheme ? DarkAppColors.darkText : LightAppColors.darkText,
         ),
       ),
@@ -201,22 +201,13 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildEmptyListMessage() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          LucideIcons.alertTriangle,
-          size: 20.0,
-          color: _isDarkTheme ? DarkAppColors.iconDark : LightAppColors.iconDark,
+    return Center(
+      child: Text(
+        S.of(context).vehicleNotAdded,
+        style: AppTextStyles.eventDescription().copyWith(
+          color: _isDarkTheme ? DarkAppColors.grayText : LightAppColors.grayText,
         ),
-        const Space.horizontal(8.0),
-        Text(
-          S.of(context).vehicleNotAdded,
-          style: AppTextStyles.eventInformation().copyWith(
-            color: _isDarkTheme ? DarkAppColors.darkText : LightAppColors.darkText,
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -230,9 +221,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _addNewVehicle() {
     return AppButton(
-      onPressed: () => Navigator.pushNamed(
-        context,
-        Routing.addNewVehicle,
+      onPressed: () => showDialog(
+        context: context,
+        builder: (context) => BlocProvider.value(
+          value: _vehicleBloc,
+          child: AddNewVehicleDialog(
+            userId: _loginBloc.loggedInUserId,
+            onVehicleSave: (AddVehicleRequest vehicle) => _onAddVehicle(vehicle),
+          ),
+        ),
       ),
       buttonText: S.of(context).addNewVehicle,
       buttonColor: AppColors.blue,
@@ -246,5 +243,10 @@ class _ProfilePageState extends State<ProfilePage> {
       buttonColor: AppColors.lightBlue,
       buttonTextColor: AppColors.blue,
     );
+  }
+
+  void _onAddVehicle(AddVehicleRequest vehicle) {
+    _vehicleBloc.add(AddNewVehicleEvent(vehicle: vehicle));
+    Navigator.pop(context);
   }
 }

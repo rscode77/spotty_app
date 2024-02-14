@@ -7,7 +7,7 @@ class ChatFirebase {
   String? name;
   String? lastMessage;
   String? lastMessageId;
-  int avatar = 0;
+  String? avatar;
   int? lastMessageTimestamp;
   bool isOnline = false;
   bool isGroup;

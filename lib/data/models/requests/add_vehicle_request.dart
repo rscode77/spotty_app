@@ -1,7 +1,7 @@
 class AddVehicleRequest {
   int userId;
   String vehicleBrand;
-  String vehicleColor;
+  String? vehicleColor;
   int vehicleHp;
   String? vehicleImage;
   String vehicleModel;
@@ -11,11 +11,11 @@ class AddVehicleRequest {
   AddVehicleRequest({
     required this.userId,
     required this.vehicleBrand,
-    required this.vehicleColor,
+    this.vehicleColor = '',
     required this.vehicleHp,
-    required this.vehicleImage,
+    this.vehicleImage = '',
     required this.vehicleModel,
-    required this.vehicleDescription,
+    this.vehicleDescription = '',
     required this.vehicleType,
   });
 
@@ -23,11 +23,11 @@ class AddVehicleRequest {
     return {
       'userId': userId,
       'vehicleBrand': vehicleBrand,
-      'vehicleColor': vehicleColor,
+      'vehicleColor': vehicleColor ?? '',
       'vehicleHp': vehicleHp,
-      'vehicleImage': vehicleImage,
+      'vehicleImage': vehicleImage ?? '',
       'vehicleModel': vehicleModel,
-      'vehicleDescription': vehicleDescription,
+      'vehicleDescription': vehicleDescription ?? '',
       'vehicleType': vehicleType,
     };
   }

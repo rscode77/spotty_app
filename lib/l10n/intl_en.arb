@@ -41,5 +41,15 @@
   "editEmail": "edytuj email",
   "addVehicle": "Dodaj pojazd",
   "vehicleNotAdded": "Nie dodano pojazdu",
-  "yourVehicles": "Twoje pojazdy"
+  "yourVehicles": "Twoje pojazdy",
+  "setBrand": "Wprowadź markę",
+  "setModel": "Wprowadź model",
+  "setHorsePower": "Wprowadź ilość koni",
+  "setVehicleType": "Wybierz typ pojazdu",
+  "selectColor": "Wybierz kolor",
+  "save": "Zapisz",
+  "cancel": "Anuluj",
+  "confirm": "Potwierdź",
+  "fieldCannotBeEmpty": "Pole nie może być puste",
+  "chatTypeMessage": "Napisz wiadomość..."
 }

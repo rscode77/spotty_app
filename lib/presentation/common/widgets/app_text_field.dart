@@ -11,6 +11,7 @@ class AppTextField extends StatefulWidget {
   final ExtendedTextEditingController controller;
   final FieldsEnum field;
   final bool isDarkTheme;
+  final TextInputType textInputType;
 
   const AppTextField({
     Key? key,
@@ -18,6 +19,7 @@ class AppTextField extends StatefulWidget {
     required this.hint,
     required this.field,
     required this.isDarkTheme,
+    this.textInputType = TextInputType.text,
   }) : super(key: key);
 
   @override
@@ -40,6 +42,7 @@ class _AppTextFieldState extends State<AppTextField> {
         maxHeight: widget.controller.errorText.isNullOrBlank ? 55.0 : 80.0,
       ),
       child: TextField(
+        keyboardType: widget.textInputType,
         obscureText: isObscure,
         cursorColor: widget.isDarkTheme ? DarkAppColors.dark : LightAppColors.dark,
         cursorHeight: 16.0,

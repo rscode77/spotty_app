@@ -8,7 +8,6 @@ class Routing {
   static const String mainPage = '/mainPage';
   static const String register = '$login/register';
   static const String events = '$mainPage/events';
-  static const String addNewVehicle = '$profilePage/addNewVehicle';
   static const String eventDetails = '$events/events';
   static const String appSettings = '$mainPage/settings';
   static const String chatsList = '$mainPage/chats';
@@ -54,9 +53,6 @@ class Routing {
         break;
       case profilePage:
         child = Pages.profilePage();
-        break;
-      case addNewVehicle:
-        child = Pages.addNewVehicle();
         break;
       default:
         return null;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:spotty_app/utils/constants/constants.dart';
 import 'package:spotty_app/utils/styles/app_colors.dart';
 import 'package:spotty_app/utils/styles/app_dimensions.dart';
 
@@ -25,7 +26,12 @@ class AppSearchBar extends StatefulWidget {
 class _AppSearchBarState extends State<AppSearchBar> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppDimensions.defaultRadius),
+        color: widget.isDarkTheme ? DarkAppColors.background : LightAppColors.background,
+        boxShadow: Constants.defaultBoxShadow,
+      ),
       height: 50.0,
       child: TextField(
         onChanged: (value) {

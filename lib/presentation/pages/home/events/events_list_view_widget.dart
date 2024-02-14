@@ -168,8 +168,8 @@ class _EventsListViewWidgetState extends State<EventsListViewWidget> {
     return InkWell(
       onTap: () => widget.onJoinEvent(event),
       child: Container(
-        height: 30.0,
-        width: 70.0,
+        height: 37.0,
+        width: 78.0,
         padding: const EdgeInsets.symmetric(
           horizontal: 8.0,
           vertical: 4.0,
@@ -205,7 +205,7 @@ class _EventsListViewWidgetState extends State<EventsListViewWidget> {
         Icon(
           size: 18.0,
           LucideIcons.calendar,
-          color: _isDarkTheme ? DarkAppColors.lightIcon : LightAppColors.lightIcon,
+          color: _isDarkTheme ? DarkAppColors.grayIcon : LightAppColors.grayIcon,
         ),
         const Space.horizontal(4.0),
         Text(
@@ -226,7 +226,7 @@ class _EventsListViewWidgetState extends State<EventsListViewWidget> {
           Icon(
             size: 18.0,
             LucideIcons.users,
-            color: _isDarkTheme ? DarkAppColors.lightIcon : LightAppColors.lightIcon,
+            color: _isDarkTheme ? DarkAppColors.grayIcon : LightAppColors.grayIcon,
           ),
           const Space.horizontal(4.0),
           Text(
@@ -246,7 +246,7 @@ class _EventsListViewWidgetState extends State<EventsListViewWidget> {
         Icon(
           size: 18.0,
           LucideIcons.mapPin,
-          color: _isDarkTheme ? DarkAppColors.lightIcon : LightAppColors.lightIcon,
+          color: _isDarkTheme ? DarkAppColors.grayIcon : LightAppColors.grayIcon,
         ),
         const Space.horizontal(4.0),
         Text(
@@ -265,7 +265,7 @@ class _EventsListViewWidgetState extends State<EventsListViewWidget> {
         Icon(
           LucideIcons.gripHorizontal,
           size: 20.0,
-          color: _isDarkTheme ? DarkAppColors.lightIcon : LightAppColors.lightIcon,
+          color: _isDarkTheme ? DarkAppColors.grayIcon : LightAppColors.grayIcon,
         ),
       ],
     );

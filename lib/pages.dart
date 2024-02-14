@@ -9,6 +9,7 @@ import 'package:spotty_app/presentation/bloc/profile_bloc.dart';
 import 'package:spotty_app/presentation/bloc/register_bloc.dart';
 import 'package:spotty_app/presentation/bloc/settings_bloc.dart';
 import 'package:spotty_app/presentation/bloc/users_bloc.dart';
+import 'package:spotty_app/presentation/bloc/vehicle_bloc.dart';
 import 'package:spotty_app/presentation/home_page.dart';
 import 'package:spotty_app/presentation/pages/authentication/register_page.dart';
 import 'package:spotty_app/presentation/pages/home/chat/chat_page.dart';
@@ -16,7 +17,6 @@ import 'package:spotty_app/presentation/pages/home/chat/chats_list_page.dart';
 import 'package:spotty_app/presentation/pages/home/events/event_details_page.dart';
 import 'package:spotty_app/presentation/pages/home/map/map_page.dart';
 import 'package:spotty_app/presentation/pages/home/map/map_search_page.dart';
-import 'package:spotty_app/presentation/pages/home/profile/add_new_vehicle_page.dart';
 import 'package:spotty_app/presentation/pages/home/settings/settings_page.dart';
 import 'package:spotty_app/presentation/pages/home/users/users_page.dart';
 import 'package:spotty_app/services/common_storage.dart';
@@ -63,17 +63,23 @@ abstract class Pages {
     return const MapSearchPage();
   }
 
-  static Widget addNewVehicle() {
-    return const AddNewVehiclePage();
-  }
-
   static Widget profilePage() {
-    return BlocProvider(
-      create: (context) => ProfileBloc(
-        loginBloc: context.read<LoginBloc>(),
-        userApiRepository: GetIt.instance.get<UserRepository>(),
-        vehicleApiRepository: GetIt.instance.get<VehicleRepository>(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProfileBloc(
+            loginBloc: context.read<LoginBloc>(),
+            userApiRepository: GetIt.instance.get<UserRepository>(),
+            vehicleApiRepository: GetIt.instance.get<VehicleRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => VehicleBloc(
+            profileBloc: context.read<ProfileBloc>(),
+            vehicleRepository: GetIt.instance.get<VehicleRepository>(),
+          ),
+        ),
+      ],
       child: const ProfilePage(),
     );
   }
@@ -102,7 +108,9 @@ abstract class Pages {
 
   static Widget register() {
     return BlocProvider(
-      create: (context) => RegisterBloc(userApiRepository: GetIt.instance.get<UserRepository>()),
+      create: (context) => RegisterBloc(
+        userApiRepository: GetIt.instance.get<UserRepository>(),
+      ),
       child: const RegisterPage(),
     );
   }

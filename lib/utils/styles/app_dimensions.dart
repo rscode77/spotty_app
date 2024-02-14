@@ -4,6 +4,7 @@ class AppDimensions {
   static const double defaultPadding = 16.0;
   static const double defaultUsersListPadding = 30.0;
   static const double defaultPagePadding = 24.0;
+  static const double defaultChatPagePadding = 14;
   static const double defaultRadius = 18.0;
   static final _Height height = _Height();
   static final _Margin margin = _Margin();

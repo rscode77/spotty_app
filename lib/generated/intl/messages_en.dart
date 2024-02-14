@@ -26,13 +26,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dodaj nowy pojazd"),
         "addVehicle": MessageLookupByLibrary.simpleMessage("Dodaj pojazd"),
         "back": MessageLookupByLibrary.simpleMessage("Powrót"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Anuluj"),
+        "chatTypeMessage":
+            MessageLookupByLibrary.simpleMessage("Napisz wiadomość..."),
+        "confirm": MessageLookupByLibrary.simpleMessage("Potwierdź"),
         "createEvent":
             MessageLookupByLibrary.simpleMessage("Stwórz wydarzenie"),
         "dontHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Nie masz konta?"),
         "editEmail": MessageLookupByLibrary.simpleMessage("edytuj email"),
         "editUsername":
-            MessageLookupByLibrary.simpleMessage("edytuj nazwę użytkownika"),
+            MessageLookupByLibrary.simpleMessage("edytuj dane użytkownika"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enterLocation":
             MessageLookupByLibrary.simpleMessage("Wprowadź lokalizację..."),
@@ -41,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "eventDetails":
             MessageLookupByLibrary.simpleMessage("Szczegóły wydarzenia"),
         "events": MessageLookupByLibrary.simpleMessage("Wydarzenia"),
+        "fieldCannotBeEmpty":
+            MessageLookupByLibrary.simpleMessage("Pole nie może być puste"),
         "findChat": MessageLookupByLibrary.simpleMessage("Wyszukaj czat..."),
         "findEvent":
             MessageLookupByLibrary.simpleMessage("Wyszukaj wydarzenie..."),
@@ -72,9 +78,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "registerMessage": MessageLookupByLibrary.simpleMessage(
             "Zarejestruj się, odkrywaj i dziel się spotami"),
         "repeatPassword": MessageLookupByLibrary.simpleMessage("Powtórz hasło"),
+        "save": MessageLookupByLibrary.simpleMessage("Zapisz"),
         "searchLocation": MessageLookupByLibrary.simpleMessage("Lokalizacje"),
         "searchedLocations":
             MessageLookupByLibrary.simpleMessage("Wyszukane lokalizacje"),
+        "selectColor": MessageLookupByLibrary.simpleMessage("Wybierz kolor"),
+        "setBrand": MessageLookupByLibrary.simpleMessage("Wprowadź markę"),
+        "setHorsePower":
+            MessageLookupByLibrary.simpleMessage("Wprowadź ilość koni"),
+        "setModel": MessageLookupByLibrary.simpleMessage("Wprowadź model"),
+        "setVehicleType":
+            MessageLookupByLibrary.simpleMessage("Wybierz typ pojazdu"),
         "userDetails":
             MessageLookupByLibrary.simpleMessage("Szczegóły użytkownika"),
         "username": MessageLookupByLibrary.simpleMessage("Nazwa użytkownika"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 enum FieldsEnum {
   Username("Username"),
@@ -27,11 +28,11 @@ extension FieldsEnumExtension on FieldsEnum {
       case FieldsEnum.Email:
         return Icons.email;
       case FieldsEnum.VehicleBrand:
-        return Icons.directions_car;
+        return LucideIcons.text;
       case FieldsEnum.VehicleHp:
-        return Icons.speed;
+        return LucideIcons.gauge;
       case FieldsEnum.VehicleModel:
-        return Icons.directions_car;
+        return LucideIcons.text;
       case FieldsEnum.VehicleDescription:
         return Icons.description;
       case FieldsEnum.Title:

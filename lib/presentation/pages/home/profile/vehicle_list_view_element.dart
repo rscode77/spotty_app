@@ -23,46 +23,61 @@ class VehicleListViewElement extends StatelessWidget {
     required this.onSetDefaultVehicle,
   });
 
+  bool get _isDefaultVehicle => defaultVehicleId == vehicle.vehicleId;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => onSetDefaultVehicle(vehicle.vehicleId),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 8),
-        height: 60,
-        decoration: BoxDecoration(
-          color: defaultVehicleId == vehicle.vehicleId
-              ? AppColors.blue
-              : isDarkTheme
-                  ? DarkAppColors.lightGray
-                  : DarkAppColors.lightGray,
-          borderRadius: BorderRadius.circular(AppDimensions.defaultRadius),
-        ),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (defaultVehicleId == vehicle.vehicleId) _radioButton(),
-            const Space.horizontal(8.0),
-            Text(
-              '${vehicle.vehicleBrand} ${vehicle.vehicleModel} | ${vehicle.vehicleHp} KM',
-              style: AppTextStyles.eventInformation().copyWith(
-                fontSize: 13.0,
-                color: defaultVehicleId == vehicle.vehicleId
-                    ? AppColors.white
-                    : isDarkTheme
-                        ? DarkAppColors.grayText
-                        : LightAppColors.grayText,
-              ),
-            ),
-            const Spacer(),
-            _removeButton(),
-          ],
-        ),
+      onTap: () => _onSetDefaultVehicle(),
+      child: _buildContainer(),
+    );
+  }
+
+  void _onSetDefaultVehicle() {
+    if (vehicle.vehicleId == defaultVehicleId) return;
+    onSetDefaultVehicle(vehicle.vehicleId);
+  }
+
+  Widget _buildContainer() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      height: 60,
+      decoration: BoxDecoration(
+        color: _isDefaultVehicle
+            ? AppColors.blue
+            : isDarkTheme
+                ? DarkAppColors.lightGray
+                : DarkAppColors.lightGray,
+        borderRadius: BorderRadius.circular(AppDimensions.defaultRadius),
       ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+      ),
+      child: _buildRow(),
+    );
+  }
+
+  Widget _buildRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (_isDefaultVehicle) _radioButton(),
+        const Space.horizontal(8.0),
+        Text(
+          '${vehicle.vehicleBrand} ${vehicle.vehicleModel} | ${vehicle.vehicleHp} KM',
+          style: AppTextStyles.eventInformation().copyWith(
+            fontSize: 13.0,
+            color: _isDefaultVehicle
+                ? AppColors.white
+                : isDarkTheme
+                    ? DarkAppColors.grayText
+                    : LightAppColors.grayText,
+          ),
+        ),
+        const Spacer(),
+        _removeButton(),
+      ],
     );
   }
 
@@ -88,7 +103,11 @@ class VehicleListViewElement extends StatelessWidget {
         child: AppIconButton(
           icon: LucideIcons.trash,
           iconSize: 15,
-          color: AppColors.white,
+          color: _isDefaultVehicle
+              ? AppColors.white
+              : isDarkTheme
+                  ? DarkAppColors.iconDark
+                  : LightAppColors.iconLight,
           onPressed: () => onRemoveVehicle(vehicle.vehicleId),
         ),
       ),

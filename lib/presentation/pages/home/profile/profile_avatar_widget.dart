@@ -49,7 +49,7 @@ class ProfileAvatarImage extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: const Icon(
-                LucideIcons.folderUp,
+                LucideIcons.upload,
                 color: AppColors.white,
                 size: 14.0,
               ),

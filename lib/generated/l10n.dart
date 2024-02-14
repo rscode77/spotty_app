@@ -420,10 +420,10 @@ class S {
     );
   }
 
-  /// `edytuj nazwę użytkownika`
+  /// `edytuj dane użytkownika`
   String get editUsername {
     return Intl.message(
-      'edytuj nazwę użytkownika',
+      'edytuj dane użytkownika',
       name: 'editUsername',
       desc: '',
       args: [],
@@ -475,6 +475,106 @@ class S {
     return Intl.message(
       'Twoje pojazdy',
       name: 'yourVehicles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wprowadź markę`
+  String get setBrand {
+    return Intl.message(
+      'Wprowadź markę',
+      name: 'setBrand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wprowadź model`
+  String get setModel {
+    return Intl.message(
+      'Wprowadź model',
+      name: 'setModel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wprowadź ilość koni`
+  String get setHorsePower {
+    return Intl.message(
+      'Wprowadź ilość koni',
+      name: 'setHorsePower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wybierz typ pojazdu`
+  String get setVehicleType {
+    return Intl.message(
+      'Wybierz typ pojazdu',
+      name: 'setVehicleType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wybierz kolor`
+  String get selectColor {
+    return Intl.message(
+      'Wybierz kolor',
+      name: 'selectColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zapisz`
+  String get save {
+    return Intl.message(
+      'Zapisz',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anuluj`
+  String get cancel {
+    return Intl.message(
+      'Anuluj',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Potwierdź`
+  String get confirm {
+    return Intl.message(
+      'Potwierdź',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pole nie może być puste`
+  String get fieldCannotBeEmpty {
+    return Intl.message(
+      'Pole nie może być puste',
+      name: 'fieldCannotBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Napisz wiadomość...`
+  String get chatTypeMessage {
+    return Intl.message(
+      'Napisz wiadomość...',
+      name: 'chatTypeMessage',
       desc: '',
       args: [],
     );

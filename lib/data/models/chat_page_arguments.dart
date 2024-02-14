@@ -1,7 +1,7 @@
 import 'package:spotty_app/data/models/user_firebase_model.dart';
 
 class ChatPageArguments {
-  final int avatar;
+  final String? avatar;
   final String chatID;
   final String chatName;
   final String? lastMessageId;

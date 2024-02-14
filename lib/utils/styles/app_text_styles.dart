@@ -35,7 +35,7 @@ class AppTextStyles {
 
   static TextStyle chatTitle({
     Color color = AppColors.black,
-    double fontSize = 15.0,
+    double fontSize = 16.0,
     FontWeight fontWeight = FontWeight.w400,
   }) {
     return TextStyle(
@@ -47,7 +47,7 @@ class AppTextStyles {
 
   static TextStyle chatMessage({
     Color color = AppColors.black,
-    double fontSize = 13.0,
+    double fontSize = 14.0,
     FontWeight fontWeight = FontWeight.w400,
   }) {
     return TextStyle(
@@ -78,7 +78,7 @@ class AppTextStyles {
   static TextStyle appBarTitle({
     Color color = AppColors.black,
     TextDecoration? decoration,
-    double fontSize = 17.0,
+    double fontSize = 18.0,
     FontStyle? fontStyle,
     FontWeight fontWeight = FontWeight.w500,
     double? height,
@@ -168,7 +168,7 @@ class AppTextStyles {
   static TextStyle eventInformation({
     Color color = AppColors.black,
     TextDecoration? decoration,
-    double fontSize = 14.0,
+    double fontSize = 15.0,
     FontStyle? fontStyle,
     FontWeight fontWeight = FontWeight.w500,
     double? height,
@@ -186,7 +186,7 @@ class AppTextStyles {
   static TextStyle eventDescription({
     Color color = AppColors.black,
     TextDecoration? decoration,
-    double fontSize = 14.0,
+    double fontSize = 15.0,
     FontStyle? fontStyle,
     FontWeight fontWeight = FontWeight.w400,
     double? height,
@@ -204,7 +204,7 @@ class AppTextStyles {
   static TextStyle infoSmall({
     Color color = AppColors.black,
     TextDecoration? decoration,
-    double fontSize = 12.0,
+    double fontSize = 14.0,
     FontStyle? fontStyle,
     FontWeight fontWeight = FontWeight.w400,
     double? height,
@@ -222,7 +222,7 @@ class AppTextStyles {
   static TextStyle editData({
     Color color = AppColors.black,
     TextDecoration? decoration,
-    double fontSize = 12.0,
+    double fontSize = 14.0,
     FontStyle? fontStyle,
     FontWeight fontWeight = FontWeight.w400,
     double? height,

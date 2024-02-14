@@ -24,6 +24,9 @@ class EventEndpoints {
 }
 
 class VehicleEndpoints {
+  static const String vehicleBrands = 'https://www.carqueryapi.com/api/0.3/?cmd=getMakes';
+  static const String vehicleModels = 'https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=';
+
   static const String _prefix = '/Vehicle';
   static const String addVehicle = '${Endpoints.baseUrl}$_prefix/AddVehicle';
   static const String removeVehicle = '${Endpoints.baseUrl}$_prefix/RemoveVehicle';

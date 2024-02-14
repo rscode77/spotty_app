@@ -158,11 +158,14 @@ class _ChatsListPageState extends State<ChatsListPage> {
             fontWeight: message.isLastMessageRead ? FontWeight.normal : FontWeight.bold,
           ),
         ),
-        Text(
-          message.lastMessageTimestamp!.toChatTime(),
-          style: AppTextStyles.chatMessage().copyWith(
-            color: _isDarkTheme ? DarkAppColors.grayText : LightAppColors.grayText,
-            fontWeight: message.isLastMessageRead ? FontWeight.normal : FontWeight.bold,
+        Padding(
+          padding: const EdgeInsets.only(right:10.0),
+          child: Text(
+            message.lastMessageTimestamp!.toChatTime(),
+            style: AppTextStyles.chatMessage().copyWith(
+              color: _isDarkTheme ? DarkAppColors.grayText : LightAppColors.grayText,
+              fontWeight: message.isLastMessageRead ? FontWeight.normal : FontWeight.bold,
+            ),
           ),
         ),
       ],

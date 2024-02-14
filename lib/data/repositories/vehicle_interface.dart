@@ -7,4 +7,6 @@ abstract class VehicleInterface {
   Future<Response> addVehicle(AddVehicleRequest addVehicleRequest);
   Future<Response> deleteVehicle(RemoveVehicleRequest removeVehicleRequest);
   Future<Response> updateDefaultVehicle(UpdateDefaultVehicleRequest updateDefaultVehicleRequest);
+  Future<Response> getVehicleBrands();
+  Future<Response> getVehicleModels(String brand);
 }

@@ -36,4 +36,20 @@ class VehicleRepository implements VehicleInterface {
     );
     return response;
   }
+
+  @override
+  Future<Response> getVehicleBrands() async {
+    final Response response = await dio.get(
+      VehicleEndpoints.vehicleBrands,
+    );
+    return response;
+  }
+
+  @override
+  Future<Response> getVehicleModels(String brand) async {
+    final Response response = await dio.get(
+      VehicleEndpoints.vehicleModels + brand,
+    );
+    return response;
+  }
 }

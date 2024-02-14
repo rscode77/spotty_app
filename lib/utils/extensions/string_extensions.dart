@@ -12,6 +12,13 @@ extension StringExtensions on String {
 
     return resultText;
   }
+
+  String get firstLetterToUpperCase {
+    if (isEmpty) {
+      return this;
+    }
+    return this[0].toUpperCase() + substring(1);
+  }
 }
 
 extension NullableStringExtensions on String? {

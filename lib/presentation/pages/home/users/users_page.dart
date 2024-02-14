@@ -139,6 +139,7 @@ class _UsersPageState extends State<UsersPage> {
       children: [
         Expanded(
           child: ListView.builder(
+            padding: const EdgeInsets.only(bottom: 24.0),
             itemCount: user.length,
             itemBuilder: (context, index) {
               if (isMe(user[index].userId)) return const SizedBox.shrink();
@@ -176,6 +177,7 @@ class _UsersPageState extends State<UsersPage> {
           const Spacer(),
           _buildLastLocation(user),
           _buildSendMessageButton(user),
+          const Space.horizontal(6.0),
         ],
       ),
     );
@@ -194,6 +196,7 @@ class _UsersPageState extends State<UsersPage> {
     if (user.longitude == null || user.latitude == null) return const SizedBox.shrink();
     return AppIconButton(
       icon: LucideIcons.locateFixed,
+      iconSize: 20.0,
       color: AppColors.blue,
       onPressed: () => {
         _homeBloc.add(
@@ -215,7 +218,10 @@ class _UsersPageState extends State<UsersPage> {
       child: BlocBuilder<UsersBloc, UsersState>(
         builder: (context, state) {
           if (state is CreatingNewChatState && state.userId == user.userId.toInt()) {
-            return _buildLoadingIndicator();
+            return const LoadingWidget(
+              size: 40.0,
+              strokeWidth: 3.0,
+            );
           }
           return _buildMessageButton(user);
         },
@@ -223,13 +229,9 @@ class _UsersPageState extends State<UsersPage> {
     );
   }
 
-  Widget _buildLoadingIndicator() {
-    return const Padding(padding: EdgeInsets.all(8.0), child: LoadingWidget());
-  }
-
   Widget _buildMessageButton(UserFirebase user) {
     return AppIconButton(
-      iconSize: 22.0,
+      iconSize: 20.0,
       icon: LucideIcons.mailPlus,
       color: AppColors.blue,
       onPressed: () => _usersBloc.add(

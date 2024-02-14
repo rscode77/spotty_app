@@ -63,6 +63,9 @@ dependencies:
   encrypt_decrypt_plus: ^1.1.0
   google_maps_flutter: ^2.5.3
   lucide_icons: ^0.257.0
+  autocomplete_textfield: ^2.0.1
+  flutter_colorpicker: ^1.0.3
+  flex_color_picker: ^3.3.1
 
 dev_dependencies:
   copy_with_extension_gen: ^5.0.0

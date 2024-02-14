@@ -44,6 +44,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "autocomplete_textfield",
+      "rootUri": "file:///C:/Users/RSCODE/AppData/Local/Pub/Cache/hosted/pub.dev/autocomplete_textfield-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "bloc",
       "rootUri": "file:///C:/Users/RSCODE/AppData/Local/Pub/Cache/hosted/pub.dev/bloc-8.1.2",
       "packageUri": "lib/",
@@ -326,6 +332,18 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "flex_color_picker",
+      "rootUri": "file:///C:/Users/RSCODE/AppData/Local/Pub/Cache/hosted/pub.dev/flex_color_picker-3.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "flex_seed_scheme",
+      "rootUri": "file:///C:/Users/RSCODE/AppData/Local/Pub/Cache/hosted/pub.dev/flex_seed_scheme-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/Users/RSCODE/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -334,6 +352,12 @@
     {
       "name": "flutter_bloc",
       "rootUri": "file:///C:/Users/RSCODE/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_bloc-8.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_colorpicker",
+      "rootUri": "file:///C:/Users/RSCODE/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_colorpicker-1.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -974,7 +998,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-02-07T08:56:08.078369Z",
+  "generated": "2024-02-08T13:51:24.071104Z",
   "generator": "pub",
   "generatorVersion": "3.2.3"
 }

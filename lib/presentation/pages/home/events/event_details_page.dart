@@ -203,6 +203,8 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     );
   }
 
+
+  // TODO add navigate to event use default system map
   Widget _buildNavigationButton() {
     return AppButton(
       onPressed: () => {},
